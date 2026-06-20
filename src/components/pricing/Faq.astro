@@ -1,0 +1,46 @@
+---
+import { faq } from "@/data/site";
+---
+
+<div class="mx-auto max-w-3xl divide-y divide-cream-300 border-y border-cream-300">
+  {
+    faq.map((item) => (
+      <details class="faq group py-2" name="faq">
+        <summary
+          class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left"
+        >
+          <span class="text-h3 font-display font-medium">{item.q}</span>
+          <span
+            class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream-200 text-forest ring-1 ring-cream-300 transition-transform duration-300 group-open:rotate-45"
+            aria-hidden="true"
+          >
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none">
+              <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </span>
+        </summary>
+        <p class="max-w-2xl pb-6 leading-relaxed text-ink-soft">{item.a}</p>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq p {
+    animation: faq-in 0.4s var(--ease-out-expo);
+  }
+  @keyframes faq-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .faq p {
+      animation: none;
+    }
+  }
+</style>

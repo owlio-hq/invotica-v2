@@ -1,0 +1,21 @@
+---
+import Base from "@/layouts/Base.astro";
+import Button from "@/components/ui/Button.astro";
+---
+
+<Base title="Page not found" description="The page you're looking for doesn't exist.">
+  <section class="container-x flex min-h-[80svh] flex-col items-center justify-center py-32 text-center">
+    <span class="font-display text-[clamp(5rem,20vw,12rem)] font-medium leading-none text-forest">
+      404
+    </span>
+    <h1 class="mt-4 text-h2">This page took a different path.</h1>
+    <p class="mt-4 max-w-md text-ink-soft">
+      The page you're looking for doesn't exist — but your next website does.
+      Let's build it.
+    </p>
+    <div class="mt-9 flex flex-wrap justify-center gap-4">
+      <Button href="/" variant="primary">Back home</Button>
+      <Button href="/contact" variant="ghost">Start a project</Button>
+    </div>
+  </section>
+</Base>

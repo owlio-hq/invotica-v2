@@ -204,6 +204,23 @@ export const about = {
   signoff: `— ${"Alex Morgan"}, Founder`, // DUMMY
 };
 
+/* DRAFT — pricing comparison matrix. `true` = included, `false`/string otherwise.
+   Columns map to plan ids: [starter, growth, pro]. Review/confirm. */
+export const comparison: { label: string; values: (boolean | string)[] }[] = [
+  { label: "Fully custom design (no templates)", values: [true, true, true] },
+  { label: "Pages included", values: ["Up to 3", "Up to 7", "Unlimited"] },
+  { label: "Mobile-first & performance-tuned", values: [true, true, true] },
+  { label: "Contact form & click-to-call", values: [true, true, true] },
+  { label: "On-page SEO", values: ["Basic", "Advanced", "Advanced+"] },
+  { label: "Copywriting support", values: [false, true, true] },
+  { label: "Analytics & conversion tracking", values: [false, true, true] },
+  { label: "Blog / services structure", values: [false, true, true] },
+  { label: "Bookings, integrations, dynamic content", values: [false, false, true] },
+  { label: "Ongoing updates & priority support", values: [false, false, true] },
+  { label: "Quarterly strategy reviews", values: [false, false, true] },
+  { label: "You own all files & code", values: [true, true, true] },
+];
+
 /* DRAFT — pricing FAQ. Review/expand as needed. */
 export const faq = [
   {

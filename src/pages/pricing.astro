@@ -1,0 +1,68 @@
+---
+import Base from "@/layouts/Base.astro";
+import SectionLabel from "@/components/ui/SectionLabel.astro";
+import PlanCard from "@/components/ui/PlanCard.astro";
+import ComparisonTable from "@/components/pricing/ComparisonTable.astro";
+import Faq from "@/components/pricing/Faq.astro";
+import FinalCTA from "@/components/ui/FinalCTA.astro";
+import { plans, realDifference } from "@/data/site";
+---
+
+<Base
+  title="Pricing"
+  description="Simple, honest pricing for custom websites. Starter from $999, Growth from $1,499, and Pro custom plans — no hidden fees, you own everything."
+>
+  <!-- hero -->
+  <section class="container-x pt-36 pb-6 text-center sm:pt-44">
+    <div class="mx-auto max-w-2xl" data-reveal>
+      <SectionLabel text="Pricing" class="justify-center [&::before]:hidden" />
+      <h1 class="mt-5 text-h1">Simple, honest pricing.</h1>
+      <p class="mt-5 text-lead text-ink-soft">
+        Three plans, built for where your business is right now. No hidden fees,
+        no hostage situations — the price we quote is the price you pay.
+      </p>
+    </div>
+  </section>
+
+  <!-- plan cards -->
+  <section class="section-y container-x !pt-12">
+    <div class="grid gap-6 lg:grid-cols-3">
+      {
+        plans.map((plan, i) => (
+          <div data-reveal data-reveal-delay={i * 100}>
+            <PlanCard plan={plan} mode="full" />
+          </div>
+        ))
+      }
+    </div>
+    <p class="mx-auto mt-8 max-w-2xl text-center text-sm leading-relaxed text-ink-soft" data-reveal>
+      {realDifference.note}
+    </p>
+  </section>
+
+  <!-- comparison -->
+  <section class="section-y bg-cream-200/50 !py-20">
+    <div class="container-x">
+      <div class="mx-auto mb-10 max-w-xl text-center" data-reveal>
+        <h2 class="text-h2">Compare every plan</h2>
+        <p class="mt-4 text-ink-soft">Everything that's included, side by side.</p>
+      </div>
+      <div data-reveal>
+        <ComparisonTable />
+      </div>
+    </div>
+  </section>
+
+  <!-- faq -->
+  <section class="section-y container-x">
+    <div class="mx-auto mb-10 max-w-xl text-center" data-reveal>
+      <SectionLabel text="FAQ" class="justify-center [&::before]:hidden" />
+      <h2 class="mt-5 text-h2">Questions, answered.</h2>
+    </div>
+    <div data-reveal>
+      <Faq />
+    </div>
+  </section>
+
+  <FinalCTA title="Found your plan?" body="Tell us about your business and we'll get you online." />
+</Base>

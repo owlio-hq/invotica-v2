@@ -1,0 +1,55 @@
+---
+import { comparison, plans } from "@/data/site";
+---
+
+<div class="overflow-x-auto">
+  <table class="w-full min-w-[640px] border-collapse text-left">
+    <thead>
+      <tr class="border-b border-cream-300">
+        <th class="py-5 pr-4 font-sans text-sm font-semibold uppercase tracking-[0.12em] text-sage">
+          Features
+        </th>
+        {
+          plans.map((p) => (
+            <th
+              class:list={[
+                "px-4 py-5 text-center font-display text-lg font-medium",
+                p.featured && "text-terracotta",
+              ]}
+            >
+              {p.name}
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+    <tbody>
+      {
+        comparison.map((row, i) => (
+          <tr class:list={["border-b border-cream-300", i % 2 === 1 && "bg-cream-200/40"]}>
+            <th scope="row" class="py-4 pr-4 text-left text-sm font-normal text-ink">
+              {row.label}
+            </th>
+            {
+              row.values.map((v) => (
+                <td class="px-4 py-4 text-center align-middle">
+                  {typeof v === "boolean" ? (
+                    v ? (
+                      <svg class="mx-auto h-5 w-5 text-forest" viewBox="0 0 20 20" fill="none" aria-label="Included">
+                        <path d="M4 10.5l3.5 3.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    ) : (
+                      <span class="text-cream-300" aria-label="Not included">—</span>
+                    )
+                  ) : (
+                    <span class="text-sm text-ink-soft">{v}</span>
+                  )}
+                </td>
+              ))
+            }
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

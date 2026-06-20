@@ -1,0 +1,70 @@
+---
+import Base from "@/layouts/Base.astro";
+import SectionLabel from "@/components/ui/SectionLabel.astro";
+import ContactForm from "@/components/contact/ContactForm.astro";
+import { site, guarantees } from "@/data/site";
+---
+
+<Base
+  title="Contact"
+  description="Start your project with Invotica. Tell us about your business and we'll reply within hours — custom websites for Canadian businesses, built fast."
+>
+  <section class="container-x pt-36 pb-10 sm:pt-44">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <!-- left: intro + details -->
+      <div class="lg:col-span-5">
+        <div data-reveal>
+          <SectionLabel text="Contact" />
+          <h1 class="mt-5 text-h1">Let's get you online.</h1>
+          <p class="mt-5 text-lead text-ink-soft">
+            Tell us a little about your business. We read every message and reply
+            in hours, not days.
+          </p>
+        </div>
+
+        <dl class="mt-10 flex flex-col gap-5" data-reveal data-reveal-delay="120">
+          <div>
+            <dt class="text-xs uppercase tracking-[0.16em] text-sage">Email</dt>
+            <dd class="mt-1">
+              <a class="text-lg text-forest hover:text-terracotta" href={`mailto:${site.email}`}>
+                {site.email}
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.16em] text-sage">Phone</dt>
+            <dd class="mt-1 text-lg text-ink">{site.phone}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.16em] text-sage">Where</dt>
+            <dd class="mt-1 text-lg text-ink">{site.location}</dd>
+          </div>
+        </dl>
+
+        <ul class="mt-10 flex flex-col gap-3" data-reveal data-reveal-delay="200">
+          {
+            guarantees.map((g) => (
+              <li class="flex items-center gap-3 text-sm text-ink-soft">
+                <svg class="h-4 w-4 shrink-0 text-terracotta" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M4 10.5l3.5 3.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                {g.title}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- right: form -->
+      <div class="lg:col-span-6 lg:col-start-7">
+        <div
+          class="rounded-[1.75rem] bg-cream p-6 ring-1 ring-cream-300 sm:p-9"
+          data-reveal
+          data-reveal-delay="120"
+        >
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
