@@ -1,0 +1,25 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+logs/
+*.log
+npm-debug.log*
+
+# environment
+.env
+.env.production
+.env.local
+
+# editor / os
+.DS_Store
+.vscode/
+.idea/
+Thumbs.db
+
+# netlify
+.netlify/

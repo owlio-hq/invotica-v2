@@ -1,0 +1,36 @@
+{
+  "name": "invotica-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Invotica — high-end marketing website. Custom websites for Canadian businesses.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.7.0",
+    "@astrojs/react": "^4.2.0",
+    "@astrojs/sitemap": "^3.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "motion": "^12.0.0",
+    "lenis": "^1.1.20",
+    "gsap": "^3.12.5",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@fontsource-variable/fraunces": "^5.1.0",
+    "@fontsource-variable/geist": "^5.1.0",
+    "typescript": "^5.7.0"
+  }
+}
