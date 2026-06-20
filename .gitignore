@@ -23,3 +23,7 @@ Thumbs.db
 
 # netlify
 .netlify/
+
+# design-study artifacts (inspiration scroll video + extracted frames)
+frames/
+*.mp4
