@@ -1,0 +1,58 @@
+---
+import Logo from "@/components/ui/Logo.astro";
+import MenuOverlay from "./MenuOverlay.astro";
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-[background,backdrop-filter,box-shadow] duration-500"
+  data-header
+>
+  <div class="container-x flex items-center justify-between py-4">
+    <Logo />
+
+    <button
+      type="button"
+      data-menu-open
+      aria-expanded="false"
+      aria-controls="menu-overlay"
+      class="group flex items-center gap-3 rounded-full bg-ink/[0.04] px-4 py-2.5 text-sm font-medium text-ink ring-1 ring-cream-300 backdrop-blur transition-colors duration-300 hover:bg-ink hover:text-cream hover:ring-ink"
+    >
+      <span class="tracking-tight">Menu</span>
+      <span class="relative flex h-3 w-4 flex-col justify-between" aria-hidden="true">
+        <span
+          class="h-[1.5px] w-full origin-center rounded bg-current transition-transform duration-300 group-hover:translate-y-[0.5px]"
+        ></span>
+        <span
+          class="h-[1.5px] w-full origin-center rounded bg-current transition-all duration-300 group-hover:w-2/3"
+        ></span>
+        <span
+          class="h-[1.5px] w-full origin-center rounded bg-current transition-transform duration-300 group-hover:-translate-y-[0.5px]"
+        ></span>
+      </span>
+    </button>
+  </div>
+</header>
+
+<MenuOverlay />
+
+<script>
+  // Add a frosted background to the header after scrolling past the hero top.
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  if (header) {
+    const onScroll = () => {
+      const scrolled = window.scrollY > 24;
+      header.classList.toggle("is-scrolled", scrolled);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+</script>
+
+<style>
+  [data-header].is-scrolled {
+    background: color-mix(in srgb, var(--color-cream) 80%, transparent);
+    backdrop-filter: saturate(140%) blur(12px);
+    box-shadow: 0 1px 0 var(--color-cream-300);
+  }
+</style>

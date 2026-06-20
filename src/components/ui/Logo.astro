@@ -1,0 +1,41 @@
+---
+/**
+ * Invotica logomark — a stylised "i" (terracotta dot + forest stem) beside a
+ * taller sage growth bar. Recreated as crisp SVG from the brand mark.
+ */
+interface Props {
+  withWordmark?: boolean;
+  class?: string;
+  markClass?: string;
+}
+const { withWordmark = true, class: className, markClass } = Astro.props;
+---
+
+<a
+  href="/"
+  class:list={["group inline-flex items-center gap-2.5", className]}
+  aria-label="Invotica — home"
+>
+  <svg
+    viewBox="0 0 60 64"
+    class:list={["h-7 w-auto", markClass]}
+    role="img"
+    aria-hidden="true"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <!-- growth bar (sage) -->
+    <rect x="32" y="12" width="18" height="46" rx="6" fill="var(--color-sage)" />
+    <!-- stem (forest) -->
+    <rect x="6" y="26" width="18" height="32" rx="6" fill="var(--color-forest)" />
+    <!-- dot (terracotta) -->
+    <circle cx="15" cy="11" r="9" fill="var(--color-terracotta)" />
+  </svg>
+  {
+    withWordmark && (
+      <span class="font-display text-[1.35rem] font-medium tracking-tight text-ink">
+        invotica
+      </span>
+    )
+  }
+</a>

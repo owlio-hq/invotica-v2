@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Invotica">
+  <rect width="1200" height="630" fill="#f7f4f0"/>
+  <g transform="translate(96 250)">
+    <rect x="160" y="60" width="54" height="138" rx="18" fill="#4b6460"/>
+    <rect x="82" y="102" width="54" height="96" rx="18" fill="#214239"/>
+    <circle cx="109" cy="57" r="27" fill="#c35f3b"/>
+  </g>
+  <text x="316" y="300" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="500" fill="#161718" letter-spacing="-2">invotica</text>
+  <text x="98" y="470" font-family="Arial, sans-serif" font-size="34" fill="#3a3d3c">Custom websites for Canadian businesses —</text>
+  <text x="98" y="516" font-family="Arial, sans-serif" font-size="34" fill="#3a3d3c">built fast, built to convert.</text>
+  <rect x="98" y="556" width="120" height="6" rx="3" fill="#c35f3b"/>
+</svg>

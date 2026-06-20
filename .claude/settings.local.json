@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:proxyp-brainstorm-zksz.vercel.app)",
+      "Bash(curl -sL \"https://proxyp-brainstorm-zksz.vercel.app/_next/static/chunks/0qy_t1jh5cvc-.css\" -o c1.css)",
+      "Bash(curl -sL \"https://proxyp-brainstorm-zksz.vercel.app/_next/static/chunks/2z8gmm-_15ypt.css\" -o c2.css)",
+      "Bash(grep -oiE '#[0-9a-f]{6}|#[0-9a-f]{3}\\\\b|rgba?\\\\\\([0-9, .]+\\\\\\)|hsla?\\\\\\([0-9, .%]+\\\\\\)|oklch\\\\\\([^\\)]+\\\\\\)')",
+      "Bash(rm -f page.html c1.css c2.css sk.html)",
+      "Bash(npm -v)",
+      "Bash(npm install *)",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(git symbolic-ref *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'chore: scaffold Astro 5 + Tailwind v4 + React islands *)"
+    ]
+  }
+}

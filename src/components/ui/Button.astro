@@ -1,0 +1,56 @@
+---
+/**
+ * Button / link with brand variants. Renders as <a> when `href` is given,
+ * otherwise <button>. Includes a subtle hover sweep on the primary variant.
+ */
+interface Props {
+  href?: string;
+  variant?: "primary" | "secondary" | "ghost";
+  size?: "md" | "lg";
+  type?: "button" | "submit";
+  class?: string;
+  [key: string]: unknown;
+}
+const {
+  href,
+  variant = "primary",
+  size = "md",
+  type = "button",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const base =
+  "group/btn relative inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-2 focus-visible:outline-offset-3 will-change-transform";
+
+const sizes = {
+  md: "px-6 py-3 text-[0.95rem]",
+  lg: "px-8 py-4 text-base",
+};
+
+const variants = {
+  primary:
+    "bg-terracotta text-cream hover:bg-terracotta-600 hover:-translate-y-0.5 shadow-[0_1px_0_rgba(0,0,0,0.04)] hover:shadow-[0_10px_30px_-12px_rgba(195,95,59,0.7)]",
+  secondary:
+    "bg-forest text-cream hover:bg-forest-600 hover:-translate-y-0.5 shadow-[0_10px_30px_-18px_rgba(33,66,57,0.9)]",
+  ghost:
+    "bg-transparent text-ink ring-1 ring-cream-300 hover:ring-forest hover:bg-cream-200",
+};
+
+const cls = [base, sizes[size], variants[variant], className];
+const arrow = `<span class="transition-transform duration-300 group-hover/btn:translate-x-0.5" aria-hidden="true">→</span>`;
+---
+
+{
+  href ? (
+    <a href={href} class:list={cls} {...rest}>
+      <slot />
+      <Fragment set:html={arrow} />
+    </a>
+  ) : (
+    <button type={type} class:list={cls} {...rest}>
+      <slot />
+      <Fragment set:html={arrow} />
+    </button>
+  )
+}

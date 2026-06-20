@@ -1,0 +1,10 @@
+---
+/** Small uppercase eyebrow label used above section headlines. */
+interface Props {
+  text: string;
+  class?: string;
+}
+const { text, class: className } = Astro.props;
+---
+
+<span class:list={["eyebrow", className]}>{text}</span>
