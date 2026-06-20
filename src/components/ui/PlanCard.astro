@@ -1,0 +1,81 @@
+---
+import type { Plan } from "@/data/site";
+interface Props {
+  plan: Plan;
+  /** "teaser" shows the short pitch; "full" shows the feature list. */
+  mode?: "teaser" | "full";
+}
+const { plan, mode = "teaser" } = Astro.props;
+const featured = plan.featured;
+---
+
+<article
+  class:list={[
+    "group relative flex flex-col rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5",
+    featured
+      ? "bg-forest text-cream ring-1 ring-forest shadow-[0_30px_60px_-30px_rgba(33,66,57,0.55)]"
+      : "bg-cream ring-1 ring-cream-300 hover:ring-forest",
+  ]}
+>
+  {
+    featured && (
+      <span class="absolute right-6 top-6 rounded-full bg-terracotta px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-cream">
+        Most popular
+      </span>
+    )
+  }
+
+  <header>
+    <h3 class:list={["font-display text-2xl font-medium", featured && "text-cream"]}>
+      {plan.name}
+    </h3>
+    <p class:list={["mt-1 text-xs uppercase tracking-[0.14em]", featured ? "text-terracotta-100" : "text-sage"]}>
+      {plan.best}
+    </p>
+    <div class="mt-6 flex items-baseline gap-2">
+      <span class:list={["font-display text-4xl font-medium", featured ? "text-cream" : "text-ink"]}>
+        {plan.price}
+      </span>
+      <span class:list={["text-sm", featured ? "text-cream/55" : "text-ink-soft/70"]}>
+        {plan.cadence}
+      </span>
+    </div>
+  </header>
+
+  {
+    mode === "teaser" ? (
+      <p class:list={["mt-6 flex-1 leading-relaxed", featured ? "text-cream/75" : "text-ink-soft"]}>
+        {plan.teaser}
+      </p>
+    ) : (
+      <ul class="mt-6 flex flex-1 flex-col gap-3">
+        {plan.features.map((f) => (
+          <li class="flex items-start gap-3 text-sm leading-relaxed">
+            <svg
+              class:list={["mt-0.5 h-4 w-4 shrink-0", featured ? "text-terracotta-100" : "text-terracotta"]}
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M4 10.5l3.5 3.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class:list={featured ? "text-cream/80" : "text-ink-soft"}>{f}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <a
+    href="/contact"
+    class:list={[
+      "mt-8 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5",
+      featured
+        ? "bg-terracotta text-cream hover:bg-terracotta-600"
+        : "bg-forest text-cream hover:bg-forest-600",
+    ]}
+  >
+    {plan.id === "pro" ? "Talk to us" : "Choose " + plan.name}
+    <span aria-hidden="true">→</span>
+  </a>
+</article>

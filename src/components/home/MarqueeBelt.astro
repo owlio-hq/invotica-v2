@@ -1,0 +1,41 @@
+---
+import { marquee } from "@/data/site";
+// Duplicate the list so the track can loop seamlessly.
+const items = [...marquee, ...marquee];
+---
+
+<section class="overflow-hidden bg-forest py-5 text-cream" aria-label="Why Invotica">
+  <div class="marquee flex w-max">
+    {
+      items.map((m, i) => (
+        <div class="flex items-center" aria-hidden={i >= marquee.length ? "true" : "false"}>
+          <div class="flex items-baseline gap-3 px-8">
+            <span class="font-display text-2xl font-medium text-cream sm:text-3xl">{m.big}</span>
+            <span class="text-sm text-cream/55">{m.small}</span>
+          </div>
+          <span class="text-terracotta" aria-hidden="true">✦</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .marquee {
+    animation: marquee 38s linear infinite;
+  }
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      animation: none;
+      transform: none;
+    }
+  }
+</style>

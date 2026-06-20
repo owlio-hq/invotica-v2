@@ -1,0 +1,46 @@
+---
+import SectionLabel from "@/components/ui/SectionLabel.astro";
+import { realDifference as rd } from "@/data/site";
+
+const cards = [rd.found, rd.trusted];
+---
+
+<section class="section-y container-x" id="difference">
+  <div class="max-w-2xl" data-reveal>
+    <SectionLabel text="The Real Difference" />
+    <h2 class="mt-5 text-h2">
+      It's not about a website.<br />
+      It's about what a website <span class="italic text-terracotta">does</span>.
+    </h2>
+  </div>
+
+  <div class="mt-14 grid gap-6 md:grid-cols-2">
+    {
+      cards.map((c, i) => (
+        <article
+          class="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-cream-200 p-8 ring-1 ring-cream-300 transition-all duration-500 hover:-translate-y-1 hover:ring-forest sm:p-10"
+          data-reveal
+          data-reveal-delay={i * 110}
+        >
+          <div>
+            <span class="inline-flex rounded-full bg-cream px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-sage ring-1 ring-cream-300">
+              {c.tiers}
+            </span>
+            <h3 class="mt-6 font-display text-[clamp(1.6rem,3vw,2.25rem)] font-medium leading-tight">
+              It's <span class="text-terracotta">"{c.tagline}"</span>
+            </h3>
+            <p class="mt-5 leading-relaxed text-ink-soft">{c.body}</p>
+          </div>
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute -bottom-16 -right-12 h-44 w-44 rounded-full bg-terracotta/5 transition-transform duration-700 group-hover:scale-150"
+          />
+        </article>
+      ))
+    }
+  </div>
+
+  <p class="mx-auto mt-10 max-w-2xl text-center text-sm leading-relaxed text-ink-soft" data-reveal>
+    {rd.note}
+  </p>
+</section>
