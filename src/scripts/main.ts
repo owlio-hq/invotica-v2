@@ -18,15 +18,22 @@ function boot() {
 
   logger.install();
 
-  try {
-    initPreloader();
-    initSmoothScroll();
-    initReveal();
-    initCountUp();
-    initTypewriter();
-    initMenu();
-  } catch (err) {
-    logger.error("main", "boot failed", { err: (err as Error)?.message });
+  // Run each init in isolation so one failure never takes down the others
+  // (e.g. a preloader hiccup must not break the menu).
+  const steps: [string, () => void][] = [
+    ["preloader", initPreloader],
+    ["smoothScroll", initSmoothScroll],
+    ["reveal", initReveal],
+    ["countUp", initCountUp],
+    ["typewriter", initTypewriter],
+    ["menu", initMenu],
+  ];
+  for (const [name, fn] of steps) {
+    try {
+      fn();
+    } catch (err) {
+      logger.error("main", `init failed: ${name}`, { err: (err as Error)?.message });
+    }
   }
 }
 

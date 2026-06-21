@@ -12,22 +12,14 @@ const {
 
 <section class="section-y container-x">
   <div
-    class="relative overflow-hidden rounded-[2rem] bg-cream-200 px-8 py-16 text-center ring-1 ring-cream-300 sm:px-12 sm:py-20"
+    class="relative overflow-hidden rounded-[2rem] bg-paper-200 px-8 py-16 text-center text-ink ring-1 ring-paper-300 sm:px-12 sm:py-20"
     data-reveal
   >
-    <!-- decorative brand bars -->
-    <div class="pointer-events-none absolute inset-0 -z-0 opacity-[0.6]" aria-hidden="true">
-      <span class="absolute -left-6 top-8 h-24 w-10 rounded-[1.5rem] bg-sage/15"></span>
-      <span class="absolute right-10 bottom-6 h-16 w-16 rounded-full bg-terracotta/15"></span>
-    </div>
-
-    <div class="relative z-10">
-      <h2 class="mx-auto max-w-2xl text-[clamp(2rem,5vw,3.5rem)]">{title}</h2>
-      <p class="mx-auto mt-5 max-w-md text-lead text-ink-soft">{body}</p>
-      <div class="mt-9 flex flex-wrap justify-center gap-4">
-        <Button href="/contact" size="lg" variant="primary">Start a project</Button>
-        <Button href="/contact" size="lg" variant="ghost">Talk to us</Button>
-      </div>
+    <h2 class="mx-auto max-w-2xl text-ink text-[clamp(2rem,5vw,3.5rem)]">{title}</h2>
+    <p class="mx-auto mt-5 max-w-md text-lead text-ink-soft">{body}</p>
+    <div class="mt-9 flex flex-wrap justify-center gap-4">
+      <Button href="/contact" size="lg" variant="primary">Start a project</Button>
+      <Button href="/contact" size="lg" variant="ghost">Talk to us</Button>
     </div>
   </div>
 </section>

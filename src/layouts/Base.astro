@@ -33,14 +33,6 @@ const ogImage = new URL(image, site.url).href;
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#0b0c10" />
 
-    <!-- Skip the preloader on repeat navigations within the session (no flash). -->
-    <script is:inline>
-      try {
-        if (sessionStorage.getItem("invotica:loaded")) {
-          document.documentElement.classList.add("preloaded");
-        }
-      } catch (e) {}
-    </script>
     <noscript><style>#preloader { display: none !important; }</style></noscript>
 
     <title>{pageTitle}</title>

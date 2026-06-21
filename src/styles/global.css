@@ -98,8 +98,8 @@
   }
 
   body {
-    background-color: var(--color-ink);
-    color: var(--color-paper);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
@@ -266,8 +266,7 @@
   transform: translateY(-101%);
   transition: transform 0.7s var(--ease-in-out-quint);
 }
-/* Skip entirely if already shown this session, or for no-JS / reduced-motion. */
-.preloaded #preloader,
+/* Skip for no-JS / reduced-motion users only. */
 .no-js #preloader {
   display: none !important;
 }

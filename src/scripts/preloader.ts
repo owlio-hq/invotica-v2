@@ -1,14 +1,12 @@
 /**
- * Preloader controller — plays the "stairs" reveal once per session.
+ * Preloader controller — plays the "stairs" reveal on every page load.
  *
  * Flow: lock scroll → fade the brand mark in → wait for `window.load` (capped by
  * a max timeout so a slow asset never traps the user) → climb the columns away →
- * remove the node and unlock scroll. Repeat navigations within the session skip
- * the whole thing (handled by an inline head script + CSS via `.preloaded`).
+ * remove the node and unlock scroll. Skipped only for no-JS / reduced-motion.
  */
 import { logger } from "@/lib/logger";
 
-const SESSION_KEY = "invotica:loaded";
 const MIN_VISIBLE = 650; // keep the mark on screen at least this long (ms)
 const MAX_WAIT = 2600; // never hold the page hostage longer than this (ms)
 
@@ -16,9 +14,7 @@ export function initPreloader(): void {
   const el = document.getElementById("preloader");
   const root = document.documentElement;
 
-  // Already played this session, or CSS opted us out → ensure a clean page.
-  if (!el || root.classList.contains("preloaded")) {
-    el?.remove();
+  if (!el) {
     root.classList.remove("is-loading");
     return;
   }
@@ -44,12 +40,6 @@ export function initPreloader(): void {
       const cleanup = () => {
         el.remove();
         root.classList.remove("is-loading");
-        root.classList.add("preloaded");
-        try {
-          sessionStorage.setItem(SESSION_KEY, "1");
-        } catch {
-          /* private mode — fine, it just replays next load */
-        }
         logger.info("preloader", "revealed", { elapsed: Math.round(elapsed) });
       };
 

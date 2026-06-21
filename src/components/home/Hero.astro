@@ -1,12 +1,10 @@
 ---
 import Button from "@/components/ui/Button.astro";
 
-const phrases = [
-  "found online.",
-  "chosen first.",
-  "trusted instantly.",
-  "impossible to ignore.",
-];
+// Kept short + similar width so the reserved slot never reflows the headline.
+const phrases = ["found online.", "chosen first.", "trusted fast.", "unmissable."];
+// Widest phrase reserves the slot box (invisible sizer below).
+const sizer = "trusted fast.";
 ---
 
 <section class="relative isolate overflow-hidden on-ink">
@@ -41,11 +39,15 @@ const phrases = [
       Design · Build · Launch
     </p>
 
-    <h1 class="max-w-[18ch] text-display font-light" data-reveal data-reveal-delay="80">
-      Your business deserves to be{" "}
-      <span class="relative whitespace-nowrap text-blue-bright">
-        <span data-typewriter data-phrases={JSON.stringify(phrases)}>found online.</span
-        ><span class="tw-caret" aria-hidden="true"></span>
+    <h1 class="text-display font-light" data-reveal data-reveal-delay="80">
+      <span class="block">Your business</span>
+      <span class="block">deserves to be</span>
+      <span class="tw-slot">
+        <span class="tw-sizer" aria-hidden="true">{sizer}</span>
+        <span class="tw-anim text-blue-bright">
+          <span data-typewriter data-phrases={JSON.stringify(phrases)}>found online.</span
+          ><span class="tw-caret" aria-hidden="true"></span>
+        </span>
       </span>
     </h1>
 
@@ -74,6 +76,23 @@ const phrases = [
 </section>
 
 <style>
+  /* Typed word sits in a fixed-size slot (reserved by an invisible sizer) so the
+     headline height NEVER changes as phrases cycle — no layout shift. */
+  .tw-slot {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .tw-sizer {
+    visibility: hidden;
+  }
+  .tw-anim {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+  }
+
   .tw-caret {
     display: inline-block;
     width: 2px;
