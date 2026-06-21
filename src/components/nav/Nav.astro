@@ -9,14 +9,14 @@ import MenuOverlay from "./MenuOverlay.astro";
   data-header
 >
   <div class="container-x flex items-center justify-between py-4">
-    <Logo />
+    <Logo wordmarkClass="nav-fg" />
 
     <button
       type="button"
       data-menu-open
       aria-expanded="false"
       aria-controls="menu-overlay"
-      class="group flex items-center gap-3 rounded-full bg-ink/[0.04] px-4 py-2.5 text-sm font-medium text-ink ring-1 ring-cream-300 backdrop-blur transition-colors duration-300 hover:bg-ink hover:text-cream hover:ring-ink"
+      class="nav-fg nav-btn group flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium backdrop-blur transition-colors duration-300"
     >
       <span class="tracking-tight">Menu</span>
       <span class="relative flex h-3 w-4 flex-col justify-between" aria-hidden="true">
@@ -50,9 +50,25 @@ import MenuOverlay from "./MenuOverlay.astro";
 </script>
 
 <style>
+  /* Nav foreground flips with the surface beneath it: light over the dark hero,
+     dark once the frosted bar appears over light sections. */
+  [data-header] {
+    --nav-fg: var(--color-paper);
+  }
   [data-header].is-scrolled {
-    background: color-mix(in srgb, var(--color-cream) 80%, transparent);
+    --nav-fg: var(--color-ink);
+    background: color-mix(in srgb, var(--color-paper) 82%, transparent);
     backdrop-filter: saturate(140%) blur(12px);
-    box-shadow: 0 1px 0 var(--color-cream-300);
+    box-shadow: 0 1px 0 var(--color-paper-300);
+  }
+  .nav-fg {
+    color: var(--nav-fg);
+  }
+  .nav-btn {
+    background: color-mix(in srgb, var(--nav-fg) 7%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--nav-fg) 22%, transparent);
+  }
+  .nav-btn:hover {
+    background: color-mix(in srgb, var(--nav-fg) 14%, transparent);
   }
 </style>

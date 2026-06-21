@@ -1,7 +1,13 @@
 /* ============================================================================
    Invotica — global stylesheet
    Tailwind v4 (CSS-first). Brand tokens live in the @theme block below and are
-   auto-exposed as utilities (e.g. bg-cream, text-forest, font-display).
+   auto-exposed as utilities (e.g. bg-paper, text-blue, font-display).
+
+   PALETTE v2 (2026-06): blue + black + warm white, inspired by the reference
+   site's restraint. One bold accent (electric periwinkle), deep ink, warm paper.
+   Legacy token names (forest/sage/terracotta/cream) are kept as ALIASES that now
+   point at the new palette, so existing markup reskins instantly while sections
+   are migrated structurally. Prefer the new names (ink / paper / blue) in new work.
    ========================================================================== */
 
 @import "tailwindcss";
@@ -11,33 +17,45 @@
 @import "@fontsource-variable/geist";
 
 @theme {
-  /* ---- Brand palette (from the Invotica logo + reference canvas) ---- */
-  --color-cream: #f7f4f0; /* warm canvas */
-  --color-cream-200: #efeae3; /* subtle panel */
-  --color-cream-300: #dfddda; /* hairline borders */
+  /* ---- Neutrals ---- */
+  --color-ink: #0b0c10; /* near-black canvas / text */
+  --color-ink-800: #14161d; /* raised panel on dark */
+  --color-ink-700: #1d2027; /* hairline / card on dark */
+  --color-ink-soft: #565b66; /* secondary text on light */
 
-  --color-ink: #161718; /* near-black text */
-  --color-ink-soft: #3a3d3c; /* secondary text */
+  --color-paper: #f5f3ec; /* warm off-white canvas */
+  --color-paper-200: #ebe8df; /* subtle panel */
+  --color-paper-300: #dcd8cc; /* hairline borders */
 
-  --color-forest: #214239; /* primary */
-  --color-forest-600: #2c5648;
-  --color-forest-900: #16302a;
+  /* ---- Brand blue (single bold accent) ---- */
+  --color-blue: #4f67f2; /* primary electric periwinkle */
+  --color-blue-bright: #6c84ff; /* lift / hover */
+  --color-blue-deep: #2a3ad0; /* depth / pressed */
+  --color-blue-100: #e7eaff; /* tint surfaces */
+  --color-blue-soft: #b9c2ff; /* muted on dark */
 
-  --color-sage: #4b6460; /* secondary */
-  --color-sage-300: #8aa39c;
-
-  --color-terracotta: #c35f3b; /* accent / CTA */
-  --color-terracotta-600: #ad4f2e;
-  --color-terracotta-100: #f0d9cd;
+  /* ---- Legacy aliases → remapped to v2 (deprecated names) ---- */
+  --color-cream: #f5f3ec;
+  --color-cream-200: #ebe8df;
+  --color-cream-300: #dcd8cc;
+  --color-forest: #2a3ad0;
+  --color-forest-600: #4f67f2;
+  --color-forest-900: #1d2aa0;
+  --color-sage: #5b6a86;
+  --color-sage-300: #9aa6c4;
+  --color-terracotta: #4f67f2;
+  --color-terracotta-600: #2a3ad0;
+  --color-terracotta-100: #e7eaff;
 
   /* ---- Typography ---- */
-  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-display: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces Variable", ui-serif, Georgia, serif;
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
   /* ---- Fluid type scale (clamp: min .. max across 360–1280px) ---- */
-  --text-display: clamp(2.75rem, 1.2rem + 6.9vw, 6.5rem);
-  --text-h1: clamp(2.25rem, 1.4rem + 3.8vw, 4rem);
-  --text-h2: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+  --text-display: clamp(2.85rem, 1.1rem + 7.6vw, 7rem);
+  --text-h1: clamp(2.25rem, 1.4rem + 3.8vw, 4.25rem);
+  --text-h2: clamp(1.85rem, 1.2rem + 2.6vw, 3rem);
   --text-h3: clamp(1.3rem, 1.05rem + 1.1vw, 1.75rem);
   --text-lead: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
 
@@ -47,6 +65,7 @@
 
   /* ---- Layout ---- */
   --spacing-section: clamp(4.5rem, 3rem + 7vw, 9rem);
+  --radius-panel: clamp(1.75rem, 1rem + 3.5vw, 3.5rem);
 }
 
 /* ----------------------------------------------------------------------------
@@ -71,9 +90,16 @@
     scroll-behavior: auto !important;
   }
 
+  /* Scroll lock while the preloader is on screen. */
+  html.is-loading,
+  html.is-loading body {
+    overflow: hidden;
+    height: 100%;
+  }
+
   body {
-    background-color: var(--color-cream);
-    color: var(--color-ink);
+    background-color: var(--color-ink);
+    color: var(--color-paper);
     font-family: var(--font-sans);
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
@@ -83,15 +109,15 @@
   }
 
   ::selection {
-    background-color: var(--color-terracotta);
-    color: var(--color-cream);
+    background-color: var(--color-blue);
+    color: #fff;
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 460;
-    letter-spacing: -0.02em;
-    line-height: 1.04;
+    font-weight: 430;
+    letter-spacing: -0.025em;
+    line-height: 1.03;
     text-wrap: balance;
   }
 
@@ -101,7 +127,7 @@
 
   /* Visible, on-brand focus ring for keyboard users. */
   :focus-visible {
-    outline: 2px solid var(--color-terracotta);
+    outline: 2px solid var(--color-blue);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -125,9 +151,9 @@
 @layer components {
   .container-x {
     width: 100%;
-    max-width: 80rem; /* 1280px */
+    max-width: 82rem; /* 1312px */
     margin-inline: auto;
-    padding-inline: clamp(1.25rem, 0.5rem + 3vw, 3rem);
+    padding-inline: clamp(1.25rem, 0.5rem + 3vw, 3.5rem);
   }
 
   .container-narrow {
@@ -141,22 +167,113 @@
     padding-block: var(--spacing-section);
   }
 
+  /* Nested rounded "panel": a section that tucks under the previous one with
+     big rounded top corners — the signature stacking move from the reference. */
+  .panel {
+    position: relative;
+    border-start-start-radius: var(--radius-panel);
+    border-start-end-radius: var(--radius-panel);
+    margin-top: calc(-1 * var(--radius-panel));
+    z-index: 1;
+  }
+  /* Rounded BOTTOM corners too (for panels that float between two others). */
+  .panel-b {
+    border-end-start-radius: var(--radius-panel);
+    border-end-end-radius: var(--radius-panel);
+  }
+
+  /* Surface helpers */
+  .on-ink {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .on-paper {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+  .on-blue {
+    background: var(--color-blue);
+    color: #fff;
+  }
+
   /* Section eyebrow label */
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.78rem;
+    gap: 0.6rem;
+    font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--color-terracotta);
+    color: var(--color-blue);
   }
   .eyebrow::before {
     content: "";
     width: 1.75rem;
     height: 1px;
     background: currentColor;
+    opacity: 0.6;
+  }
+
+  /* Hairline grid texture (subtle, on dark) */
+  .grid-faint {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      color-mix(in srgb, var(--color-paper) 14%, transparent) 1px,
+      transparent 0
+    );
+    background-size: 38px 38px;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Preloader — "stairs" reveal on first load (gated by sessionStorage)
+   -------------------------------------------------------------------------- */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  isolation: isolate;
+}
+#preloader .pl-col {
+  flex: 1 1 0;
+  background: var(--color-ink);
+  transform: translateY(0);
+}
+#preloader .pl-mark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(8px);
+}
+/* play-in: brand mark appears */
+#preloader.pl-in .pl-mark {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
+}
+/* play-out: mark fades, columns climb away as staggered stairs */
+#preloader.pl-out .pl-mark {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.35s ease, transform 0.45s ease;
+}
+#preloader.pl-out .pl-col {
+  transform: translateY(-101%);
+  transition: transform 0.7s var(--ease-in-out-quint);
+}
+/* Skip entirely if already shown this session, or for no-JS / reduced-motion. */
+.preloaded #preloader,
+.no-js #preloader {
+  display: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  #preloader {
+    display: none !important;
   }
 }
 

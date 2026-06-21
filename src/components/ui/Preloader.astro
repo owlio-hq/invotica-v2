@@ -1,0 +1,52 @@
+---
+/**
+ * Preloader — a "stairs" reveal that plays once per session on first load.
+ *
+ * Markup is server-rendered so it covers the page instantly (no content flash).
+ * Behaviour lives in scripts/preloader.ts; it is skipped for repeat navigations
+ * (sessionStorage), no-JS users (.no-js), and reduced-motion users (CSS).
+ *
+ * The columns climb away top-wards with a left→right stagger, revealing the page
+ * beneath — like a flight of stairs sweeping up.
+ */
+const COLS = 6;
+const cols = Array.from({ length: COLS }, (_, i) => i);
+---
+
+<div id="preloader" role="status" aria-live="polite" aria-label="Loading">
+  {
+    cols.map((i) => (
+      <div class="pl-col" style={`transition-delay:${i * 80}ms`} />
+    ))
+  }
+
+  <div class="pl-mark">
+    <span class="pl-logo">
+      <svg viewBox="0 0 60 64" class="pl-svg" aria-hidden="true" fill="none">
+        <rect x="32" y="12" width="18" height="46" rx="6" fill="var(--color-blue)" />
+        <rect x="6" y="26" width="18" height="32" rx="6" fill="var(--color-paper)" />
+        <circle cx="15" cy="11" r="9" fill="var(--color-blue-bright)" />
+      </svg>
+      <span class="pl-word">invotica</span>
+    </span>
+  </div>
+</div>
+
+<style>
+  .pl-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .pl-svg {
+    height: 2.4rem;
+    width: auto;
+  }
+  .pl-word {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 460;
+    letter-spacing: -0.02em;
+    color: var(--color-paper);
+  }
+</style>

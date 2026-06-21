@@ -5,7 +5,7 @@
  */
 interface Props {
   href?: string;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "ghostDark";
   size?: "md" | "lg";
   type?: "button" | "submit";
   class?: string;
@@ -30,11 +30,13 @@ const sizes = {
 
 const variants = {
   primary:
-    "bg-terracotta text-cream hover:bg-terracotta-600 hover:-translate-y-0.5 shadow-[0_1px_0_rgba(0,0,0,0.04)] hover:shadow-[0_10px_30px_-12px_rgba(195,95,59,0.7)]",
+    "bg-blue text-white hover:bg-blue-deep hover:-translate-y-0.5 shadow-[0_1px_0_rgba(0,0,0,0.04)] hover:shadow-[0_12px_34px_-12px_rgba(79,103,242,0.7)]",
   secondary:
-    "bg-forest text-cream hover:bg-forest-600 hover:-translate-y-0.5 shadow-[0_10px_30px_-18px_rgba(33,66,57,0.9)]",
+    "bg-ink text-paper hover:bg-ink-800 hover:-translate-y-0.5 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.9)]",
   ghost:
-    "bg-transparent text-ink ring-1 ring-cream-300 hover:ring-forest hover:bg-cream-200",
+    "bg-transparent text-ink ring-1 ring-paper-300 hover:ring-blue hover:bg-paper-200",
+  ghostDark:
+    "bg-white/[0.04] text-paper ring-1 ring-white/15 backdrop-blur-sm hover:bg-white/[0.1] hover:ring-white/35",
 };
 
 const cls = [base, sizes[size], variants[variant], className];

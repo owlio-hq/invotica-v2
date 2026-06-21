@@ -4,6 +4,7 @@
  * Each module is defensive and no-ops when its target elements are absent.
  */
 import { logger } from "@/lib/logger";
+import { initPreloader } from "./preloader";
 import { initSmoothScroll } from "./smooth-scroll";
 import { initReveal } from "./reveal";
 import { initCountUp } from "./count-up";
@@ -18,6 +19,7 @@ function boot() {
   logger.install();
 
   try {
+    initPreloader();
     initSmoothScroll();
     initReveal();
     initCountUp();

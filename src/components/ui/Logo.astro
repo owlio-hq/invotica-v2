@@ -7,8 +7,14 @@ interface Props {
   withWordmark?: boolean;
   class?: string;
   markClass?: string;
+  wordmarkClass?: string;
 }
-const { withWordmark = true, class: className, markClass } = Astro.props;
+const {
+  withWordmark = true,
+  class: className,
+  markClass,
+  wordmarkClass = "text-ink",
+} = Astro.props;
 ---
 
 <a
@@ -33,7 +39,12 @@ const { withWordmark = true, class: className, markClass } = Astro.props;
   </svg>
   {
     withWordmark && (
-      <span class="font-display text-[1.35rem] font-medium tracking-tight text-ink">
+      <span
+        class:list={[
+          "font-display text-[1.35rem] font-medium tracking-tight",
+          wordmarkClass,
+        ]}
+      >
         invotica
       </span>
     )
