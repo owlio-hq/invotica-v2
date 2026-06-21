@@ -3,35 +3,31 @@ import Button from "@/components/ui/Button.astro";
 
 // Kept short + similar width so the reserved slot never reflows the headline.
 const phrases = ["found online.", "chosen first.", "trusted fast.", "unmissable."];
-// Widest phrase reserves the slot box (invisible sizer below).
 const sizer = "trusted fast.";
+
+// "Client site" cards that slide through the lens — our take on the reference's
+// document cards. Doubles as a portfolio/social-proof flavour.
+const sites = [
+  { name: "Maple & Co. Dental", tag: "Clinic" },
+  { name: "Northside Café", tag: "Hospitality" },
+  { name: "Apex Legal", tag: "Professional" },
+  { name: "GreenLeaf Landscaping", tag: "Trades" },
+  { name: "Harbour Realty", tag: "Real Estate" },
+  { name: "Lumen Studio", tag: "Creative" },
+];
+const track = [...sites, ...sites];
 ---
 
 <section class="relative isolate overflow-hidden on-ink">
-  <!-- Arc "portal" motif: concentric thin rings + soft blue glow (decorative). -->
+  <!-- ambient grid + glow behind the headline -->
   <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-    <div class="grid-faint absolute inset-0 opacity-60"
-      style="mask-image:radial-gradient(ellipse 75% 60% at 50% 38%, #000 30%, transparent 78%)"></div>
-
-    <div class="absolute left-1/2 top-[58%] -z-10 h-[120vmax] w-[120vmax] -translate-x-1/2 -translate-y-1/4"
-      aria-hidden="true">
-      <svg viewBox="0 0 1000 1000" class="h-full w-full" fill="none" preserveAspectRatio="xMidYMid slice">
-        <g stroke="var(--color-blue)" stroke-opacity="0.16">
-          <circle cx="500" cy="500" r="200" />
-          <circle cx="500" cy="500" r="300" />
-          <circle cx="500" cy="500" r="410" />
-          <circle cx="500" cy="500" r="500" stroke-opacity="0.10" />
-        </g>
-      </svg>
-    </div>
-
-    <!-- centred blue glow -->
-    <div class="absolute left-1/2 top-[34%] h-[42vmax] w-[42vmax] -translate-x-1/2 -translate-y-1/2 rounded-full"
-      style="background:radial-gradient(circle, color-mix(in srgb, var(--color-blue) 40%, transparent), transparent 62%);filter:blur(30px);opacity:0.5"></div>
+    <div class="grid-faint absolute inset-0 opacity-50"
+      style="mask-image:radial-gradient(ellipse 70% 50% at 50% 22%, #000 30%, transparent 78%)"></div>
   </div>
 
-  <div class="container-x flex min-h-[94svh] flex-col items-center justify-center pt-32 pb-40 text-center">
-    <div class="mb-10 inline-flex items-center gap-3 text-[0.78rem] sm:text-sm" data-reveal>
+  <!-- TOP: headline + CTAs -->
+  <div class="container-x flex flex-col items-center pt-32 pb-10 text-center sm:pt-36">
+    <div class="mb-8 inline-flex items-center gap-3 text-[0.78rem] sm:text-sm" data-reveal>
       <svg class="kick-star h-4 w-4 text-blue-bright" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M12 2c.5 5 5 9.5 10 10-5 .5-9.5 5-10 10-.5-5-5-9.5-10-10 5-.5 9.5-5 10-10Z" />
       </svg>
@@ -40,9 +36,8 @@ const sizer = "trusted fast.";
       <span class="uppercase tracking-[0.18em] text-blue-soft">2026 projects</span>
     </div>
 
-    <h1 class="text-display font-light" data-reveal data-reveal-delay="80">
-      <span class="block">Your business</span>
-      <span class="block">deserves to be</span>
+    <h1 class="text-h1 font-light" data-reveal data-reveal-delay="80">
+      <span class="block">Your business deserves to be</span>
       <span class="tw-slot">
         <span class="tw-sizer" aria-hidden="true">{sizer}</span>
         <span class="tw-anim text-blue-bright">
@@ -52,27 +47,78 @@ const sizer = "trusted fast.";
       </span>
     </h1>
 
-    <p class="mt-8 max-w-xl text-lead text-paper/70" data-reveal data-reveal-delay="160">
+    <p class="mt-7 max-w-xl text-lead text-paper/70" data-reveal data-reveal-delay="160">
       Custom websites for Canadian businesses — built fast, built to convert.
-      No templates. No hostage situations.
     </p>
 
-    <div class="mt-11 flex flex-wrap items-center justify-center gap-4" data-reveal data-reveal-delay="240">
+    <div class="mt-9 flex flex-wrap items-center justify-center gap-x-7 gap-y-4" data-reveal data-reveal-delay="240">
       <Button href="/contact" size="lg" variant="primary">Start a project</Button>
-      <Button href="/pricing" size="lg" variant="ghostDark">See our plans</Button>
+      <a href="/pricing" class="group text-sm font-medium text-paper/80 underline decoration-blue/40 decoration-1 underline-offset-[6px] transition-colors hover:text-white hover:decoration-blue-bright">
+        Not sure which plan?
+      </a>
     </div>
-
-    <p class="mt-6 text-sm text-paper/55" data-reveal data-reveal-delay="300">
-      Not sure which plan?{" "}
-      <a href="/contact" class="font-medium text-blue-soft underline decoration-blue/40 underline-offset-4 transition-colors hover:decoration-blue-bright hover:text-white">Talk to us.</a>
-    </p>
   </div>
 
-  <!-- Curved arc transition into the next (light) section — no straight edges. -->
-  <div class="pointer-events-none absolute inset-x-0 bottom-0" aria-hidden="true">
-    <svg viewBox="0 0 1440 140" preserveAspectRatio="none" class="block h-[8vw] min-h-[64px] w-full">
-      <path d="M0,140 L0,96 Q720,-24 1440,96 L1440,140 Z" fill="var(--color-blue-deep)"></path>
+  <!-- MIDDLE: the lens — blue panel pinched by concave arcs, cards sliding through -->
+  <div class="port relative h-[clamp(280px,42vh,460px)]" data-reveal data-reveal-delay="320">
+    <!-- blue base + soft highlight -->
+    <div class="absolute inset-0 overflow-hidden bg-blue">
+      <div class="absolute left-1/2 top-1/2 h-[70%] w-[55%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-white/25 blur-3xl"></div>
+
+      <!-- sliding client-site cards -->
+      <div class="port-mask absolute inset-x-0 top-1/2 -translate-y-1/2">
+        <div class="port-track flex w-max items-center gap-5 px-5">
+          {
+            track.map((s, i) => (
+              <div class="port-card" aria-hidden={i >= sites.length ? "true" : "false"}>
+                <span class="port-win" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                </span>
+                <span class="flex min-w-0 flex-col">
+                  <span class="flex items-baseline gap-2">
+                    <span class="truncate font-medium text-white">{s.name}</span>
+                  </span>
+                  <span class="mt-0.5 flex items-center gap-2 text-xs text-white/65">
+                    <span>{s.tag}</span>
+                    <span class="inline-flex items-center gap-1">
+                      <span class="h-1.5 w-1.5 rounded-full bg-emerald-300" /> Live
+                    </span>
+                  </span>
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- concave ink arcs that pinch the blue into a lens -->
+    <div class="lens-top"></div>
+    <div class="lens-bot"></div>
+
+    <!-- thin hairline arcs (decorative) -->
+    <svg class="pointer-events-none absolute inset-0 h-full w-full" preserveAspectRatio="none" aria-hidden="true">
+      <ellipse cx="50%" cy="-2%" rx="78%" ry="52%" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"></ellipse>
+      <ellipse cx="50%" cy="102%" rx="78%" ry="52%" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"></ellipse>
     </svg>
+
+    <!-- centre line + brand mark pivot -->
+    <div class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/15"></div>
+    <div class="absolute left-1/2 top-1/2 z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-paper shadow-[0_12px_40px_-12px_rgba(11,12,16,0.6)]">
+      <svg viewBox="0 0 60 64" class="h-8 w-auto" aria-hidden="true">
+        <rect x="32" y="12" width="18" height="46" rx="6" fill="var(--color-blue)"></rect>
+        <rect x="6" y="26" width="18" height="32" rx="6" fill="var(--color-ink)"></rect>
+        <circle cx="15" cy="11" r="9" fill="var(--color-blue-bright)"></circle>
+      </svg>
+    </div>
+  </div>
+
+  <!-- BOTTOM: tagline -->
+  <div class="container-x pb-28 pt-12 text-center" data-reveal>
+    <p class="mx-auto max-w-2xl text-h3 font-light text-paper/90">
+      No templates. No hostage situations. Just the website
+      <span class="text-blue-bright">that does your selling.</span>
+    </p>
   </div>
 </section>
 
@@ -120,9 +166,90 @@ const sizer = "trusted fast.";
     }
   }
 
+  /* ---- The lens ---- */
+  /* Concave ink arcs (ellipse overlays) that pinch the blue band in the centre. */
+  .lens-top,
+  .lens-bot {
+    position: absolute;
+    left: -20%;
+    width: 140%;
+    height: 47%;
+    background: var(--color-ink);
+  }
+  .lens-top {
+    top: -1px;
+    border-bottom-left-radius: 100% 96%;
+    border-bottom-right-radius: 100% 96%;
+  }
+  .lens-bot {
+    bottom: -1px;
+    border-top-left-radius: 100% 96%;
+    border-top-right-radius: 100% 96%;
+  }
+
+  /* Cards track: continuous left-drift, faded at the horizontal edges. */
+  .port-mask {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 14%,
+      #000 86%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 14%,
+      #000 86%,
+      transparent
+    );
+  }
+  .port-track {
+    animation: port-slide 36s linear infinite;
+  }
+  .port-track:hover {
+    animation-play-state: paused;
+  }
+  @keyframes port-slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .port-card {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 15rem;
+    flex: 0 0 auto;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(4px);
+  }
+  .port-win {
+    display: inline-flex;
+    gap: 3px;
+    align-items: center;
+    height: 2.1rem;
+    width: 2.1rem;
+    justify-content: center;
+    border-radius: 0.55rem;
+    background: rgba(255, 255, 255, 0.16);
+    flex: 0 0 auto;
+  }
+  .port-win span {
+    height: 4px;
+    width: 4px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .tw-caret,
-    .kick-star {
+    .kick-star,
+    .port-track {
       animation: none;
     }
   }
