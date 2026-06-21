@@ -26,8 +26,8 @@ const track = [...sites, ...sites];
   </div>
 
   <!-- TOP: headline + CTAs -->
-  <div class="container-x flex flex-col items-center pt-24 pb-8 text-center sm:pt-28">
-    <div class="mb-7 inline-flex items-center gap-3 text-[0.78rem] sm:text-sm" data-reveal>
+  <div class="container-x flex flex-col items-center pt-16 pb-5 text-center sm:pt-20">
+    <div class="mb-5 inline-flex items-center gap-3 text-[0.78rem] sm:text-sm" data-reveal>
       <svg class="kick-star h-4 w-4 text-blue-bright" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M12 2c.5 5 5 9.5 10 10-5 .5-9.5 5-10 10-.5-5-5-9.5-10-10 5-.5 9.5-5 10-10Z" />
       </svg>
@@ -36,7 +36,7 @@ const track = [...sites, ...sites];
       <span class="uppercase tracking-[0.18em] text-blue-soft">2026 projects</span>
     </div>
 
-    <h1 class="text-[clamp(2rem,1.3rem+2.5vw,3.4rem)] font-light leading-[1.05]" data-reveal data-reveal-delay="80">
+    <h1 class="text-[clamp(1.75rem,1.2rem+1.8vw,2.65rem)] font-light leading-[1.05]" data-reveal data-reveal-delay="80">
       <span class="block">Your business deserves to be</span>
       <span class="tw-slot">
         <span class="tw-sizer" aria-hidden="true">{sizer}</span>
@@ -47,11 +47,11 @@ const track = [...sites, ...sites];
       </span>
     </h1>
 
-    <p class="mt-5 max-w-xl text-lead text-paper/70" data-reveal data-reveal-delay="160">
+    <p class="mt-4 max-w-xl text-base text-paper/70" data-reveal data-reveal-delay="160">
       Custom websites for Canadian businesses — built fast, built to convert.
     </p>
 
-    <div class="mt-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-4" data-reveal data-reveal-delay="240">
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-4" data-reveal data-reveal-delay="240">
       <Button href="/contact" size="lg" variant="primary">Start a project</Button>
       <a href="/pricing" class="group text-sm font-medium text-paper/80 underline decoration-blue/40 decoration-1 underline-offset-[6px] transition-colors hover:text-white hover:decoration-blue-bright">
         Not sure which plan?
@@ -60,7 +60,7 @@ const track = [...sites, ...sites];
   </div>
 
   <!-- MIDDLE: the lens — blue panel pinched by concave arcs, cards sliding through -->
-  <div class="port relative h-[clamp(230px,32vh,360px)]" data-reveal data-reveal-delay="320">
+  <div class="port relative h-[clamp(320px,44vh,480px)]" data-reveal data-reveal-delay="320">
     <!-- blue base + soft highlight -->
     <div class="absolute inset-0 overflow-hidden bg-blue">
       <div class="absolute left-1/2 top-1/2 h-[70%] w-[55%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-white/25 blur-3xl"></div>
@@ -104,8 +104,8 @@ const track = [...sites, ...sites];
 
     <!-- centre line + brand mark pivot -->
     <div class="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/15"></div>
-    <div class="absolute left-1/2 top-1/2 z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-paper shadow-[0_12px_40px_-12px_rgba(11,12,16,0.6)]">
-      <svg viewBox="0 0 60 64" class="h-8 w-auto" aria-hidden="true">
+    <div class="absolute left-1/2 top-1/2 z-10 flex h-[4.75rem] w-[4.75rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[1.25rem] bg-paper shadow-[0_12px_40px_-12px_rgba(11,12,16,0.6)]">
+      <svg viewBox="0 0 60 64" class="h-9 w-auto" aria-hidden="true">
         <rect x="32" y="12" width="18" height="46" rx="6" fill="var(--color-blue)"></rect>
         <rect x="6" y="26" width="18" height="32" rx="6" fill="var(--color-ink)"></rect>
         <circle cx="15" cy="11" r="9" fill="var(--color-blue-bright)"></circle>
@@ -114,8 +114,8 @@ const track = [...sites, ...sites];
   </div>
 
   <!-- BOTTOM: tagline -->
-  <div class="container-x pb-20 pt-10 text-center" data-reveal>
-    <p class="mx-auto max-w-2xl text-h3 font-light text-paper/90">
+  <div class="container-x pb-8 pt-5 text-center" data-reveal>
+    <p class="mx-auto max-w-2xl text-lead font-light text-paper/90">
       No templates. No hostage situations. Just the website
       <span class="text-blue-bright">that does your selling.</span>
     </p>
@@ -171,20 +171,20 @@ const track = [...sites, ...sites];
   .lens-top,
   .lens-bot {
     position: absolute;
-    left: -20%;
-    width: 140%;
-    height: 47%;
+    left: -25%;
+    width: 150%;
+    height: 33%;
     background: var(--color-ink);
   }
   .lens-top {
     top: -1px;
-    border-bottom-left-radius: 100% 96%;
-    border-bottom-right-radius: 100% 96%;
+    border-bottom-left-radius: 100% 100%;
+    border-bottom-right-radius: 100% 100%;
   }
   .lens-bot {
     bottom: -1px;
-    border-top-left-radius: 100% 96%;
-    border-top-right-radius: 100% 96%;
+    border-top-left-radius: 100% 100%;
+    border-top-right-radius: 100% 100%;
   }
 
   /* Cards track: continuous left-drift, faded at the horizontal edges. */
@@ -205,14 +205,18 @@ const track = [...sites, ...sites];
     );
   }
   .port-track {
-    animation: port-slide 36s linear infinite;
+    animation: port-slide 40s linear infinite;
   }
   .port-track:hover {
     animation-play-state: paused;
   }
+  /* Drift left → right (start shifted left, slide back to origin). */
   @keyframes port-slide {
-    to {
+    from {
       transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
     }
   }
 
