@@ -3,72 +3,30 @@ import Logo from "@/components/ui/Logo.astro";
 import MenuOverlay from "./MenuOverlay.astro";
 ---
 
-<header
-  id="site-header"
-  class="fixed inset-x-0 top-0 z-50 transition-[background,backdrop-filter,box-shadow] duration-500"
-  data-header
->
-  <div class="container-x flex items-center justify-between py-4">
-    <Logo wordmarkClass="nav-fg" />
+<!-- Floating header: two self-contained pills, no full-width bar. Each pill
+     carries its own surface so it stays legible on any section beneath it. -->
+<header class="pointer-events-none fixed inset-x-0 top-0 z-50">
+  <div class="container-x flex items-center justify-between py-4 sm:py-5">
+    <Logo
+      class="pointer-events-auto rounded-2xl bg-paper/85 px-3.5 py-2.5 shadow-[0_10px_30px_-12px_rgba(11,12,16,0.4)] ring-1 ring-ink/10 backdrop-blur-md transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5"
+      wordmarkClass="text-ink"
+    />
 
     <button
       type="button"
       data-menu-open
       aria-expanded="false"
       aria-controls="menu-overlay"
-      class="nav-fg nav-btn group flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium backdrop-blur transition-colors duration-300"
+      class="pointer-events-auto group flex items-center gap-3 rounded-full bg-ink px-5 py-3 text-sm font-medium text-paper shadow-[0_10px_30px_-10px_rgba(11,12,16,0.5)] ring-1 ring-white/10 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5"
     >
       <span class="tracking-tight">Menu</span>
       <span class="relative flex h-3 w-4 flex-col justify-between" aria-hidden="true">
-        <span
-          class="h-[1.5px] w-full origin-center rounded bg-current transition-transform duration-300 group-hover:translate-y-[0.5px]"
-        ></span>
-        <span
-          class="h-[1.5px] w-full origin-center rounded bg-current transition-all duration-300 group-hover:w-2/3"
-        ></span>
-        <span
-          class="h-[1.5px] w-full origin-center rounded bg-current transition-transform duration-300 group-hover:-translate-y-[0.5px]"
-        ></span>
+        <span class="h-[1.5px] w-full origin-center rounded bg-current transition-transform duration-300 group-hover:translate-y-[0.5px]"></span>
+        <span class="h-[1.5px] w-full origin-center rounded bg-current transition-all duration-300 group-hover:w-2/3"></span>
+        <span class="h-[1.5px] w-full origin-center rounded bg-current transition-transform duration-300 group-hover:-translate-y-[0.5px]"></span>
       </span>
     </button>
   </div>
 </header>
 
 <MenuOverlay />
-
-<script>
-  // Add a frosted background to the header after scrolling past the hero top.
-  const header = document.querySelector<HTMLElement>("[data-header]");
-  if (header) {
-    const onScroll = () => {
-      const scrolled = window.scrollY > 24;
-      header.classList.toggle("is-scrolled", scrolled);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-  }
-</script>
-
-<style>
-  /* Nav foreground flips with the surface beneath it: light over the dark hero,
-     dark once the frosted bar appears over light sections. */
-  [data-header] {
-    --nav-fg: var(--color-paper);
-  }
-  [data-header].is-scrolled {
-    --nav-fg: var(--color-ink);
-    background: color-mix(in srgb, var(--color-paper) 82%, transparent);
-    backdrop-filter: saturate(140%) blur(12px);
-    box-shadow: 0 1px 0 var(--color-paper-300);
-  }
-  .nav-fg {
-    color: var(--nav-fg);
-  }
-  .nav-btn {
-    background: color-mix(in srgb, var(--nav-fg) 7%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--nav-fg) 22%, transparent);
-  }
-  .nav-btn:hover {
-    background: color-mix(in srgb, var(--nav-fg) 14%, transparent);
-  }
-</style>
