@@ -11,6 +11,7 @@ import { initCountUp } from "./count-up";
 import { initTypewriter } from "./typewriter";
 import { initMenu } from "./menu";
 import { initScrollFx } from "./scroll-fx";
+import { initDotField } from "./dotfield";
 import type Lenis from "lenis";
 
 function boot() {
@@ -31,6 +32,7 @@ function boot() {
     ["countUp", initCountUp],
     ["typewriter", initTypewriter],
     ["menu", initMenu],
+    ["dotField", initDotField],
     ["scrollFx", () => initScrollFx(lenis)],
   ];
   for (const [name, fn] of steps) {
