@@ -1,12 +1,9 @@
 ---
 import Button from "@/components/ui/Button.astro";
 
-// Kept short + similar width so the reserved slot never reflows the headline.
 const phrases = ["found online.", "chosen first.", "trusted fast.", "unmissable."];
-const sizer = "trusted fast.";
+const sizer = "unmissable.";
 
-// "Client site" cards that slide through the lens — our take on the reference's
-// document cards. Doubles as a portfolio/social-proof flavour.
 const sites = [
   { name: "Maple & Co. Dental", tag: "Clinic" },
   { name: "Northside Café", tag: "Hospitality" },
@@ -18,26 +15,42 @@ const sites = [
 const track = [...sites, ...sites];
 ---
 
-<section class="hero relative isolate overflow-hidden">
-  <!-- BLUE portal fills the whole viewport; ink arcs carve it into a lens -->
-  <div class="absolute inset-0 z-0 bg-blue">
-    <div class="absolute left-1/2 top-1/2 h-[55%] w-[55%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-white/20 blur-3xl"></div>
+<!--
+  Hero layout: ink background, blue PILL in the centre (not ink caps).
+  Content zones sit absolutely above/below the pill so their height is
+  independent of the pill size — no overflow into the blue band.
 
-    <!-- sliding client-site cards -->
+  Pill:  top 40% → 62%  (22% tall, centred at 51%)
+  Top:   0  → 40%       (kicker + headline + CTAs — justify-end so copy sits above arc)
+  Bot:   62% → 100%     (tagline — 38%)
+-->
+<section class="hero relative isolate overflow-hidden min-h-svh">
+  <!-- ── Ink base ── -->
+  <!-- Blue pill lens -->
+  <div class="lens" aria-hidden="true">
+    <!-- inner glow -->
+    <div
+      class="absolute left-1/2 top-1/2 h-[70%] w-[50%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-white/12 blur-2xl"
+    ></div>
+
+    <!-- sliding client-site cards, centred in the pill -->
     <div class="port-mask absolute inset-x-0 top-1/2 -translate-y-1/2">
-      <div class="port-track flex w-max items-center gap-5 px-5">
+      <div class="port-track flex w-max items-center gap-4 px-4">
         {
           track.map((s, i) => (
             <div class="port-card" aria-hidden={i >= sites.length ? "true" : "false"}>
-              <span class="port-win" aria-hidden="true">
-                <span></span><span></span><span></span>
+              <span class="port-win">
+                <span></span>
+                <span></span>
+                <span></span>
               </span>
               <span class="flex min-w-0 flex-col">
                 <span class="truncate font-medium text-white">{s.name}</span>
                 <span class="mt-0.5 flex items-center gap-2 text-xs text-white/65">
                   <span>{s.tag}</span>
                   <span class="inline-flex items-center gap-1">
-                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-300" /> Live
+                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-300" />
+                     Live
                   </span>
                 </span>
               </span>
@@ -48,19 +61,27 @@ const track = [...sites, ...sites];
     </div>
   </div>
 
-  <!-- ink arcs (caps) that pinch the blue into a wide lens -->
-  <div class="cap-top"></div>
-  <div class="cap-bot"></div>
-
-  <!-- thin hairline arcs tracing the lens -->
-  <svg class="pointer-events-none absolute inset-0 z-20 h-full w-full" preserveAspectRatio="none" aria-hidden="true">
-    <ellipse cx="50%" cy="-8%" rx="74%" ry="46%" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1"></ellipse>
-    <ellipse cx="50%" cy="108%" rx="74%" ry="46%" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1"></ellipse>
+  <!-- Hairline ellipse tracing the lens edge -->
+  <svg
+    class="pointer-events-none absolute inset-0 z-20 h-full w-full"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <ellipse
+      cx="50%"
+      cy="57%"
+      rx="58%"
+      ry="7%"
+      fill="none"
+      stroke="rgba(255,255,255,0.14)"
+      stroke-width="1"></ellipse>
   </svg>
 
-  <!-- centre line + brand mark pivot -->
-  <div class="absolute left-1/2 top-0 z-20 h-full w-px -translate-x-1/2 bg-white/12"></div>
-  <div class="absolute left-1/2 top-1/2 z-40 flex h-[4.75rem] w-[4.75rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[1.25rem] bg-paper shadow-[0_12px_40px_-12px_rgba(11,12,16,0.7)]">
+  <!-- Centre line + brand mark pivot (at lens centre) -->
+  <div class="absolute left-1/2 top-0 z-20 h-full w-px -translate-x-1/2 bg-white/10"></div>
+  <div
+    class="pivot absolute left-1/2 z-40 flex h-[4.5rem] w-[4.5rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[1.2rem] bg-paper shadow-[0_12px_40px_-12px_rgba(11,12,16,0.75)]"
+  >
     <svg viewBox="0 0 60 64" class="h-9 w-auto" aria-hidden="true">
       <rect x="32" y="12" width="18" height="46" rx="6" fill="var(--color-blue)"></rect>
       <rect x="6" y="26" width="18" height="32" rx="6" fill="var(--color-ink)"></rect>
@@ -68,50 +89,79 @@ const track = [...sites, ...sites];
     </svg>
   </div>
 
-  <!-- CONTENT: headline lives in the top arc, tagline in the bottom arc -->
-  <div class="relative z-30 flex min-h-svh flex-col">
-    <div class="container-x flex flex-col items-center pt-16 text-center">
-      <div class="mb-4 inline-flex items-center gap-3 text-[0.78rem] sm:text-sm" data-reveal>
-        <svg class="kick-star h-4 w-4 text-blue-bright" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12 2c.5 5 5 9.5 10 10-5 .5-9.5 5-10 10-.5-5-5-9.5-10-10 5-.5 9.5-5 10-10Z" />
-        </svg>
-        <span class="uppercase tracking-[0.18em] text-paper/65">Now booking</span>
-        <span class="h-3.5 w-px bg-paper/25"></span>
-        <span class="uppercase tracking-[0.18em] text-blue-soft">2026 projects</span>
-      </div>
+  <!-- TOP ZONE: absolutely pinned above the pill, content justified to bottom so it sits just above the arc -->
+  <div
+    class="top-zone absolute inset-x-0 top-0 z-30 flex flex-col items-center justify-end px-4 pb-8 text-center"
+  >
+    <div
+      class="mb-3 inline-flex items-center gap-3 text-[0.78rem] sm:text-sm"
+      data-reveal
+    >
+      <svg
+        class="kick-star h-4 w-4 text-blue-bright"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          d="M12 2c.5 5 5 9.5 10 10-5 .5-9.5 5-10 10-.5-5-5-9.5-10-10 5-.5 9.5-5 10-10Z"
+        ></path>
+      </svg>
+      <span class="uppercase tracking-[0.18em] text-paper/65">Now booking</span>
+      <span class="h-3.5 w-px bg-paper/25"></span>
+      <span class="uppercase tracking-[0.18em] text-blue-soft">2026 projects</span>
+    </div>
 
-      <h1 class="text-[clamp(1.7rem,1.1rem+1.9vw,2.6rem)] font-light leading-[1.06]" data-reveal data-reveal-delay="80">
-        <span class="block">Your business deserves to be</span>
-        <span class="tw-slot">
-          <span class="tw-sizer" aria-hidden="true">{sizer}</span>
-          <span class="tw-anim text-blue-bright">
-            <span data-typewriter data-phrases={JSON.stringify(phrases)}>found online.</span
-            ><span class="tw-caret" aria-hidden="true"></span>
-          </span>
+    <h1
+      class="max-w-4xl text-[clamp(2rem,0.8rem+3vw,4.8rem)] font-light leading-[1.05] tracking-tight"
+      data-reveal
+      data-reveal-delay="80"
+    >
+      <span class="block">Your business deserves to be</span>
+      <span class="tw-slot">
+        <span class="tw-sizer" aria-hidden="true">{sizer}</span>
+        <span class="tw-anim text-blue-bright">
+          <span data-typewriter data-phrases={JSON.stringify(phrases)}>found online.</span
+          ><span class="tw-caret" aria-hidden="true"></span>
         </span>
-      </h1>
+      </span>
+    </h1>
 
-      <p class="mt-4 max-w-lg text-base text-paper/70" data-reveal data-reveal-delay="160">
-        Custom websites for Canadian businesses — built fast, built to convert.
-      </p>
+    <p
+      class="mt-3 max-w-md text-base leading-relaxed text-paper/70"
+      data-reveal
+      data-reveal-delay="160"
+    >
+      Custom websites for Canadian businesses — built fast, built to convert.
+    </p>
 
-      <div class="mt-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-4" data-reveal data-reveal-delay="240">
-        <Button href="/contact" size="lg" variant="primary">Start a project</Button>
-        <a href="/pricing" class="text-sm font-medium text-paper/80 underline decoration-blue/40 decoration-1 underline-offset-[6px] transition-colors hover:text-white hover:decoration-blue-bright">
-          Not sure which plan?
-        </a>
-      </div>
+    <div
+      class="mt-5 flex flex-wrap items-center justify-center gap-x-7 gap-y-4"
+      data-reveal
+      data-reveal-delay="240"
+    >
+      <Button href="/contact" size="lg" variant="primary">Start a project</Button>
+      <a
+        href="/pricing"
+        class="text-sm font-medium text-paper/80 underline decoration-blue/40 decoration-1 underline-offset-[6px] transition-colors hover:text-white hover:decoration-blue-bright"
+      >
+        Not sure which plan?
+      </a>
     </div>
+  </div>
 
-    <!-- spacer: the open blue lens shows through here -->
-    <div class="flex-1"></div>
-
-    <div class="container-x pb-16 text-center" data-reveal>
-      <p class="mx-auto max-w-xl text-lead font-light text-paper/90">
-        No templates. No hostage situations — just a website
-        <span class="text-blue-bright">that does the selling.</span>
-      </p>
-    </div>
+  <!-- BOTTOM ZONE: absolutely pinned below the pill -->
+  <div
+    class="bot-zone absolute inset-x-0 bottom-0 z-30 flex items-center justify-center px-4 pt-6 text-center"
+    data-reveal
+  >
+    <p
+      class="mx-auto max-w-2xl text-[clamp(1rem,0.4rem+1.5vw,1.35rem)] font-light leading-snug text-paper/90"
+    >
+      No templates. No hostage situations — just a website<span class="text-blue-bright">
+        that does the selling.</span
+      >
+    </p>
   </div>
 </section>
 
@@ -121,8 +171,38 @@ const track = [...sites, ...sites];
     color: var(--color-paper);
   }
 
-  /* Typed word sits in a fixed-size slot (reserved by an invisible sizer) so the
-     headline height NEVER changes as phrases cycle — no layout shift. */
+  /* ── Pill lens ── */
+  /* Positioned as absolute with percentage top/bottom so the height is
+     fully independent of page content. left/right overflow controls arc
+     curvature: less overflow = more dramatic visible curve. */
+  .lens {
+    position: absolute;
+    top: 50%;
+    bottom: 36%;
+    left: -8%;
+    right: -8%;
+    border-radius: 50%;
+    background: var(--color-blue);
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  /* Brand mark sits at the vertical centre of the pill (50% + 7% = 57%) */
+  .pivot {
+    top: 57%;
+  }
+
+  /* Top content zone: 50% of viewport, copy justified to bottom */
+  .top-zone {
+    height: 50%;
+  }
+
+  /* Bottom content zone: 36% of viewport from the bottom */
+  .bot-zone {
+    height: 36%;
+  }
+
+  /* ── Typewriter ── */
   .tw-slot {
     position: relative;
     display: inline-block;
@@ -137,7 +217,6 @@ const track = [...sites, ...sites];
     top: 0;
     white-space: nowrap;
   }
-
   .tw-caret {
     display: inline-block;
     width: 2px;
@@ -153,7 +232,6 @@ const track = [...sites, ...sites];
     }
   }
 
-  /* Slowly rotating sparkle in the kicker — a small crafted detail. */
   .kick-star {
     transform-origin: center;
     animation: kick-spin 7s linear infinite;
@@ -164,33 +242,22 @@ const track = [...sites, ...sites];
     }
   }
 
-  /* ---- The lens ---- */
-  /* Large ink arcs sweep in from top and bottom; their gentle ellipse curve
-     leaves a wide blue lens — tall at the edges, pinched at the centre. */
-  .cap-top,
-  .cap-bot {
-    position: absolute;
-    left: -12%;
-    width: 124%;
-    height: 30%;
-    background: var(--color-ink);
-    z-index: 10;
-  }
-  .cap-top {
-    top: -2px;
-    border-bottom-left-radius: 100% 100%;
-    border-bottom-right-radius: 100% 100%;
-  }
-  .cap-bot {
-    bottom: -2px;
-    border-top-left-radius: 100% 100%;
-    border-top-right-radius: 100% 100%;
-  }
-
-  /* Cards track: continuous drift left → right, faded at the horizontal edges. */
+  /* ── Cards track ── */
   .port-mask {
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 13%, #000 87%, transparent);
-    mask-image: linear-gradient(to right, transparent, #000 13%, #000 87%, transparent);
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 10%,
+      #000 90%,
+      transparent
+    );
   }
   .port-track {
     animation: port-slide 40s linear infinite;
@@ -210,31 +277,31 @@ const track = [...sites, ...sites];
   .port-card {
     display: flex;
     align-items: center;
-    gap: 0.7rem;
-    width: 16rem;
+    gap: 0.65rem;
+    width: 15rem;
     flex: 0 0 auto;
-    padding: 0.85rem 1.05rem;
-    border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    padding: 0.75rem 0.95rem;
+    border-radius: 0.85rem;
+    background: rgba(255, 255, 255, 0.11);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
     backdrop-filter: blur(4px);
   }
   .port-win {
     display: inline-flex;
     gap: 3px;
     align-items: center;
-    height: 2.2rem;
-    width: 2.2rem;
+    height: 2rem;
+    width: 2rem;
     justify-content: center;
-    border-radius: 0.6rem;
-    background: rgba(255, 255, 255, 0.18);
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.16);
     flex: 0 0 auto;
   }
   .port-win span {
     height: 4px;
     width: 4px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.7);
   }
 
   @media (prefers-reduced-motion: reduce) {
