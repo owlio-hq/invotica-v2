@@ -18,11 +18,19 @@ const stats = [
     aria-hidden="true"
   ></div>
 
-  <!-- faint grid texture -->
-  <div class="grid-faint pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
+  <!-- faint grid texture (drifts on scroll for subtle depth) -->
+  <div
+    class="grid-faint pointer-events-none absolute inset-0 z-0"
+    data-fx="parallax"
+    data-fx-speed="0.15"
+    aria-hidden="true"
+  ></div>
 
-  <!-- content: vertically centred with nav offset -->
-  <div class="container-x relative z-10 flex flex-1 flex-col items-center justify-center pb-16 pt-32 text-center">
+  <!-- content: vertically centred with nav offset; recedes as you scroll past -->
+  <div
+    data-fx="hero"
+    class="container-x relative z-10 flex flex-1 flex-col items-center justify-center pb-16 pt-32 text-center"
+  >
     <!-- kicker -->
     <div class="mb-6 inline-flex items-center gap-3 text-[0.78rem] sm:text-sm" data-reveal>
       <svg
