@@ -3,113 +3,108 @@ import { site, nav } from "@/data/site";
 const year = new Date().getFullYear();
 ---
 
-<footer class="relative mt-[var(--spacing-section)] overflow-hidden bg-forest text-cream">
-  <!-- top CTA strip -->
-  <div class="container-x border-b border-cream/12 py-16 sm:py-20">
-    <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-      <div data-reveal>
-        <p class="eyebrow !text-terracotta-100">Ready when you are</p>
-        <h2 class="mt-4 max-w-xl text-cream text-[clamp(2rem,4.5vw,3.25rem)]">
-          Let's build something your clients will trust.
-        </h2>
+<!-- Dark footer that tucks under the page with a big curved top (the .panel
+     move). Editorial: brand + address left, link columns right, giant wordmark,
+     thin bottom bar. -->
+<footer class="panel on-ink relative overflow-hidden">
+  <div class="grid-faint pointer-events-none absolute inset-0 opacity-60" aria-hidden="true"></div>
+
+  <div class="container-x relative">
+    <!-- top: brand/address + columns -->
+    <div class="grid gap-12 pt-20 sm:pt-24 lg:grid-cols-12 lg:gap-8">
+      <div class="lg:col-span-5">
+        <div class="flex items-center gap-2.5">
+          <svg viewBox="0 0 60 64" class="h-7 w-auto" aria-hidden="true">
+            <rect x="32" y="12" width="18" height="46" rx="6" fill="var(--color-blue)"></rect>
+            <rect x="6" y="26" width="18" height="32" rx="6" fill="#ffffff"></rect>
+            <circle cx="15" cy="11" r="9" fill="var(--color-blue-bright)"></circle>
+          </svg>
+          <span class="font-display text-[1.35rem] font-medium tracking-tight text-paper">invotica</span>
+        </div>
+        <p class="mt-5 max-w-sm text-lead font-light leading-relaxed text-paper/70">
+          Custom websites for Canadian businesses — designed to be found, built to convert,
+          and yours to keep.
+        </p>
+        <a
+          href={`mailto:${site.email}`}
+          class="mt-7 inline-flex items-center gap-2 text-paper underline decoration-blue/40 decoration-1 underline-offset-[6px] transition-colors hover:text-white hover:decoration-blue-bright"
+        >
+          {site.email}
+        </a>
       </div>
-      <a
-        href="/contact"
-        class="inline-flex w-fit items-center gap-3 rounded-full bg-terracotta px-8 py-4 text-base font-medium text-cream transition-all duration-300 hover:-translate-y-0.5 hover:bg-terracotta-600"
-        data-reveal
-      >
-        Start a project <span aria-hidden="true">→</span>
-      </a>
-    </div>
-  </div>
 
-  <!-- link columns -->
-  <div class="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
-    <div class="flex flex-col gap-4">
-      <div class="flex items-center gap-2.5">
-        <svg viewBox="0 0 60 64" class="h-7 w-auto" aria-hidden="true">
-          <rect x="32" y="12" width="18" height="46" rx="6" fill="#b9c2ff"></rect>
-          <rect x="6" y="26" width="18" height="32" rx="6" fill="#ffffff"></rect>
-          <circle cx="15" cy="11" r="9" fill="#ffffff"></circle>
-        </svg>
-        <span class="font-display text-[1.35rem] font-medium tracking-tight text-cream">
-          invotica
-        </span>
-      </div>
-      <p class="max-w-xs text-sm leading-relaxed text-cream/60">
-        {site.tagline}
-      </p>
-    </div>
-
-    <div>
-      <h3 class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-sage-300">
-        Pages
-      </h3>
-      <ul class="mt-4 flex flex-col gap-2.5 text-sm">
-        {
-          nav.map((item) => (
-            <li>
-              <a class="text-cream/75 transition-colors hover:text-terracotta" href={item.href}>
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-
-    <div>
-      <h3 class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-sage-300">
-        Contact
-      </h3>
-      <ul class="mt-4 flex flex-col gap-2.5 text-sm">
-        <li>
-          <a class="text-cream/75 transition-colors hover:text-terracotta" href={`mailto:${site.email}`}>
-            {site.email}
-          </a>
-        </li>
-        <li class="text-cream/75">{site.phone}</li>
-        <li class="text-cream/55">{site.location}</li>
-      </ul>
-    </div>
-
-    {
-      site.social.length > 0 && (
+      <div class="grid grid-cols-2 gap-8 lg:col-span-7 lg:grid-cols-3">
         <div>
-          <h3 class="font-sans text-xs font-semibold uppercase tracking-[0.18em] text-sage-300">
-            Social
-          </h3>
-          <ul class="mt-4 flex flex-col gap-2.5 text-sm">
-            {site.social.map((s) => (
-              <li>
-                <a class="text-cream/75 transition-colors hover:text-terracotta" href={s.href}>
-                  {s.label}
-                </a>
-              </li>
-            ))}
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-soft">Pages</h3>
+          <ul class="mt-5 flex flex-col gap-3 text-sm">
+            {
+              nav.map((item) => (
+                <li>
+                  <a class="text-paper/70 transition-colors hover:text-white" href={item.href}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
           </ul>
         </div>
-      )
-    }
-  </div>
 
-  <!-- giant wordmark -->
-  <div class="container-x pb-8 pt-4">
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-soft">Contact</h3>
+          <ul class="mt-5 flex flex-col gap-3 text-sm">
+            <li><span class="text-paper/70">{site.phone}</span></li>
+            <li><span class="text-paper/55">{site.location}</span></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-soft">
+            {site.social.length > 0 ? "Social" : "Start here"}
+          </h3>
+          <ul class="mt-5 flex flex-col gap-3 text-sm">
+            {
+              site.social.length > 0 ? (
+                site.social.map((s) => (
+                  <li>
+                    <a class="text-paper/70 transition-colors hover:text-white" href={s.href}>
+                      {s.label}
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <>
+                  <li>
+                    <a class="text-paper/70 transition-colors hover:text-white" href="/contact">
+                      Start a project
+                    </a>
+                  </li>
+                  <li>
+                    <a class="text-paper/70 transition-colors hover:text-white" href="/pricing">
+                      See pricing
+                    </a>
+                  </li>
+                </>
+              )
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- giant wordmark -->
     <div
       aria-hidden="true"
-      class="select-none font-display font-medium leading-none tracking-tight text-cream/[0.07] text-[clamp(4rem,22vw,18rem)]"
+      class="mt-16 select-none font-display font-medium leading-[0.8] tracking-tight text-paper/[0.06] text-[clamp(4.5rem,22vw,17rem)]"
     >
       invotica
     </div>
-  </div>
 
-  <!-- bottom bar -->
-  <div class="border-t border-cream/12">
+    <!-- bottom bar -->
     <div
-      class="container-x flex flex-col gap-2 py-6 text-xs text-cream/50 sm:flex-row sm:items-center sm:justify-between"
+      class="flex flex-col gap-2 border-t border-white/10 py-6 text-xs text-paper/45 sm:flex-row sm:items-center sm:justify-between"
     >
       <p>© {year} {site.name}. All rights reserved.</p>
-      <p>Custom websites for Canadian businesses · Built to convert.</p>
+      <p>Built to convert · Canada-wide</p>
     </div>
   </div>
 </footer>

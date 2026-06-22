@@ -1,25 +1,62 @@
 ---
-import Button from "@/components/ui/Button.astro";
 interface Props {
   title?: string;
   body?: string;
+  note?: string;
 }
 const {
-  title = "Ready to get online?",
-  body = "Let's build something your clients will trust.",
+  title = "One more step to a website that works as hard as you do.",
+  body,
+  note = "Only a few 2026 build slots remain — let's claim yours.",
 } = Astro.props;
 ---
 
 <section class="section-y container-x">
   <div
-    class="relative overflow-hidden rounded-[2rem] bg-paper-200 px-8 py-16 text-center text-ink ring-1 ring-paper-300 sm:px-12 sm:py-20"
+    class="cta-block relative overflow-hidden rounded-[var(--radius-panel)] bg-blue px-7 py-12 text-white sm:px-12 sm:py-16 lg:px-16"
     data-reveal
   >
-    <h2 class="mx-auto max-w-2xl text-ink text-[clamp(2rem,5vw,3.5rem)]">{title}</h2>
-    <p class="mx-auto mt-5 max-w-md text-lead text-ink-soft">{body}</p>
-    <div class="mt-9 flex flex-wrap justify-center gap-4">
-      <Button href="/contact" size="lg" variant="primary">Start a project</Button>
-      <Button href="/contact" size="lg" variant="ghost">Talk to us</Button>
+    <!-- soft light bloom, top-right -->
+    <div
+      class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-white/15 blur-3xl"
+      aria-hidden="true"
+    >
+    </div>
+
+    <h2 class="relative max-w-3xl text-[clamp(2rem,1rem+3.4vw,3.75rem)] font-light leading-[1.04] text-white">
+      {title}
+    </h2>
+    {body && <p class="relative mt-5 max-w-xl text-lead text-white/80">{body}</p>}
+
+    <!-- divider row: scarcity note (left) + actions (right) -->
+    <div
+      class="relative mt-10 flex flex-col gap-6 border-t border-white/20 pt-8 md:flex-row md:items-center md:justify-between"
+    >
+      <div class="flex items-center gap-3">
+        <span class="flex -space-x-2.5" aria-hidden="true">
+          <span class="h-8 w-8 rounded-full bg-white/85 ring-2 ring-blue"></span>
+          <span class="h-8 w-8 rounded-full bg-blue-soft ring-2 ring-blue"></span>
+          <span class="h-8 w-8 rounded-full bg-ink ring-2 ring-blue"></span>
+        </span>
+        <span class="text-[0.8rem] uppercase tracking-[0.14em] text-white/80">{note}</span>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <a
+          href="/pricing"
+          class="group inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-sm font-medium text-white transition-transform duration-300 hover:-translate-y-0.5"
+        >
+          Choose a plan
+          <span class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true">↗</span>
+        </a>
+        <a
+          href="/contact"
+          class="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-medium text-ink transition-transform duration-300 hover:-translate-y-0.5"
+        >
+          Book a call
+          <span class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true">↗</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>

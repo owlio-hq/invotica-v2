@@ -1,39 +1,52 @@
 /**
- * Full-screen menu overlay controller. Handles open/close, focus trapping,
- * body scroll lock, Escape to close, and ARIA state. Animation is CSS-driven
- * (see MenuOverlay.astro) — this just toggles [data-open].
+ * Compact menu dropdown controller. Toggles [data-open] on the panel + backdrop,
+ * closes on link click, outside click, and Escape. Animation is CSS-driven
+ * (see MenuOverlay.astro). No scroll lock — it's a small anchored card.
  */
 export function initMenu(): void {
-  const overlay = document.querySelector<HTMLElement>("[data-menu]");
+  const panel = document.querySelector<HTMLElement>("[data-menu]");
+  const backdrop = document.querySelector<HTMLElement>("[data-menu-backdrop]");
   const openBtn = document.querySelector<HTMLButtonElement>("[data-menu-open]");
   const closeBtn = document.querySelector<HTMLButtonElement>("[data-menu-close]");
-  if (!overlay || !openBtn) return;
+  if (!panel || !openBtn) return;
 
   let lastFocused: HTMLElement | null = null;
 
+  const isOpen = () => panel.dataset.open === "true";
+
   const setOpen = (open: boolean) => {
-    overlay.dataset.open = String(open);
-    overlay.setAttribute("aria-hidden", String(!open));
+    panel.dataset.open = String(open);
+    backdrop?.setAttribute("data-open", String(open));
+    panel.setAttribute("aria-hidden", String(!open));
     openBtn.setAttribute("aria-expanded", String(open));
-    document.documentElement.style.overflow = open ? "hidden" : "";
     if (open) {
       lastFocused = document.activeElement as HTMLElement;
-      // focus first link for keyboard users
-      overlay.querySelector<HTMLElement>("a, button")?.focus();
+      panel.querySelector<HTMLElement>("a, button")?.focus();
     } else {
       lastFocused?.focus();
     }
   };
 
-  openBtn.addEventListener("click", () => setOpen(true));
+  openBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setOpen(!isOpen());
+  });
   closeBtn?.addEventListener("click", () => setOpen(false));
+  backdrop?.addEventListener("click", () => setOpen(false));
 
   // Close when a nav link is clicked.
-  overlay.querySelectorAll("a").forEach((a) =>
+  panel.querySelectorAll("a").forEach((a) =>
     a.addEventListener("click", () => setOpen(false)),
   );
 
+  // Close on outside click (anything not inside the panel or the trigger).
+  document.addEventListener("click", (e) => {
+    if (!isOpen()) return;
+    const target = e.target as Node;
+    if (!panel.contains(target) && !openBtn.contains(target)) setOpen(false);
+  });
+
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && overlay.dataset.open === "true") setOpen(false);
+    if (e.key === "Escape" && isOpen()) setOpen(false);
   });
 }
