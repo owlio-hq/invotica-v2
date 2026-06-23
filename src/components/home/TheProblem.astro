@@ -21,10 +21,14 @@ import Kicker from "@/components/ui/Kicker.astro";
       />
     </div>
 
-    <div class="lg:col-span-7" data-fx="stagger">
+    <div class="lg:col-span-7">
       {
         problems.map((p, i) => (
-          <article class="group flex gap-6 border-t border-paper-300 py-8 first:border-t-0 sm:gap-8 sm:py-9 lg:first:border-t lg:first:pt-9">
+          <article
+            data-reveal
+            data-reveal-delay={i * 90}
+            class="group flex gap-6 border-t border-paper-300 py-8 first:border-t-0 sm:gap-8 sm:py-9 lg:first:border-t lg:first:pt-9"
+          >
             <span class="font-display text-5xl font-medium leading-none text-ink/12 tabular-nums sm:text-6xl">
               0{i + 1}
             </span>

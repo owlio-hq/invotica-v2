@@ -24,12 +24,12 @@ function parse(stat: string) {
     </div>
 
     <!-- main stats -->
-    <div class="mt-16 grid gap-10 md:grid-cols-2" data-fx="stagger">
+    <div class="mt-16 grid gap-10 md:grid-cols-2">
       {
-        numbers.main.map((n) => {
+        numbers.main.map((n, i) => {
           const p = parse(n.stat);
           return (
-            <div class="border-t border-white/20 pt-8">
+            <div class="border-t border-white/20 pt-8" data-reveal data-reveal-delay={i * 110}>
               <div class="font-display text-[clamp(3.5rem,9vw,6.5rem)] font-semibold leading-none text-white">
                 {p.animate ? (
                   <span data-count={p.value} data-suffix={p.suffix}>
@@ -47,12 +47,12 @@ function parse(stat: string) {
     </div>
 
     <!-- supporting stats -->
-    <div class="mt-14 grid gap-6 border-t border-white/20 pt-10 sm:grid-cols-3" data-fx="stagger">
+    <div class="mt-14 grid gap-6 border-t border-white/20 pt-10 sm:grid-cols-3">
       {
-        numbers.supporting.map((n) => {
+        numbers.supporting.map((n, i) => {
           const p = parse(n.stat);
           return (
-            <div>
+            <div data-reveal data-reveal-delay={i * 90}>
               <div class="font-display text-4xl font-semibold text-lime">
                 {p.animate ? (
                   <span data-count={p.value} data-suffix={p.suffix}>
