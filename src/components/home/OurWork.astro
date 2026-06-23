@@ -1,15 +1,14 @@
 ---
-import SectionLabel from "@/components/ui/SectionLabel.astro";
 import Button from "@/components/ui/Button.astro";
 import WorkShowcase, { type WorkItem } from "@/components/skiper/WorkShowcase.tsx";
 
-// Placeholder concepts (no real portfolio images yet). Brand-coloured cards.
+// Placeholder concepts (no real portfolio images yet). On-brand blue/ink cards.
 const items: WorkItem[] = [
-  { title: "Northwind Renovations", category: "Trades", from: "#214239", to: "#4b6460" },
-  { title: "Harbour Law Group", category: "Legal", from: "#2c5648", to: "#16302a" },
-  { title: "Maple Dental Studio", category: "Healthcare", from: "#c35f3b", to: "#ad4f2e" },
-  { title: "Aster Consulting", category: "Consulting", from: "#4b6460", to: "#214239" },
-  { title: "Riverside Café", category: "Hospitality", from: "#214239", to: "#c35f3b" },
+  { title: "Northwind Renovations", category: "Trades", from: "#4f67f2", to: "#2a3ad0" },
+  { title: "Harbour Law Group", category: "Legal", from: "#2a3ad0", to: "#11163f" },
+  { title: "Maple Dental Studio", category: "Healthcare", from: "#6c84ff", to: "#4f67f2" },
+  { title: "Aster Consulting", category: "Consulting", from: "#1d2027", to: "#2a3ad0" },
+  { title: "Riverside Café", category: "Hospitality", from: "#4f67f2", to: "#0b0c10" },
 ];
 ---
 
@@ -17,9 +16,11 @@ const items: WorkItem[] = [
   <div class="container-x">
     <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
       <div>
-        <SectionLabel text="Our Work" />
-        <h2 class="mt-5 max-w-md text-h2">Work we're proud of</h2>
-        <p class="mt-4 max-w-lg text-ink-soft">
+        <span class="sticker -rotate-2">★ Our work</span>
+        <h2 class="mt-7 max-w-md text-[clamp(2.2rem,1rem+4vw,4rem)] font-light leading-[1.02] tracking-tight">
+          Work we're <span class="marker">proud of.</span>
+        </h2>
+        <p class="mt-5 max-w-lg text-ink-soft">
           We're putting together our portfolio. In the meantime, reach out and
           we'll show you exactly what we can build for your business.
         </p>
@@ -27,7 +28,7 @@ const items: WorkItem[] = [
       <Button href="/contact" variant="primary">Let's build yours</Button>
     </div>
 
-    <p class="mt-8 text-xs uppercase tracking-[0.16em] text-sage" data-reveal>
+    <p class="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-ink-soft" data-reveal>
       Drag to explore →
     </p>
   </div>

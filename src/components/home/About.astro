@@ -1,15 +1,16 @@
 ---
-import SectionLabel from "@/components/ui/SectionLabel.astro";
 import { about } from "@/data/site";
 ---
 
-<section class="section-y bg-cream-200/50" id="about">
+<section class="section-y bg-paper-200" id="about">
   <div class="container-x grid gap-12 lg:grid-cols-12">
     <div class="lg:col-span-4" data-reveal>
-      <SectionLabel text="Our Story" />
-      <h2 class="mt-5 text-h2">{about.headline}</h2>
+      <span class="sticker -rotate-2">★ Founder's note</span>
+      <h2 class="mt-7 text-[clamp(2rem,1rem+3vw,3.25rem)] font-light leading-[1.05] tracking-tight">
+        Why I started <span class="marker">Invotica.</span>
+      </h2>
       <!-- DUMMY founder signoff — replace with the real name/story. -->
-      <p class="mt-8 font-display text-lg italic text-forest">{about.signoff}</p>
+      <p class="mt-8 font-display text-lg italic text-blue">{about.signoff}</p>
     </div>
 
     <div class="lg:col-span-7 lg:col-start-6">

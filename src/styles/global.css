@@ -27,12 +27,17 @@
   --color-paper-200: #ebe8df; /* subtle panel */
   --color-paper-300: #dcd8cc; /* hairline borders */
 
-  /* ---- Brand blue (single bold accent) ---- */
+  /* ---- Brand blue (primary accent) ---- */
   --color-blue: #4f67f2; /* primary electric periwinkle */
   --color-blue-bright: #6c84ff; /* lift / hover */
   --color-blue-deep: #2a3ad0; /* depth / pressed */
   --color-blue-100: #e7eaff; /* tint surfaces */
   --color-blue-soft: #b9c2ff; /* muted on dark */
+
+  /* ---- Lime (secondary pop accent) — markers, stickers, highlights ---- */
+  --color-lime: #c4f135; /* acid lime */
+  --color-lime-bright: #d8ff5e; /* lift */
+  --color-lime-deep: #3f5400; /* readable lime-ish text on light */
 
   /* ---- Legacy aliases → remapped to v2 (deprecated names) ---- */
   --color-cream: #f5f3ec;
@@ -187,6 +192,32 @@
   .on-blue {
     background: var(--color-blue);
     color: #fff;
+  }
+
+  /* Highlighter marker — lime swipe behind a key word (bold agency energy). */
+  .marker {
+    background: var(--color-lime);
+    color: var(--color-ink);
+    padding: 0.02em 0.22em;
+    border-radius: 0.18em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* Sticker pill — small rotated lime tag, floats over content like a label. */
+  .sticker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--color-lime);
+    color: var(--color-ink);
+    font-weight: 600;
+    font-size: 0.78rem;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    box-shadow: 0 10px 24px -12px rgba(11, 12, 16, 0.5);
   }
 
   /* Section eyebrow label */

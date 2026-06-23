@@ -4,16 +4,16 @@ import { marquee } from "@/data/site";
 const items = [...marquee, ...marquee];
 ---
 
-<section class="overflow-hidden bg-forest py-5 text-cream" aria-label="Why Invotica">
+<section class="overflow-hidden bg-blue-deep py-5 text-paper" aria-label="Why Invotica">
   <div class="marquee flex w-max">
     {
       items.map((m, i) => (
         <div class="flex items-center" aria-hidden={i >= marquee.length ? "true" : "false"}>
           <div class="flex items-baseline gap-3 px-8">
-            <span class="font-display text-2xl font-medium text-cream sm:text-3xl">{m.big}</span>
-            <span class="text-sm text-cream/55">{m.small}</span>
+            <span class="font-display text-2xl font-medium text-paper sm:text-3xl">{m.big}</span>
+            <span class="text-sm text-paper/55">{m.small}</span>
           </div>
-          <span class="text-terracotta" aria-hidden="true">✦</span>
+          <span class="text-lime" aria-hidden="true">✦</span>
         </div>
       ))
     }
