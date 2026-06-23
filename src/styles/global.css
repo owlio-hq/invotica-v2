@@ -90,13 +90,6 @@
     scroll-behavior: auto !important;
   }
 
-  /* Scroll lock while the preloader is on screen. */
-  html.is-loading,
-  html.is-loading body {
-    overflow: hidden;
-    height: 100%;
-  }
-
   body {
     background-color: var(--color-paper);
     color: var(--color-ink);
@@ -223,56 +216,6 @@
       transparent 0
     );
     background-size: 38px 38px;
-  }
-}
-
-/* ----------------------------------------------------------------------------
-   Preloader — "stairs" reveal on first load (gated by sessionStorage)
-   -------------------------------------------------------------------------- */
-#preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: flex;
-  isolation: isolate;
-}
-#preloader .pl-col {
-  flex: 1 1 0;
-  background: var(--color-ink);
-  transform: translateY(0);
-}
-#preloader .pl-mark {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  z-index: 1;
-  opacity: 0;
-  transform: translateY(8px);
-}
-/* play-in: brand mark appears */
-#preloader.pl-in .pl-mark {
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.5s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
-}
-/* play-out: mark fades, columns climb away as staggered stairs */
-#preloader.pl-out .pl-mark {
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity 0.35s ease, transform 0.45s ease;
-}
-#preloader.pl-out .pl-col {
-  transform: translateY(-101%);
-  transition: transform 0.7s var(--ease-in-out-quint);
-}
-/* Skip for no-JS / reduced-motion users only. */
-.no-js #preloader {
-  display: none !important;
-}
-@media (prefers-reduced-motion: reduce) {
-  #preloader {
-    display: none !important;
   }
 }
 

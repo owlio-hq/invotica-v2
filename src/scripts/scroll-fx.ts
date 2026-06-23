@@ -106,21 +106,24 @@ export function initScrollFx(lenis: Lenis | null): void {
     );
   });
 
-  // Positions must be measured AFTER the preloader releases the scroll lock,
-  // otherwise the document is height-locked and every trigger collapses to ~0.
-  const refresh = () => ScrollTrigger.refresh();
-  const root = document.documentElement;
-  if (root.classList.contains("is-loading")) {
-    const mo = new MutationObserver(() => {
-      if (!root.classList.contains("is-loading")) {
-        mo.disconnect();
-        refresh();
-      }
+  // --- Phone showcase: the mini-site scrolls itself as the section passes ----
+  const track = document.querySelector<HTMLElement>("[data-phone-track]");
+  const screen = track?.parentElement;
+  if (track && screen) {
+    gsap.to(track, {
+      y: () => -Math.max(0, track.scrollHeight - screen.clientHeight),
+      ease: "none",
+      scrollTrigger: {
+        trigger: track.closest("section") ?? track,
+        start: "top 60%",
+        end: "bottom bottom",
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
     });
-    mo.observe(root, { attributes: true, attributeFilter: ["class"] });
-  } else {
-    requestAnimationFrame(refresh);
   }
-  // Belt-and-braces: also refresh once everything (fonts/images) has loaded.
-  window.addEventListener("load", refresh, { once: true });
+
+  // Recalculate once the first layout settles, and again once fonts/images load.
+  requestAnimationFrame(() => ScrollTrigger.refresh());
+  window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
 }
