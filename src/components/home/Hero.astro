@@ -1,144 +1,173 @@
 ---
-import Button from "@/components/ui/Button.astro";
-
 const phrases = ["found online.", "chosen first.", "trusted fast.", "unmissable."];
-const sizer  = "unmissable.";
+const sizer = "unmissable.";
 
 const stats = [
-  { value: "14",   label: "sites launched" },
+  { value: "14", label: "sites launched" },
   { value: "100%", label: "client retention" },
   { value: "2 wk", label: "avg. delivery" },
 ];
 ---
 
 <section class="hero relative isolate flex min-h-svh flex-col overflow-hidden">
-  <!-- subtle radial glow behind the headline -->
+  <!-- grid texture on the blue -->
+  <div class="hero-grid-bg pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
+  <!-- soft bloom -->
   <div
-    class="pointer-events-none absolute left-1/2 top-[38%] h-[520px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-blue/20 blur-[120px]"
+    class="pointer-events-none absolute left-1/2 top-1/3 h-[520px] w-[680px] -translate-x-1/2 rounded-[50%] bg-white/10 blur-[130px]"
     aria-hidden="true"
   ></div>
 
-  <!-- content: vertically centred with nav offset; recedes as you scroll past -->
+  <!-- floating frosted cards (desktop) -->
+  <div
+    data-fx="parallax"
+    data-fx-speed="0.12"
+    class="float-card absolute right-[6%] top-[24%] z-10 hidden w-56 -rotate-3 rounded-3xl bg-white/12 p-4 ring-1 ring-white/25 backdrop-blur-md lg:block"
+    aria-hidden="true"
+  >
+    <div class="flex items-center gap-3">
+      <span class="grid h-10 w-10 place-items-center rounded-xl bg-lime text-sm font-bold text-lime-deep">M</span>
+      <div class="min-w-0">
+        <p class="truncate text-sm font-semibold text-white">Maple & Co. Dental</p>
+        <p class="text-xs text-white/65">Clinic · Live</p>
+      </div>
+    </div>
+    <div class="mt-3 flex items-center justify-between rounded-xl bg-white/10 px-3 py-2">
+      <span class="text-xs text-white/70">Calls this month</span>
+      <span class="text-sm font-semibold text-lime">+38%</span>
+    </div>
+  </div>
+
+  <div
+    data-fx="parallax"
+    data-fx-speed="0.2"
+    class="float-card absolute left-[5%] top-[52%] z-10 hidden w-52 rotate-2 rounded-3xl bg-white/12 p-4 ring-1 ring-white/25 backdrop-blur-md lg:block"
+    aria-hidden="true"
+  >
+    <div class="flex items-center gap-3">
+      <span class="grid h-10 w-10 place-items-center rounded-xl bg-white text-sm font-bold text-blue">N</span>
+      <div class="min-w-0">
+        <p class="truncate text-sm font-semibold text-white">Northside Café</p>
+        <p class="text-xs text-white/65">Hospitality · Live</p>
+      </div>
+    </div>
+    <div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
+      <div class="h-full w-3/4 rounded-full bg-lime"></div>
+    </div>
+  </div>
+
+  <!-- rotating lime badge (desktop) -->
+  <div
+    class="badge-spin absolute bottom-[12%] right-[9%] z-10 hidden h-28 w-28 place-items-center rounded-full bg-lime text-lime-deep lg:grid"
+    aria-hidden="true"
+  >
+    <svg viewBox="0 0 100 100" class="absolute inset-0 h-full w-full">
+      <defs>
+        <path id="heroBadgeArc" d="M50,50 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0"></path>
+      </defs>
+      <text class="fill-lime-deep text-[10px] font-bold uppercase tracking-[0.16em]">
+        <textPath href="#heroBadgeArc" startOffset="0">free quote · get started · free quote ·</textPath>
+      </text>
+    </svg>
+    <span class="text-2xl font-bold">↗</span>
+  </div>
+
+  <!-- content -->
   <div
     data-fx="hero"
-    class="container-x relative z-10 flex flex-1 flex-col items-center justify-center pb-16 pt-32 text-center"
+    class="container-x relative z-20 flex flex-1 flex-col items-center justify-center pb-14 pt-32 text-center"
   >
-    <!-- kicker -->
-    <div class="mb-6 inline-flex items-center gap-3 text-[0.78rem] sm:text-sm" data-reveal>
-      <svg
-        class="kick-star h-4 w-4 text-lime"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        aria-hidden="true"
-      >
+    <div class="mb-7 inline-flex items-center gap-3 text-sm" data-reveal>
+      <svg class="kick-star h-4 w-4 text-lime" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M12 2c.5 5 5 9.5 10 10-5 .5-9.5 5-10 10-.5-5-5-9.5-10-10 5-.5 9.5-5 10-10Z" />
       </svg>
-      <span class="uppercase tracking-[0.18em] text-paper/55">Now booking</span>
-      <span class="h-3.5 w-px bg-paper/20"></span>
-      <span class="uppercase tracking-[0.18em] text-blue-soft">2026 projects</span>
+      <span class="uppercase tracking-[0.2em] text-white/75">Now booking</span>
+      <span class="h-3.5 w-px bg-white/30"></span>
+      <span class="uppercase tracking-[0.2em] text-lime">2026 projects</span>
     </div>
 
-    <!-- headline -->
     <h1
-      class="max-w-5xl text-[clamp(2.8rem,1rem+5.5vw,7rem)] font-light leading-[1.03] tracking-tight"
+      class="max-w-5xl text-[clamp(2.9rem,1rem+6vw,7rem)] font-semibold leading-[0.98] tracking-[-0.02em] text-white"
       data-reveal
       data-reveal-delay="60"
     >
-      <span class="block text-paper">Your business deserves to be</span>
-      <!-- typewriter slot: invisible sizer prevents reflow -->
+      <span class="block">Your business</span>
+      <span class="block">deserves to be</span>
       <span class="tw-slot">
-        <span class="tw-sizer text-blue-bright" aria-hidden="true">{sizer}</span>
-        <span class="tw-anim text-blue-bright">
+        <span class="tw-sizer" aria-hidden="true">{sizer}</span>
+        <span class="tw-anim text-lime">
           <span data-typewriter data-phrases={JSON.stringify(phrases)}>found online.</span
           ><span class="tw-caret" aria-hidden="true"></span>
         </span>
+        <!-- squiggle underline under the rotating word -->
+        <svg class="tw-underline" viewBox="0 0 220 14" fill="none" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M4 9 Q 30 2, 58 8 T 114 8 T 170 8 T 216 7" stroke="var(--color-lime)" stroke-width="5" stroke-linecap="round" />
+        </svg>
       </span>
     </h1>
 
-    <!-- subtext -->
-    <p
-      class="mt-6 max-w-lg text-[1.05rem] leading-relaxed text-paper/60"
-      data-reveal
-      data-reveal-delay="120"
-    >
+    <p class="mt-6 max-w-lg text-[1.05rem] leading-relaxed text-white/75" data-reveal data-reveal-delay="120">
       Custom websites for Canadian businesses — built fast, built to convert.
     </p>
 
-    <!-- CTAs -->
-    <div
-      class="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4"
-      data-reveal
-      data-reveal-delay="180"
-    >
-      <Button href="/contact" size="lg" variant="primary">Start a project</Button>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-4" data-reveal data-reveal-delay="180">
+      <a
+        href="/contact"
+        class="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-ink transition-transform duration-300 hover:-translate-y-0.5"
+      >
+        Start a project
+        <span class="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">→</span>
+      </a>
       <a
         href="/pricing"
-        class="text-sm font-medium text-paper/70 underline decoration-blue/35 decoration-1 underline-offset-[6px] transition-colors hover:text-paper hover:decoration-blue-bright"
+        class="group inline-flex items-center gap-2 rounded-full bg-lime px-8 py-4 text-base font-semibold text-lime-deep transition-transform duration-300 hover:-translate-y-0.5"
       >
-        Not sure which plan?
+        See pricing
+        <span class="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">→</span>
       </a>
     </div>
 
     <!-- stat strip -->
-    <div
-      class="mt-12 flex items-stretch justify-center gap-1 sm:gap-px"
-      data-reveal
-      data-reveal-delay="260"
-    >
+    <div class="mt-12 flex items-stretch justify-center gap-1 sm:gap-px" data-reveal data-reveal-delay="260">
       {
         stats.map((s, i) => (
           <>
             <div class="stat-card">
-              <span class="block text-[clamp(1.6rem,3vw,2.4rem)] font-light tabular-nums text-paper">
-                {s.value}
-              </span>
-              <span class="mt-0.5 block text-[0.72rem] uppercase tracking-[0.14em] text-paper/45">
-                {s.label}
-              </span>
+              <span class="block text-[clamp(1.5rem,3vw,2.2rem)] font-semibold tabular-nums text-white">{s.value}</span>
+              <span class="mt-0.5 block text-[0.7rem] uppercase tracking-[0.14em] text-white/55">{s.label}</span>
             </div>
-            {i < stats.length - 1 && (
-              <div class="h-12 w-px self-center bg-paper/10" aria-hidden="true" />
-            )}
+            {i < stats.length - 1 && <div class="h-10 w-px self-center bg-white/20" aria-hidden="true" />}
           </>
         ))
       }
     </div>
-
-    <!-- subtle scroll cue -->
-    <a
-      href="#problem"
-      class="scroll-hint mx-auto mt-12 flex w-fit flex-col items-center gap-2 text-paper/40 transition-colors hover:text-paper/75"
-      aria-label="Scroll down"
-    >
-      <span class="text-[0.62rem] uppercase tracking-[0.22em]">Scroll</span>
-      <span class="scroll-mouse"><span class="scroll-dot"></span></span>
-    </a>
   </div>
 
-  <!-- bottom marquee strip -->
-  <div class="marquee-strip relative z-10 w-full overflow-hidden border-t border-paper/8 py-4">
-    <div class="marquee-track inline-flex w-max gap-10 whitespace-nowrap">
-      {
-        Array(3).fill([
-          "Web Design", "Branding", "SEO", "Copywriting",
-          "E-Commerce", "Landing Pages", "Maintenance",
-        ]).flat().map((t) => (
-          <span class="text-[0.7rem] uppercase tracking-[0.22em] text-paper/30">
-            {t} <span class="mx-4 text-paper/15" aria-hidden="true">·</span>
-          </span>
-        ))
-      }
-    </div>
-  </div>
+  <!-- scroll cue -->
+  <a
+    href="#problem"
+    class="scroll-hint absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-2 text-white/55 transition-colors hover:text-white"
+    aria-label="Scroll down"
+  >
+    <span class="scroll-mouse"><span class="scroll-dot"></span></span>
+  </a>
 </section>
 
 <style>
   .hero {
-    background: var(--color-ink);
-    color: var(--color-paper);
+    background: var(--color-blue);
+    color: #fff;
+  }
+  .hero-grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 55%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 55%, transparent 100%);
   }
 
-  /* Typewriter slot — invisible sizer freezes the line width */
+  /* Typewriter slot */
   .tw-slot {
     position: relative;
     display: inline-block;
@@ -153,12 +182,20 @@ const stats = [
     top: 0;
     white-space: nowrap;
   }
+  .tw-underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.18em;
+    width: 100%;
+    height: 0.32em;
+  }
   .tw-caret {
     display: inline-block;
-    width: 2px;
-    height: 0.88em;
-    margin-left: 2px;
-    translate: 0 0.1em;
+    width: 3px;
+    height: 0.86em;
+    margin-left: 3px;
+    translate: 0 0.08em;
     background: currentColor;
     animation: blink 1s steps(2, start) infinite;
   }
@@ -174,27 +211,35 @@ const stats = [
     to { transform: rotate(360deg); }
   }
 
-  /* Stat cards */
+  .badge-spin {
+    animation: badge-spin 16s linear infinite;
+  }
+  @keyframes badge-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .float-card {
+    animation: float-bob 7s ease-in-out infinite;
+  }
+  .float-card:last-of-type {
+    animation-duration: 9s;
+    animation-direction: reverse;
+  }
+  @keyframes float-bob {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -12px; }
+  }
+
   .stat-card {
     padding: 0.5rem 1rem;
     text-align: center;
   }
   @media (min-width: 640px) {
     .stat-card {
-      padding: 1.1rem 2.4rem;
+      padding: 0.6rem 2rem;
     }
   }
 
-  /* Marquee */
-  .marquee-track {
-    animation: marquee 28s linear infinite;
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-33.333%); }
-  }
-
-  /* Scroll cue mouse */
   .scroll-mouse {
     position: relative;
     display: block;
@@ -202,7 +247,7 @@ const stats = [
     height: 34px;
     border: 1.5px solid currentColor;
     border-radius: 11px;
-    opacity: 0.7;
+    opacity: 0.8;
   }
   .scroll-dot {
     position: absolute;
@@ -225,7 +270,8 @@ const stats = [
   @media (prefers-reduced-motion: reduce) {
     .tw-caret,
     .kick-star,
-    .marquee-track,
+    .badge-spin,
+    .float-card,
     .scroll-dot {
       animation: none;
     }

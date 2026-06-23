@@ -1,12 +1,13 @@
 ---
 import { about } from "@/data/site";
+import Kicker from "@/components/ui/Kicker.astro";
 ---
 
 <section class="section-y bg-paper-200" id="about">
   <div class="container-x grid gap-12 lg:grid-cols-12">
     <div class="lg:col-span-4" data-reveal>
-      <span class="sticker -rotate-2">★ Founder's note</span>
-      <h2 class="mt-7 text-[clamp(2rem,1rem+3vw,3.25rem)] font-light leading-[1.05] tracking-tight">
+      <Kicker text="Founder's note" />
+      <h2 class="mt-6 text-[clamp(2rem,1rem+3vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.02em]">
         Why I started <span class="marker">Invotica.</span>
       </h2>
       <!-- DUMMY founder signoff — replace with the real name/story. -->

@@ -1,13 +1,14 @@
 ---
 import { problems } from "@/data/site";
 import SquiggleArrow from "@/components/ui/SquiggleArrow.astro";
+import Kicker from "@/components/ui/Kicker.astro";
 ---
 
 <section class="section-y container-x" id="problem">
   <div class="grid gap-12 lg:grid-cols-12">
     <div class="lg:col-span-5" data-reveal>
-      <span class="sticker -rotate-2">★ The problem</span>
-      <h2 class="mt-7 text-[clamp(2.2rem,1rem+4vw,4rem)] font-light leading-[1.02] tracking-tight">
+      <Kicker text="The problem" />
+      <h2 class="mt-6 text-[clamp(2.2rem,1rem+4vw,4rem)] font-semibold leading-[1.02] tracking-[-0.02em]">
         Every day without a website is a client you
         <span class="marker">didn't know you lost.</span>
       </h2>
@@ -15,7 +16,8 @@ import SquiggleArrow from "@/components/ui/SquiggleArrow.astro";
       <SquiggleArrow
         variant="bouncy"
         direction="right"
-        class="mt-8 hidden h-20 w-32 rotate-[18deg] text-blue lg:block"
+        strokeWidth={5}
+        class="mt-8 hidden h-24 w-40 rotate-[18deg] text-blue lg:block"
       />
     </div>
 

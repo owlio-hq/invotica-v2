@@ -17,40 +17,40 @@
 @import "@fontsource-variable/geist";
 
 @theme {
-  /* ---- Neutrals ---- */
-  --color-ink: #0b0c10; /* near-black canvas / text */
-  --color-ink-800: #14161d; /* raised panel on dark */
-  --color-ink-700: #1d2027; /* hairline / card on dark */
-  --color-ink-soft: #565b66; /* secondary text on light */
+  /* ---- Neutrals ---- (45% white canvas, 15% true black) */
+  --color-ink: #0a0a0a; /* true near-black — used sparingly */
+  --color-ink-800: #161616; /* raised panel on dark */
+  --color-ink-700: #232323; /* hairline / card on dark */
+  --color-ink-soft: #54585f; /* secondary text on light */
 
-  --color-paper: #f4f6fb; /* cool near-white canvas */
-  --color-paper-200: #e9ecf6; /* subtle panel */
-  --color-paper-300: #d6dbec; /* hairline borders */
+  --color-paper: #ffffff; /* white — the dominant canvas */
+  --color-paper-200: #f1f4f9; /* subtle light-grey panel */
+  --color-paper-300: #dfe4ee; /* hairline borders */
 
-  /* ---- Brand blue (primary accent — vivid cobalt, à la Base Club) ---- */
-  --color-blue: #2a45e6; /* vivid cobalt */
-  --color-blue-bright: #4f69ff; /* lift / hover */
-  --color-blue-deep: #16249c; /* depth / pressed */
-  --color-blue-100: #e4e8ff; /* tint surfaces */
-  --color-blue-soft: #aeb9ff; /* muted on dark */
+  /* ---- Brand blue (35% mass — bright royal blue, Base Club) ---- */
+  --color-blue: #0039c7; /* bright royal blue */
+  --color-blue-bright: #2f5bff; /* lift / links on dark */
+  --color-blue-deep: #002a93; /* depth / pressed */
+  --color-blue-100: #e1e8ff; /* tint surfaces */
+  --color-blue-soft: #a9bcff; /* muted on dark */
 
-  /* ---- Lime (secondary pop accent) — pairs with cobalt à la Base Club ---- */
-  --color-lime: #c8f23a; /* acid lime */
-  --color-lime-bright: #d9ff5e; /* lift */
-  --color-lime-deep: #41560a; /* readable lime-ish text on light */
+  /* ---- Lime (5% accent) — the pop ---- */
+  --color-lime: #affe08; /* acid lime */
+  --color-lime-bright: #c4ff45; /* lift */
+  --color-lime-deep: #1a2a0d; /* deep green — text on lime */
 
   /* ---- Legacy aliases → remapped to current palette (deprecated names) ---- */
-  --color-cream: #f4f6fb;
-  --color-cream-200: #e9ecf6;
-  --color-cream-300: #d6dbec;
-  --color-forest: #16249c;
-  --color-forest-600: #2a45e6;
-  --color-forest-900: #101b78;
-  --color-sage: #5b6a86;
+  --color-cream: #ffffff;
+  --color-cream-200: #f1f4f9;
+  --color-cream-300: #dfe4ee;
+  --color-forest: #002a93;
+  --color-forest-600: #0039c7;
+  --color-forest-900: #001f6e;
+  --color-sage: #54585f;
   --color-sage-300: #9aa6c4;
-  --color-terracotta: #2a45e6;
-  --color-terracotta-600: #16249c;
-  --color-terracotta-100: #e4e8ff;
+  --color-terracotta: #0039c7;
+  --color-terracotta-600: #002a93;
+  --color-terracotta-100: #e1e8ff;
 
   /* ---- Typography ---- */
   --font-display: "Geist Variable", ui-sans-serif, system-ui, sans-serif;

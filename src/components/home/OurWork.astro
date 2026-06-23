@@ -1,5 +1,6 @@
 ---
 import Button from "@/components/ui/Button.astro";
+import Kicker from "@/components/ui/Kicker.astro";
 
 // Placeholder concepts (no real portfolio yet) — on-brand cobalt/ink gradients.
 const items = [
@@ -14,8 +15,8 @@ const items = [
 <section class="section-y container-x" id="work">
   <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
     <div>
-      <span class="sticker -rotate-2">★ Our work</span>
-      <h2 class="mt-7 max-w-md text-[clamp(2.2rem,1rem+4vw,4rem)] font-light leading-[1.02] tracking-tight">
+      <Kicker text="Our work" />
+      <h2 class="mt-6 max-w-md text-[clamp(2.2rem,1rem+4vw,4rem)] font-semibold leading-[1.02] tracking-[-0.02em]">
         Work we're <span class="marker">proud of.</span>
       </h2>
       <p class="mt-5 max-w-lg text-ink-soft">
@@ -72,7 +73,7 @@ const items = [
       href="/contact"
       class="group flex flex-col justify-between rounded-3xl bg-paper-200 p-6 ring-1 ring-paper-300 transition-colors duration-300 hover:bg-blue-100"
     >
-      <span class="sticker w-fit -rotate-3">★ Open slot</span>
+      <span class="text-xs font-semibold uppercase tracking-[0.2em] text-blue">Open slot</span>
       <span class="font-display text-xl font-medium leading-tight text-ink">
         Your project here
         <span class="mt-2 block text-sm font-normal text-ink-soft">
