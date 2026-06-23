@@ -17,6 +17,8 @@ interface CrowdCanvasProps {
   rows?: number;
   cols?: number;
   className?: string;
+  /** Base size multiplier for each peep (further reduced on small screens). */
+  scale?: number;
 }
 
 type Peep = {
@@ -38,6 +40,7 @@ export const CrowdCanvas = ({
   rows = 15,
   cols = 7,
   className = "absolute inset-0 h-full w-full",
+  scale = 1,
 }: CrowdCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -48,6 +51,14 @@ export const CrowdCanvas = ({
     if (!ctx) return;
 
     const config = { src, rows, cols };
+
+    // Peeps shrink further on narrow viewports so the crowd never overwhelms.
+    const computeScale = () => {
+      const w = window.innerWidth;
+      const factor = w < 640 ? 0.62 : w < 1024 ? 0.8 : 1;
+      return scale * factor;
+    };
+    let currentScale = computeScale();
 
     // utils
     const randomRange = (min: number, max: number) => min + Math.random() * (max - min);
@@ -111,8 +122,8 @@ export const CrowdCanvas = ({
         walk: null,
         setRect: (rect: number[]) => {
           peep.rect = rect;
-          peep.width = rect[2];
-          peep.height = rect[3];
+          peep.width = rect[2] * currentScale;
+          peep.height = rect[3] * currentScale;
         },
         render: (c: CanvasRenderingContext2D) => {
           c.save();
@@ -200,6 +211,9 @@ export const CrowdCanvas = ({
       stage.height = canvas.clientHeight;
       canvas.width = stage.width * devicePixelRatio;
       canvas.height = stage.height * devicePixelRatio;
+      // Re-apply scale (it may have changed across the responsive breakpoints).
+      currentScale = computeScale();
+      allPeeps.forEach((peep) => peep.setRect(peep.rect));
       crowd.forEach((peep) => peep.walk?.kill());
       crowd.length = 0;
       availablePeeps.length = 0;

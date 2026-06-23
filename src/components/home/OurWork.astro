@@ -1,39 +1,84 @@
 ---
 import Button from "@/components/ui/Button.astro";
-import WorkShowcase, { type WorkItem } from "@/components/skiper/WorkShowcase.tsx";
 
-// Placeholder concepts (no real portfolio images yet). On-brand blue/ink cards.
-const items: WorkItem[] = [
-  { title: "Northwind Renovations", category: "Trades", from: "#4f67f2", to: "#2a3ad0" },
-  { title: "Harbour Law Group", category: "Legal", from: "#2a3ad0", to: "#11163f" },
-  { title: "Maple Dental Studio", category: "Healthcare", from: "#6c84ff", to: "#4f67f2" },
-  { title: "Aster Consulting", category: "Consulting", from: "#1d2027", to: "#2a3ad0" },
-  { title: "Riverside Café", category: "Hospitality", from: "#4f67f2", to: "#0b0c10" },
+// Placeholder concepts (no real portfolio yet) — on-brand cobalt/ink gradients.
+const items = [
+  { title: "Northwind Renovations", category: "Trades", from: "#2a45e6", to: "#16249c", featured: true },
+  { title: "Harbour Law Group", category: "Legal", from: "#16249c", to: "#0b0c10" },
+  { title: "Maple Dental Studio", category: "Healthcare", from: "#4f69ff", to: "#2a45e6" },
+  { title: "Aster Consulting", category: "Consulting", from: "#1d2027", to: "#2a45e6" },
+  { title: "Riverside Café", category: "Hospitality", from: "#2a45e6", to: "#0b0c10" },
 ];
 ---
 
-<section class="section-y overflow-hidden" id="work">
-  <div class="container-x">
-    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
-      <div>
-        <span class="sticker -rotate-2">★ Our work</span>
-        <h2 class="mt-7 max-w-md text-[clamp(2.2rem,1rem+4vw,4rem)] font-light leading-[1.02] tracking-tight">
-          Work we're <span class="marker">proud of.</span>
-        </h2>
-        <p class="mt-5 max-w-lg text-ink-soft">
-          We're putting together our portfolio. In the meantime, reach out and
-          we'll show you exactly what we can build for your business.
-        </p>
-      </div>
-      <Button href="/contact" variant="primary">Let's build yours</Button>
+<section class="section-y container-x" id="work">
+  <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+    <div>
+      <span class="sticker -rotate-2">★ Our work</span>
+      <h2 class="mt-7 max-w-md text-[clamp(2.2rem,1rem+4vw,4rem)] font-light leading-[1.02] tracking-tight">
+        Work we're <span class="marker">proud of.</span>
+      </h2>
+      <p class="mt-5 max-w-lg text-ink-soft">
+        Concept directions while we finish our portfolio. Yours could be the next
+        one on this wall — let's make it.
+      </p>
     </div>
-
-    <p class="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-ink-soft" data-reveal>
-      Drag to explore →
-    </p>
+    <Button href="/contact" variant="primary">Let's build yours</Button>
   </div>
 
-  <div class="container-x mt-6">
-    <WorkShowcase items={items} client:visible />
+  <!-- bento grid -->
+  <div
+    class="mt-12 grid auto-rows-[180px] grid-cols-1 gap-4 sm:auto-rows-[200px] sm:grid-cols-2 lg:grid-cols-4"
+    data-fx="stagger"
+  >
+    {
+      items.map((it, i) => (
+        <article
+          class:list={[
+            "group relative flex flex-col justify-between overflow-hidden rounded-3xl p-6 text-white",
+            i === 0 && "sm:col-span-2 sm:row-span-2",
+          ]}
+          style={`background-image:linear-gradient(150deg, ${it.from}, ${it.to})`}
+        >
+          <!-- subtle grid texture -->
+          <span class="grid-faint pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
+          <div class="relative flex items-center justify-between">
+            <span class="rounded-full bg-lime px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-ink">
+              {it.category}
+            </span>
+            <span class="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white ring-1 ring-white/20 transition-all duration-300 group-hover:bg-white group-hover:text-ink">
+              <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </div>
+          <div class="relative">
+            <h3
+              class:list={[
+                "font-display font-medium leading-tight",
+                i === 0 ? "text-3xl sm:text-4xl" : "text-xl",
+              ]}
+            >
+              {it.title}
+            </h3>
+            <p class="mt-1 text-sm text-white/55">Concept direction</p>
+          </div>
+        </article>
+      ))
+    }
+
+    <!-- your-project tile -->
+    <a
+      href="/contact"
+      class="group flex flex-col justify-between rounded-3xl bg-paper-200 p-6 ring-1 ring-paper-300 transition-colors duration-300 hover:bg-blue-100"
+    >
+      <span class="sticker w-fit -rotate-3">★ Open slot</span>
+      <span class="font-display text-xl font-medium leading-tight text-ink">
+        Your project here
+        <span class="mt-2 block text-sm font-normal text-ink-soft">
+          Start yours <span class="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+        </span>
+      </span>
+    </a>
   </div>
 </section>

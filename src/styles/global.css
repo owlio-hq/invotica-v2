@@ -23,34 +23,34 @@
   --color-ink-700: #1d2027; /* hairline / card on dark */
   --color-ink-soft: #565b66; /* secondary text on light */
 
-  --color-paper: #f5f3ec; /* warm off-white canvas */
-  --color-paper-200: #ebe8df; /* subtle panel */
-  --color-paper-300: #dcd8cc; /* hairline borders */
+  --color-paper: #f4f6fb; /* cool near-white canvas */
+  --color-paper-200: #e9ecf6; /* subtle panel */
+  --color-paper-300: #d6dbec; /* hairline borders */
 
-  /* ---- Brand blue (primary accent) ---- */
-  --color-blue: #4f67f2; /* primary electric periwinkle */
-  --color-blue-bright: #6c84ff; /* lift / hover */
-  --color-blue-deep: #2a3ad0; /* depth / pressed */
-  --color-blue-100: #e7eaff; /* tint surfaces */
-  --color-blue-soft: #b9c2ff; /* muted on dark */
+  /* ---- Brand blue (primary accent — vivid cobalt, à la Base Club) ---- */
+  --color-blue: #2a45e6; /* vivid cobalt */
+  --color-blue-bright: #4f69ff; /* lift / hover */
+  --color-blue-deep: #16249c; /* depth / pressed */
+  --color-blue-100: #e4e8ff; /* tint surfaces */
+  --color-blue-soft: #aeb9ff; /* muted on dark */
 
-  /* ---- Lime (secondary pop accent) — markers, stickers, highlights ---- */
-  --color-lime: #c4f135; /* acid lime */
-  --color-lime-bright: #d8ff5e; /* lift */
-  --color-lime-deep: #3f5400; /* readable lime-ish text on light */
+  /* ---- Lime (secondary pop accent) — pairs with cobalt à la Base Club ---- */
+  --color-lime: #c8f23a; /* acid lime */
+  --color-lime-bright: #d9ff5e; /* lift */
+  --color-lime-deep: #41560a; /* readable lime-ish text on light */
 
-  /* ---- Legacy aliases → remapped to v2 (deprecated names) ---- */
-  --color-cream: #f5f3ec;
-  --color-cream-200: #ebe8df;
-  --color-cream-300: #dcd8cc;
-  --color-forest: #2a3ad0;
-  --color-forest-600: #4f67f2;
-  --color-forest-900: #1d2aa0;
+  /* ---- Legacy aliases → remapped to current palette (deprecated names) ---- */
+  --color-cream: #f4f6fb;
+  --color-cream-200: #e9ecf6;
+  --color-cream-300: #d6dbec;
+  --color-forest: #16249c;
+  --color-forest-600: #2a45e6;
+  --color-forest-900: #101b78;
   --color-sage: #5b6a86;
   --color-sage-300: #9aa6c4;
-  --color-terracotta: #4f67f2;
-  --color-terracotta-600: #2a3ad0;
-  --color-terracotta-100: #e7eaff;
+  --color-terracotta: #2a45e6;
+  --color-terracotta-600: #16249c;
+  --color-terracotta-100: #e4e8ff;
 
   /* ---- Typography ---- */
   --font-display: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
@@ -255,23 +255,28 @@
    -------------------------------------------------------------------------- */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(22px);
-  will-change: opacity, transform;
+  transform: translateY(26px);
+  filter: blur(7px);
+  will-change: opacity, transform, filter;
 }
 [data-reveal].is-visible {
   opacity: 1;
   transform: none;
+  filter: blur(0);
   transition: opacity 0.8s var(--ease-out-expo),
-    transform 0.8s var(--ease-out-expo);
+    transform 0.85s var(--ease-out-expo),
+    filter 0.7s var(--ease-out-expo);
 }
 /* Fail-open: never hide content from no-JS users or reduced-motion users. */
 .no-js [data-reveal] {
   opacity: 1;
   transform: none;
+  filter: none;
 }
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] {
     opacity: 1;
     transform: none;
+    filter: none;
   }
 }

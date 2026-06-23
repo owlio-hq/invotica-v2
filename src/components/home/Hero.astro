@@ -81,7 +81,7 @@ const stats = [
 
     <!-- stat strip -->
     <div
-      class="mt-14 flex flex-wrap items-center justify-center gap-px"
+      class="mt-12 flex items-stretch justify-center gap-1 sm:gap-px"
       data-reveal
       data-reveal-delay="260"
     >
@@ -103,6 +103,16 @@ const stats = [
         ))
       }
     </div>
+
+    <!-- subtle scroll cue -->
+    <a
+      href="#problem"
+      class="scroll-hint mx-auto mt-12 flex w-fit flex-col items-center gap-2 text-paper/40 transition-colors hover:text-paper/75"
+      aria-label="Scroll down"
+    >
+      <span class="text-[0.62rem] uppercase tracking-[0.22em]">Scroll</span>
+      <span class="scroll-mouse"><span class="scroll-dot"></span></span>
+    </a>
   </div>
 
   <!-- bottom marquee strip -->
@@ -166,8 +176,13 @@ const stats = [
 
   /* Stat cards */
   .stat-card {
-    padding: 1.1rem 2.4rem;
+    padding: 0.5rem 1rem;
     text-align: center;
+  }
+  @media (min-width: 640px) {
+    .stat-card {
+      padding: 1.1rem 2.4rem;
+    }
   }
 
   /* Marquee */
@@ -179,10 +194,39 @@ const stats = [
     to   { transform: translateX(-33.333%); }
   }
 
+  /* Scroll cue mouse */
+  .scroll-mouse {
+    position: relative;
+    display: block;
+    width: 22px;
+    height: 34px;
+    border: 1.5px solid currentColor;
+    border-radius: 11px;
+    opacity: 0.7;
+  }
+  .scroll-dot {
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    width: 3px;
+    height: 6px;
+    margin-left: -1.5px;
+    border-radius: 2px;
+    background: currentColor;
+    animation: scroll-dot 1.7s var(--ease-out-expo) infinite;
+  }
+  @keyframes scroll-dot {
+    0% { opacity: 0; transform: translateY(0); }
+    30% { opacity: 1; }
+    70% { opacity: 1; transform: translateY(10px); }
+    100% { opacity: 0; transform: translateY(12px); }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .tw-caret,
     .kick-star,
-    .marquee-track {
+    .marquee-track,
+    .scroll-dot {
       animation: none;
     }
   }

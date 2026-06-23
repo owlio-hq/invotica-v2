@@ -1,5 +1,6 @@
 ---
 import { problems } from "@/data/site";
+import SquiggleArrow from "@/components/ui/SquiggleArrow.astro";
 ---
 
 <section class="section-y container-x" id="problem">
@@ -10,28 +11,12 @@ import { problems } from "@/data/site";
         Every day without a website is a client you
         <span class="marker">didn't know you lost.</span>
       </h2>
-      <!-- hand-drawn arrow pointing to the list -->
-      <svg
-        class="mt-8 hidden h-16 w-24 text-ink/25 lg:block"
-        viewBox="0 0 100 70"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M6 10c30 4 52 18 60 44"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-dasharray="1 9"
-        ></path>
-        <path
-          d="M52 52l16 4 2-17"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></path>
-      </svg>
+      <!-- squiggle doodle pointing toward the list -->
+      <SquiggleArrow
+        variant="bouncy"
+        direction="right"
+        class="mt-8 hidden h-20 w-32 rotate-[18deg] text-blue lg:block"
+      />
     </div>
 
     <div class="lg:col-span-7" data-fx="stagger">

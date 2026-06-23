@@ -106,23 +106,6 @@ export function initScrollFx(lenis: Lenis | null): void {
     );
   });
 
-  // --- Phone showcase: the mini-site scrolls itself as the section passes ----
-  const track = document.querySelector<HTMLElement>("[data-phone-track]");
-  const screen = track?.parentElement;
-  if (track && screen) {
-    gsap.to(track, {
-      y: () => -Math.max(0, track.scrollHeight - screen.clientHeight),
-      ease: "none",
-      scrollTrigger: {
-        trigger: track.closest("section") ?? track,
-        start: "top 60%",
-        end: "bottom bottom",
-        scrub: true,
-        invalidateOnRefresh: true,
-      },
-    });
-  }
-
   // Recalculate once the first layout settles, and again once fonts/images load.
   requestAnimationFrame(() => ScrollTrigger.refresh());
   window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });

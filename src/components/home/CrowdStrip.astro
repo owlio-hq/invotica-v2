@@ -24,12 +24,13 @@ import { CrowdCanvas } from "@/components/skiper/CrowdCanvas";
   </div>
 
   <!-- walking crowd canvas -->
-  <div class="relative mt-8 h-[clamp(300px,40vw,520px)] w-full">
+  <div class="relative mt-10 h-[clamp(220px,30vw,400px)] w-full">
     <CrowdCanvas
       client:idle
       src="/images/peeps/all-peeps.png"
       rows={15}
       cols={7}
+      scale={0.72}
       className="absolute inset-0 h-full w-full"
     />
   </div>
