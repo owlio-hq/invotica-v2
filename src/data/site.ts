@@ -111,71 +111,125 @@ export const process = [
   },
 ];
 
+export interface PlanVariant {
+  price: string;
+  cadence: string;
+  features: string[];
+}
+
 export interface Plan {
   id: string;
   name: string;
-  price: string;
-  cadence: string;
-  teaser: string;
   best: string;
-  features: string[];
+  teaser: string;
   featured?: boolean;
+  /** Example businesses this plan suits (shown as tags). */
+  examples: string[];
+  /** Pay-once build. */
+  oneTime: PlanVariant;
+  /** Ongoing managed subscription. */
+  managed: PlanVariant;
 }
 
-/* DRAFT pricing — confirm prices & feature lists. Teasers come from the brief;
-   feature lists are a reasonable first draft to be reviewed. */
+/* DRAFT pricing — confirm prices & feature lists. One-time = pay-once build;
+   managed = monthly subscription (hosting + ongoing updates/support). */
 export const plans: Plan[] = [
   {
     id: "starter",
     name: "Starter",
-    price: "from $999",
-    cadence: "CAD · one-time",
+    best: "Best for: getting found",
     teaser:
       "You need to get online, look professional, and make it easy for customers to reach you — without a big spend.",
-    best: "Best for: getting found",
-    features: [
-      "Up to 3 pages, fully custom design",
-      "Mobile-first & lightning fast",
-      "Click-to-call / message + contact form",
-      "Google Business + basic on-page SEO",
-      "Domain connection & launch",
-      "You own all files & code",
-    ],
+    examples: ["Barbershop", "Café", "Salon", "Retail shop"],
+    oneTime: {
+      price: "from $999",
+      cadence: "CAD · one-time",
+      features: [
+        "Up to 3 pages, fully custom design",
+        "Mobile-first & lightning fast",
+        "Click-to-call / message + contact form",
+        "Google Business + basic on-page SEO",
+        "Domain connection & launch",
+        "You own all files & code",
+      ],
+    },
+    managed: {
+      price: "$59",
+      cadence: "CAD · /month",
+      features: [
+        "Everything in the one-time Starter",
+        "Hosting, domain & SSL managed for you",
+        "Monthly content & photo updates",
+        "Security patches & uptime monitoring",
+        "Email support, response in hours",
+        "Cancel anytime — the site stays yours",
+      ],
+    },
   },
   {
     id: "growth",
     name: "Growth",
-    price: "from $1,499",
-    cadence: "CAD · one-time",
-    teaser:
-      "Your business is growing. You need a site that earns trust, ranks on Google, and drives real enquiries.",
     best: "Best for: being chosen",
     featured: true,
-    features: [
-      "Up to 7 pages, fully custom design",
-      "Everything in Starter, plus:",
-      "Advanced SEO & performance tuning",
-      "Copywriting support & lead-capture forms",
-      "Analytics & conversion tracking setup",
-      "Blog / services structure ready to grow",
-    ],
+    teaser:
+      "Your business is growing. You need a site that earns trust, ranks on Google, and drives real enquiries.",
+    examples: ["Restaurant", "Gym", "Clinic", "Trades"],
+    oneTime: {
+      price: "from $1,499",
+      cadence: "CAD · one-time",
+      features: [
+        "Up to 7 pages, fully custom design",
+        "Everything in Starter, plus:",
+        "Advanced SEO & performance tuning",
+        "Copywriting support & lead-capture forms",
+        "Analytics & conversion tracking setup",
+        "Blog / services structure ready to grow",
+      ],
+    },
+    managed: {
+      price: "$99",
+      cadence: "CAD · /month",
+      features: [
+        "Everything in the one-time Growth",
+        "Hosting, domain & SSL fully managed",
+        "Bi-weekly updates & content tweaks",
+        "Ongoing SEO monitoring & reporting",
+        "Priority email + chat support",
+        "Quarterly performance review",
+      ],
+    },
   },
   {
     id: "pro",
     name: "Pro",
-    price: "Custom",
-    cadence: "tailored to scope",
+    best: "Best for: being trusted & scaled",
     teaser:
       "You need something custom — bookings, dynamic features, weekly updates, or an ongoing partner who handles it all.",
-    best: "Best for: being trusted & scaled",
-    features: [
-      "Unlimited pages & custom features",
-      "Bookings, integrations, dynamic content",
-      "Ongoing updates & priority support",
-      "Dedicated partner, response in hours",
-      "Quarterly strategy & growth reviews",
-      "Everything in Growth, fully managed",
-    ],
+    examples: ["Law firm", "Dental practice", "Consultant", "Multi-location"],
+    oneTime: {
+      price: "Custom",
+      cadence: "tailored to scope",
+      features: [
+        "Unlimited pages & custom features",
+        "Bookings, integrations, dynamic content",
+        "Advanced SEO & performance tuning",
+        "Analytics & conversion tracking setup",
+        "Quarterly strategy & growth reviews",
+        "You own all files & code",
+      ],
+    },
+    managed: {
+      price: "from $249",
+      cadence: "CAD · /month",
+      features: [
+        "Everything in Pro, fully managed",
+        "Dedicated partner, response in hours",
+        "Unlimited updates & new pages",
+        "Bookings / integrations maintained",
+        "Monthly strategy & growth calls",
+        "Advanced analytics & A/B testing",
+      ],
+    },
   },
 ];
 

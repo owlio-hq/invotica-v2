@@ -1,81 +1,136 @@
 ---
-import type { Plan } from "@/data/site";
+import type { Plan, PlanVariant } from "@/data/site";
 interface Props {
   plan: Plan;
-  /** "teaser" shows the short pitch; "full" shows the feature list. */
+  /** "teaser" = short pitch + examples (home); "full" = both billing feature lists. */
   mode?: "teaser" | "full";
 }
 const { plan, mode = "teaser" } = Astro.props;
 const featured = plan.featured;
+const cta = plan.id === "pro" ? "Get a quote" : "Build my website";
+
+// Per-plan growth icon (sprout → plant → tree).
+const icons: Record<string, string> = {
+  starter:
+    '<path d="M12 21V11M12 11c0-3-2.2-5-5-5 0 3 2.2 5 5 5Zm0 0c0-3 2.2-5 5-5 0 3-2.2 5-5 5Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
+  growth:
+    '<path d="M12 21V9M12 9C12 5.7 9.3 3 6 3c0 3.3 2.7 6 6 6Zm0 0c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6Zm0 3c-2.5 0-4.5-1.6-4.5-3.8C9.5 13.4 12 15 12 15s2.5-1.6 4.5 1.2C16.5 18.4 14.5 21 12 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+  pro:
+    '<path d="M12 22v-6M12 16l-4-3M12 16l4-3M12 16V8M8 13l-3-2.2M16 13l3-2.2M12 8C12 4.7 9.3 2 6 2c0 3.3 2.7 6 6 6Zm0 0c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+};
+const iconSvg = icons[plan.id] ?? icons.starter;
+
+function priceBlock(v: PlanVariant) {
+  return { price: v.price, cadence: v.cadence };
+}
+const ot = priceBlock(plan.oneTime);
 ---
 
 <article
   class:list={[
     "group relative flex flex-col rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1.5",
     featured
-      ? "bg-forest text-cream ring-1 ring-forest shadow-[0_30px_60px_-30px_rgba(33,66,57,0.55)]"
-      : "bg-cream ring-1 ring-cream-300 hover:ring-forest",
+      ? "bg-blue text-white shadow-[0_30px_70px_-30px_rgba(0,57,199,0.6)]"
+      : "bg-paper ring-1 ring-paper-300 hover:ring-blue",
   ]}
 >
   {
     featured && (
-      <span class="absolute right-6 top-6 rounded-full bg-terracotta px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-cream">
+      <span class="absolute right-6 top-6 rounded-full bg-lime px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-lime-deep">
         Most popular
       </span>
     )
   }
 
+  <!-- icon -->
+  <span class:list={["mb-5 inline-flex h-9 w-9", featured ? "text-lime" : "text-blue"]} aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" class="h-full w-full" set:html={iconSvg} />
+  </span>
+
   <header>
-    <h3 class:list={["font-display text-2xl font-medium", featured && "text-cream"]}>
-      {plan.name}
-    </h3>
-    <p class:list={["mt-1 text-xs uppercase tracking-[0.14em]", featured ? "text-terracotta-100" : "text-sage"]}>
+    <h3 class:list={["font-display text-2xl font-semibold", featured && "text-white"]}>{plan.name}</h3>
+    <p class:list={["mt-1 text-xs uppercase tracking-[0.14em]", featured ? "text-blue-soft" : "text-ink-soft"]}>
       {plan.best}
     </p>
-    <div class="mt-6 flex items-baseline gap-2">
-      <span class:list={["font-display text-4xl font-medium", featured ? "text-cream" : "text-ink"]}>
-        {plan.price}
-      </span>
-      <span class:list={["text-sm", featured ? "text-cream/55" : "text-ink-soft/70"]}>
-        {plan.cadence}
-      </span>
-    </div>
+
+    {
+      mode === "full" ? (
+        <>
+          <div data-when="onetime" class="mt-6 flex items-baseline gap-2">
+            <span class:list={["font-display text-4xl font-semibold", featured ? "text-white" : "text-ink"]}>
+              {plan.oneTime.price}
+            </span>
+            <span class:list={["text-sm", featured ? "text-white/55" : "text-ink-soft/70"]}>{plan.oneTime.cadence}</span>
+          </div>
+          <div data-when="managed" class="mt-6 flex items-baseline gap-2">
+            <span class:list={["font-display text-4xl font-semibold", featured ? "text-white" : "text-ink"]}>
+              {plan.managed.price}
+            </span>
+            <span class:list={["text-sm", featured ? "text-white/55" : "text-ink-soft/70"]}>{plan.managed.cadence}</span>
+          </div>
+        </>
+      ) : (
+        <div class="mt-6 flex items-baseline gap-2">
+          <span class:list={["font-display text-4xl font-semibold", featured ? "text-white" : "text-ink"]}>{ot.price}</span>
+          <span class:list={["text-sm", featured ? "text-white/55" : "text-ink-soft/70"]}>{ot.cadence}</span>
+        </div>
+      )
+    }
   </header>
 
   {
     mode === "teaser" ? (
-      <p class:list={["mt-6 flex-1 leading-relaxed", featured ? "text-cream/75" : "text-ink-soft"]}>
-        {plan.teaser}
-      </p>
+      <p class:list={["mt-6 leading-relaxed", featured ? "text-white/75" : "text-ink-soft"]}>{plan.teaser}</p>
     ) : (
-      <ul class="mt-6 flex flex-1 flex-col gap-3">
-        {plan.features.map((f) => (
-          <li class="flex items-start gap-3 text-sm leading-relaxed">
-            <svg
-              class:list={["mt-0.5 h-4 w-4 shrink-0", featured ? "text-terracotta-100" : "text-terracotta"]}
-              viewBox="0 0 20 20"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path d="M4 10.5l3.5 3.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <span class:list={featured ? "text-cream/80" : "text-ink-soft"}>{f}</span>
-          </li>
-        ))}
-      </ul>
+      <>
+        <ul data-when="onetime" class="mt-6 flex flex-col gap-3">
+          {plan.oneTime.features.map((f) => (
+            <li class="flex items-start gap-3 text-sm leading-relaxed">
+              <svg class:list={["mt-0.5 h-4 w-4 shrink-0", featured ? "text-lime" : "text-blue"]} viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M4 10.5l3.5 3.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class:list={featured ? "text-white/85" : "text-ink-soft"}>{f}</span>
+            </li>
+          ))}
+        </ul>
+        <ul data-when="managed" class="mt-6 flex flex-col gap-3">
+          {plan.managed.features.map((f) => (
+            <li class="flex items-start gap-3 text-sm leading-relaxed">
+              <svg class:list={["mt-0.5 h-4 w-4 shrink-0", featured ? "text-lime" : "text-blue"]} viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M4 10.5l3.5 3.5L16 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class:list={featured ? "text-white/85" : "text-ink-soft"}>{f}</span>
+            </li>
+          ))}
+        </ul>
+      </>
     )
   }
+
+  <!-- example businesses -->
+  <div class="mt-6 flex flex-wrap gap-2">
+    {
+      plan.examples.map((e) => (
+        <span
+          class:list={[
+            "rounded-full px-3 py-1 text-xs font-medium",
+            featured ? "bg-white/15 text-white" : "bg-paper-200 text-ink-soft ring-1 ring-paper-300",
+          ]}
+        >
+          {e}
+        </span>
+      ))
+    }
+  </div>
 
   <a
     href="/contact"
     class:list={[
-      "mt-8 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5",
-      featured
-        ? "bg-terracotta text-cream hover:bg-terracotta-600"
-        : "bg-forest text-cream hover:bg-forest-600",
+      "mt-8 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-transform duration-300 hover:-translate-y-0.5",
+      featured ? "bg-lime text-lime-deep" : "bg-ink text-white",
     ]}
   >
-    {plan.id === "pro" ? "Talk to us" : "Choose " + plan.name}
+    {cta}
     <span aria-hidden="true">→</span>
   </a>
 </article>

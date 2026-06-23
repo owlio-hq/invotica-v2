@@ -1,17 +1,16 @@
 ---
 import Logo from "@/components/ui/Logo.astro";
-import { nav } from "@/data/site";
 import MenuOverlay from "./MenuOverlay.astro";
 
 interface Props {
-  /** "dark" = light text over a dark hero (home); "light" = ink text over light pages. */
+  /** "dark" = light text over a dark/blue hero (home); "light" = ink text. */
   theme?: "light" | "dark";
 }
 const { theme = "light" } = Astro.props;
 ---
 
-<!-- Borderless, scroll-aware top bar. Transparent over the hero, frosts into a
-     paper bar once you scroll. No boxed pills. -->
+<!-- Borderless, scroll-aware top bar. Logo + a single Menu trigger (all sizes)
+     that opens a full-screen overlay. -->
 <header
   data-nav
   data-theme={theme}
@@ -21,36 +20,18 @@ const { theme = "light" } = Astro.props;
   <div class="container-x flex items-center justify-between py-4 sm:py-5">
     <Logo class="nav-logo transition-opacity hover:opacity-80" wordmarkClass="text-current" />
 
-    <!-- desktop: inline links + CTA -->
-    <nav class="hidden items-center gap-9 md:flex" aria-label="Primary">
-      {
-        nav.map((item) => (
-          <a href={item.href} class="nav-link relative text-sm font-medium tracking-tight">
-            {item.label}
-          </a>
-        ))
-      }
-      <a
-        href="/contact"
-        class="rounded-full bg-blue px-5 py-2.5 text-sm font-medium text-white shadow-[0_10px_30px_-14px_rgba(79,103,242,0.9)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-deep"
-      >
-        Start a project
-      </a>
-    </nav>
-
-    <!-- mobile: menu trigger -->
     <button
       type="button"
       data-menu-open
       aria-expanded="false"
       aria-controls="menu-overlay"
-      class="nav-link group flex items-center gap-2.5 text-sm font-medium tracking-tight md:hidden"
+      class="nav-link group flex items-center gap-2.5 text-sm font-semibold uppercase tracking-[0.12em]"
     >
       <span>Menu</span>
-      <span class="relative flex h-3 w-4 flex-col justify-between" aria-hidden="true">
-        <span class="h-[1.5px] w-full rounded bg-current transition-transform duration-300 group-hover:translate-y-[0.5px]"></span>
-        <span class="h-[1.5px] w-full rounded bg-current transition-all duration-300 group-hover:w-2/3"></span>
-        <span class="h-[1.5px] w-full rounded bg-current transition-transform duration-300 group-hover:-translate-y-[0.5px]"></span>
+      <span class="relative flex h-3 w-5 flex-col justify-between" aria-hidden="true">
+        <span class="h-[2px] w-full rounded bg-current transition-transform duration-300 group-hover:translate-y-[1px]"></span>
+        <span class="h-[2px] w-full rounded bg-current transition-all duration-300 group-hover:w-3/5"></span>
+        <span class="h-[2px] w-full rounded bg-current transition-transform duration-300 group-hover:-translate-y-[1px]"></span>
       </span>
     </button>
   </div>
@@ -59,15 +40,11 @@ const { theme = "light" } = Astro.props;
 <MenuOverlay />
 
 <style>
-  /* ---- Colour states ----
-     At the top of the page the bar is transparent and inherits a text colour
-     that suits the section beneath it (dark hero → light text; light page →
-     ink text). Once scrolled, every page gets the same frosted paper bar. */
   .nav-header {
     color: var(--color-ink);
   }
   .nav-header[data-theme="dark"][data-scrolled="false"] {
-    color: var(--color-paper);
+    color: #fff;
   }
   .nav-header[data-scrolled="true"] {
     color: var(--color-ink);
@@ -75,27 +52,11 @@ const { theme = "light" } = Astro.props;
     backdrop-filter: blur(14px);
     box-shadow:
       0 1px 0 color-mix(in srgb, var(--color-ink) 8%, transparent),
-      0 18px 40px -34px rgba(11, 12, 16, 0.5);
-  }
-
-  /* Animated underline for desktop links */
-  .nav-link::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    height: 1.5px;
-    width: 0;
-    background: var(--color-blue);
-    transition: width 0.35s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
-  }
-  .nav-link:hover::after {
-    width: 100%;
+      0 18px 40px -34px rgba(10, 10, 10, 0.5);
   }
 </style>
 
 <script>
-  // Toggle the frosted state once the page has scrolled past the hero lip.
   const header = document.querySelector<HTMLElement>("[data-nav]");
   if (header) {
     const update = () =>

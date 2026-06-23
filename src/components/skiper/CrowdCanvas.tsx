@@ -52,13 +52,15 @@ export const CrowdCanvas = ({
 
     const config = { src, rows, cols };
 
-    // Peeps shrink further on narrow viewports so the crowd never overwhelms.
+    // Desktop keeps the default size; narrower screens shrink the peeps so the
+    // crowd stays readable. `compact` also turns on top-clamping (no cut heads).
     const computeScale = () => {
       const w = window.innerWidth;
-      const factor = w < 640 ? 0.62 : w < 1024 ? 0.8 : 1;
+      const factor = w < 640 ? 0.55 : w < 1024 ? 0.85 : 1;
       return scale * factor;
     };
     let currentScale = computeScale();
+    let compact = window.innerWidth < 1024;
 
     // utils
     const randomRange = (min: number, max: number) => min + Math.random() * (max - min);
@@ -72,7 +74,9 @@ export const CrowdCanvas = ({
     const resetPeep = ({ stage, peep }: { stage: { width: number; height: number }; peep: Peep }) => {
       const direction = Math.random() > 0.5 ? 1 : -1;
       const offsetY = 100 - 250 * gsap.parseEase("power2.in")(Math.random());
-      const startY = stage.height - peep.height + offsetY;
+      let startY = stage.height - peep.height + offsetY;
+      // On small screens keep heads inside the canvas (no top clipping).
+      if (compact && startY < 0) startY = 0;
       let startX: number;
       let endX: number;
       if (direction === 1) {
@@ -191,7 +195,11 @@ export const CrowdCanvas = ({
     };
 
     const initCrowd = () => {
-      while (availablePeeps.length) {
+      // Fewer people on small screens (keeps the same density, less clutter).
+      const w = window.innerWidth;
+      const ratio = w < 640 ? 0.4 : w < 1024 ? 0.7 : 1;
+      const target = Math.max(8, Math.round(allPeeps.length * ratio));
+      while (availablePeeps.length && crowd.length < target) {
         // progress randomly so the first frame isn't an empty edge
         addPeepToCrowd().walk?.progress(Math.random());
       }
@@ -213,6 +221,7 @@ export const CrowdCanvas = ({
       canvas.height = stage.height * devicePixelRatio;
       // Re-apply scale (it may have changed across the responsive breakpoints).
       currentScale = computeScale();
+      compact = window.innerWidth < 1024;
       allPeeps.forEach((peep) => peep.setRect(peep.rect));
       crowd.forEach((peep) => peep.walk?.kill());
       crowd.length = 0;

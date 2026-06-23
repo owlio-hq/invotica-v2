@@ -220,6 +220,7 @@
     box-shadow: 0 10px 24px -12px rgba(11, 12, 16, 0.5);
   }
 
+
   /* Section eyebrow label */
   .eyebrow {
     display: inline-flex;
@@ -279,4 +280,15 @@
     transform: none;
     filter: none;
   }
+}
+
+/* ----------------------------------------------------------------------------
+   Pricing billing toggle — show only the active variant. Unlayered + !important
+   so it beats Tailwind's layered display utilities (flex/block) on these nodes.
+   -------------------------------------------------------------------------- */
+[data-billing="onetime"] [data-when="managed"] {
+  display: none !important;
+}
+[data-billing="managed"] [data-when="onetime"] {
+  display: none !important;
 }

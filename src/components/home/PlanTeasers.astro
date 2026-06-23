@@ -1,5 +1,5 @@
 ---
-import SectionLabel from "@/components/ui/SectionLabel.astro";
+import Kicker from "@/components/ui/Kicker.astro";
 import PlanCard from "@/components/ui/PlanCard.astro";
 import Button from "@/components/ui/Button.astro";
 import { plans } from "@/data/site";
@@ -8,10 +8,13 @@ import { plans } from "@/data/site";
 <section class="section-y container-x" id="plans">
   <div class="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
     <div>
-      <SectionLabel text="Plans" />
-      <h2 class="mt-5 text-h2">Choose your plan</h2>
+      <Kicker text="Plans" />
+      <h2 class="mt-6 text-[clamp(2.2rem,1rem+4vw,4rem)] font-semibold leading-[1.02] tracking-[-0.02em]">
+        Choose your <span class="marker">plan.</span>
+      </h2>
       <p class="mt-4 max-w-md text-ink-soft">
-        Three plans. Built for where your business is right now.
+        Three plans, built for where your business is right now — with examples of
+        who each one fits.
       </p>
     </div>
     <Button href="/pricing" variant="ghost">Compare full pricing</Button>
