@@ -63,3 +63,49 @@ of each day. Pair with `git log` for the precise diff history.
 - Live checks in preview: body bg `#F7F4F0`, Fraunces headings, menu open/close,
   typewriter running, React island hydrates (5 cards), all routes 200 + 404 page
   serves. No console errors.
+
+---
+
+## 2026-06-23 — Bold blue/lime redesign + structure changes
+
+Full design-language overhaul after review feedback (matching Base Club–style refs).
+
+**Palette (exact, 45/35/15/5)** — white canvas dominant, vivid royal blue
+`#0039C7` as the mass, true black `#0a0a0a` sparingly, lime `#AFFE08` as the 5%
+pop (`#1a2a0d` deep-green for text on lime). Removed the prior dark dominance.
+
+**Hero** — rebuilt as a full bright-blue section: huge bold white headline, lime
+squiggle underline on the typewriter word, floating frosted cards, rotating lime
+badge, grid texture, white + lime CTAs, scroll cue. (Earlier dark hero + dot-field
+canvas were removed per feedback; preloader deleted entirely.)
+
+**Components / system**
+- `Kicker` — uppercase label + hand-drawn lime squiggle underline (draws in on
+  scroll). Replaced the generic lime pill labels site-wide.
+- `SquiggleArrow` — reimplemented from cult-ui as dependency-free Astro SVG
+  (wavy/bouncy/smooth, draw-on-reveal); bold stroke variants in use.
+- `.marker` (lime highlighter) + reusable bold section treatment.
+- GSAP **ScrollTrigger** motion layer (`scroll-fx.ts`) synced to Lenis: hero
+  recede, parallax, card expand, stagger, line-draw. `[data-reveal]` now includes
+  a blur-in. Re-added `gsap` dependency (note: supersedes the 2026-06-21 removal).
+
+**Nav / menu** — full-screen overlay for BOTH mobile and desktop (logo + single
+Menu trigger), clip-path wipe + staggered links, scroll lock. (Iterated through a
+scroll-aware inline nav and a compact dropdown before landing here.)
+
+**Sections** — Problem/Numbers/Guarantee/About/Work redesigned bold; Numbers
+recolored black→blue; Process rebuilt as a connector-line timeline; Our Work
+became a bento grid, now hidden for the moment. CrowdCanvas: desktop default size,
+small screens fewer + smaller peeps + top-clamp (no cut heads).
+
+**Pricing** — One-time / Managed billing toggle switching each plan's price +
+feature list (new managed monthly variants in `site.ts` — DRAFT numbers). Plan
+cards gained per-tier icons + example-business tags; home teasers show examples.
+FAQ rebuilt as a smooth grid-rows accordion (single-open).
+
+**Repo** — pushed to GitHub `owlio-hq/invotica-v2` (remote `origin`, branch main).
+
+**Still DRAFT / TODO** — confirm managed prices & copy; bring RealDifference,
+Process and the Contact page fully into the blue/lime bold style; spread
+doodles/arrows wider; optional distinct section background (grid-beam/liquid-metal
+were deferred as too heavy for the deadline).
