@@ -1,131 +1,317 @@
 ---
 import { site, plans } from "@/data/site";
+const planOptions = [{ name: "Not sure yet", value: "" }, ...plans.map((p) => ({ name: p.name, value: p.name }))];
 ---
 
 <form id="contact-form" class="flex flex-col gap-5" novalidate>
-  <!-- Web3Forms config -->
+  <!-- Web3Forms config (wired for later) -->
   <input type="hidden" name="access_key" value={site.web3formsKey} />
   <input type="hidden" name="subject" value="New enquiry from invotica.com" />
   <input type="hidden" name="from_name" value="Invotica Website" />
-  <!-- honeypot: bots fill this, humans don't -->
-  <input
-    type="checkbox"
-    name="botcheck"
-    class="hidden"
-    style="display:none"
-    tabindex="-1"
-    autocomplete="off"
-  />
+  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
 
   <div class="grid gap-5 sm:grid-cols-2">
-    <label class="flex flex-col gap-2">
-      <span class="text-sm font-medium text-ink">Name</span>
-      <input
-        type="text"
-        name="name"
-        required
-        autocomplete="name"
-        class="field"
-        placeholder="Your name"
-      />
+    <label class="field-group">
+      <span class="field-label">Name</span>
+      <input type="text" name="name" autocomplete="name" class="field" placeholder="Your name" data-validate="required" />
+      <span class="field-error" data-error></span>
     </label>
-    <label class="flex flex-col gap-2">
-      <span class="text-sm font-medium text-ink">Email</span>
-      <input
-        type="email"
-        name="email"
-        required
-        autocomplete="email"
-        class="field"
-        placeholder="you@business.com"
-      />
+    <label class="field-group">
+      <span class="field-label">Email</span>
+      <input type="email" name="email" autocomplete="email" class="field" placeholder="you@business.com" data-validate="required email" />
+      <span class="field-error" data-error></span>
     </label>
   </div>
 
   <div class="grid gap-5 sm:grid-cols-2">
-    <label class="flex flex-col gap-2">
-      <span class="text-sm font-medium text-ink">Business name</span>
+    <label class="field-group">
+      <span class="field-label">Phone <span class="text-ink-soft/60">(optional)</span></span>
+      <input type="tel" name="phone" autocomplete="tel" class="field" placeholder="+1 (555) 000-0000" data-validate="phone" inputmode="tel" />
+      <span class="field-error" data-error></span>
+    </label>
+    <label class="field-group">
+      <span class="field-label">Business name <span class="text-ink-soft/60">(optional)</span></span>
       <input type="text" name="business" class="field" placeholder="Your business" />
     </label>
-    <label class="flex flex-col gap-2">
-      <span class="text-sm font-medium text-ink">Plan of interest</span>
-      <select name="plan" class="field">
-        <option value="">Not sure yet</option>
-        {plans.map((p) => <option value={p.name}>{p.name}</option>)}
-      </select>
-    </label>
   </div>
 
-  <label class="flex flex-col gap-2">
-    <span class="text-sm font-medium text-ink">Tell us about your project</span>
-    <textarea
-      name="message"
-      required
-      rows="5"
-      class="field resize-y"
-      placeholder="What do you do, and what do you need from a website?"></textarea>
+  <!-- custom dropdown -->
+  <div class="field-group">
+    <span class="field-label">Plan of interest</span>
+    <div class="select" data-select>
+      <input type="hidden" name="plan" value="" data-select-input />
+      <button type="button" class="field select-trigger" data-select-trigger aria-haspopup="listbox" aria-expanded="false">
+        <span data-select-label>Not sure yet</span>
+        <svg class="select-chevron h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <ul class="select-menu" data-select-menu role="listbox" tabindex="-1">
+        {
+          planOptions.map((o, i) => (
+            <li>
+              <button
+                type="button"
+                class="select-option"
+                role="option"
+                aria-selected={i === 0 ? "true" : "false"}
+                data-select-option
+                data-value={o.value}
+              >
+                {o.name}
+                <svg class="select-check h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M4 10.5l3.5 3.5L16 5.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <label class="field-group">
+    <span class="field-label">Tell us about your project</span>
+    <textarea name="message" rows="5" class="field resize-y" placeholder="What do you do, and what do you need from a website?" data-validate="required"></textarea>
+    <span class="field-error" data-error></span>
   </label>
 
   <button
     type="submit"
-    class="group mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-8 py-4 font-medium text-cream transition-all duration-300 hover:-translate-y-0.5 hover:bg-terracotta-600 disabled:cursor-not-allowed disabled:opacity-60"
+    class="group mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-blue px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-deep disabled:cursor-not-allowed disabled:opacity-60"
   >
-    <span data-label>Send message</span>
+    <span data-label>Get a free quote</span>
     <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
   </button>
 
-  <p
-    data-status
-    role="status"
-    aria-live="polite"
-    class="hidden rounded-2xl px-4 py-3 text-sm"
-  >
-  </p>
+  <p data-status role="status" aria-live="polite" class="hidden rounded-2xl px-4 py-3 text-sm"></p>
 </form>
 
 <style>
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .field-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
   .field {
     width: 100%;
     border-radius: 0.9rem;
-    background: var(--color-cream-200);
+    background: var(--color-paper-200);
     padding: 0.85rem 1rem;
     font-size: 0.95rem;
     color: var(--color-ink);
-    outline: 1px solid var(--color-cream-300);
+    outline: 1px solid var(--color-paper-300);
     transition: outline-color 0.2s ease, background 0.2s ease;
   }
   .field::placeholder {
-    color: color-mix(in srgb, var(--color-ink-soft) 55%, transparent);
+    color: color-mix(in srgb, var(--color-ink-soft) 60%, transparent);
   }
-  .field:focus {
-    outline: 2px solid var(--color-forest);
-    background: var(--color-cream);
+  .field:focus,
+  .field:focus-visible {
+    outline: 2px solid var(--color-blue);
+    background: #fff;
+  }
+  /* invalid state */
+  .field-group.is-invalid .field {
+    outline: 2px solid #d23b3b;
+    background: color-mix(in srgb, #d23b3b 6%, var(--color-paper-200));
+  }
+  .field-error {
+    display: none;
+    font-size: 0.8rem;
+    color: #c42f2f;
+  }
+  .field-group.is-invalid .field-error {
+    display: block;
+  }
+
+  /* ---- custom select ---- */
+  .select {
+    position: relative;
+  }
+  .select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    text-align: left;
+    cursor: pointer;
+  }
+  .select-chevron {
+    color: var(--color-ink-soft);
+    transition: transform 0.25s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+    flex: none;
+  }
+  .select[data-open="true"] .select-chevron {
+    transform: rotate(180deg);
+  }
+  .select-menu {
+    position: absolute;
+    z-index: 30;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    padding: 0.4rem;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 24px 50px -20px rgba(10, 10, 10, 0.3);
+    outline: 1px solid var(--color-paper-300);
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+    transform-origin: top center;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.25s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+  .select[data-open="true"] .select-menu {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .select-option {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    border-radius: 0.7rem;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    font-size: 0.92rem;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .select-option:hover,
+  .select-option:focus-visible {
+    background: var(--color-blue);
+    color: #fff;
+    outline: none;
+  }
+  .select-check {
+    color: var(--color-blue);
+    opacity: 0;
+    flex: none;
+  }
+  .select-option:hover .select-check {
+    color: #fff;
+  }
+  .select-option[aria-selected="true"] .select-check {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .select-menu,
+    .select-chevron {
+      transition: none;
+    }
   }
 </style>
 
 <script>
   import { logger } from "@/lib/logger";
 
+  // ---- custom dropdown ----
+  document.querySelectorAll<HTMLElement>("[data-select]").forEach((select) => {
+    const trigger = select.querySelector<HTMLButtonElement>("[data-select-trigger]")!;
+    const menu = select.querySelector<HTMLElement>("[data-select-menu]")!;
+    const labelEl = select.querySelector<HTMLElement>("[data-select-label]")!;
+    const input = select.querySelector<HTMLInputElement>("[data-select-input]")!;
+    const options = Array.from(select.querySelectorAll<HTMLButtonElement>("[data-select-option]"));
+
+    const setOpen = (open: boolean) => {
+      select.dataset.open = String(open);
+      trigger.setAttribute("aria-expanded", String(open));
+    };
+
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setOpen(select.dataset.open !== "true");
+    });
+
+    options.forEach((opt) => {
+      opt.addEventListener("click", () => {
+        options.forEach((o) => o.setAttribute("aria-selected", "false"));
+        opt.setAttribute("aria-selected", "true");
+        labelEl.textContent = opt.childNodes[0].textContent!.trim();
+        input.value = opt.dataset.value ?? "";
+        setOpen(false);
+        trigger.focus();
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!select.contains(e.target as Node)) setOpen(false);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && select.dataset.open === "true") {
+        setOpen(false);
+        trigger.focus();
+      }
+    });
+  });
+
+  // ---- validation ----
   const form = document.getElementById("contact-form") as HTMLFormElement | null;
   if (form) {
     const statusEl = form.querySelector<HTMLElement>("[data-status]")!;
     const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const label = form.querySelector<HTMLElement>("[data-label]")!;
+    const fields = Array.from(form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[data-validate]"));
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const validate = (field: HTMLInputElement | HTMLTextAreaElement): boolean => {
+      const rules = (field.dataset.validate ?? "").split(" ");
+      const val = field.value.trim();
+      let err = "";
+      if (rules.includes("required") && !val) {
+        err = "This field is required.";
+      } else if (val && rules.includes("email") && !emailRe.test(val)) {
+        err = "Please enter a valid email address.";
+      } else if (val && rules.includes("phone")) {
+        const digits = val.replace(/[^\d]/g, "");
+        if (digits.length < 10 || digits.length > 15) err = "Please enter a valid phone number.";
+      }
+      const group = field.closest(".field-group")!;
+      const errEl = group.querySelector<HTMLElement>("[data-error]");
+      group.classList.toggle("is-invalid", Boolean(err));
+      if (errEl) errEl.textContent = err;
+      return !err;
+    };
+
+    // validate on blur, clear error as they fix it
+    fields.forEach((f) => {
+      f.addEventListener("blur", () => validate(f));
+      f.addEventListener("input", () => {
+        if (f.closest(".field-group")!.classList.contains("is-invalid")) validate(f);
+      });
+    });
 
     const show = (msg: string, ok: boolean) => {
       statusEl.textContent = msg;
       statusEl.classList.remove("hidden");
-      statusEl.style.background = ok ? "rgba(33,66,57,0.08)" : "rgba(173,79,46,0.1)";
-      statusEl.style.color = ok ? "var(--color-forest)" : "var(--color-terracotta-600)";
+      statusEl.style.background = ok ? "color-mix(in srgb, var(--color-blue) 10%, transparent)" : "rgba(196,47,47,0.1)";
+      statusEl.style.color = ok ? "var(--color-blue-deep)" : "#c42f2f";
     };
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
+
+      // run all validators; focus the first invalid
+      let firstInvalid: HTMLElement | null = null;
+      fields.forEach((f) => {
+        if (!validate(f) && !firstInvalid) firstInvalid = f;
+      });
+      if (firstInvalid) {
+        (firstInvalid as HTMLElement).focus();
         return;
       }
-      // honeypot
+
       if ((form.elements.namedItem("botcheck") as HTMLInputElement)?.checked) {
         logger.warn("ContactForm", "honeypot tripped — dropping submit");
         return;
@@ -151,11 +337,8 @@ import { site, plans } from "@/data/site";
           throw new Error(data.message || `HTTP ${res.status}`);
         }
       } catch (err) {
-        show(
-          "Something went wrong. Please email us directly and we'll get right back to you.",
-          false,
-        );
-        label.textContent = "Send message";
+        show("Something went wrong. Please email us directly and we'll get right back to you.", false);
+        label.textContent = "Get a free quote";
         btn.disabled = false;
         logger.error("ContactForm", "submit failed", { err: (err as Error).message });
       }
