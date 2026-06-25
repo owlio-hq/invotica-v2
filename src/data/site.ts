@@ -33,7 +33,7 @@ export const nav = [
 
 /** Marquee belt items under the hero. */
 export const marquee = [
-  { big: "3 Days", small: "From brief to live" },
+  { big: "4 Days", small: "To your first design preview" },
   { big: "100%", small: "Mobile responsive" },
   { big: "Fully Custom", small: "No templates, ever" },
   { big: "Canada-Wide", small: "We serve any industry" },
@@ -113,17 +113,22 @@ export const process = [
 
 export interface PlanVariant {
   price: string;
+  /** "" for one-time, "/month" for managed. */
   cadence: string;
+  /** Small accent line under the price (e.g. value framing or setup fee). */
+  priceNote: string;
+  /** One-line description of who/what this variant is for. */
+  tagline: string;
   features: string[];
+  /** Fine-print line under the features. */
+  footnote: string;
 }
 
 export interface Plan {
   id: string;
   name: string;
-  best: string;
-  teaser: string;
   featured?: boolean;
-  /** Example businesses this plan suits (shown as tags). */
+  /** Example businesses this plan suits (shown as tags on home teasers). */
   examples: string[];
   /** Pay-once build. */
   oneTime: PlanVariant;
@@ -131,104 +136,116 @@ export interface Plan {
   managed: PlanVariant;
 }
 
-/* DRAFT pricing — confirm prices & feature lists. One-time = pay-once build;
-   managed = monthly subscription (hosting + ongoing updates/support). */
+/* DRAFT pricing — confirm before launch. One-time = pay-once build you own;
+   managed = monthly subscription (we build, host & maintain) + a setup fee. */
 export const plans: Plan[] = [
   {
     id: "starter",
     name: "Starter",
-    best: "Best for: getting found",
-    teaser:
-      "You need to get online, look professional, and make it easy for customers to reach you — without a big spend.",
     examples: ["Barbershop", "Café", "Salon", "Retail shop"],
     oneTime: {
-      price: "from $999",
-      cadence: "CAD · one-time",
+      price: "$999 CAD",
+      cadence: "",
+      priceNote: "Less than $3/day for a year",
+      tagline: "Pay once, own your site forever. All files handed over.",
       features: [
-        "Up to 3 pages, fully custom design",
-        "Mobile-first & lightning fast",
-        "Click-to-call / message + contact form",
-        "Google Business + basic on-page SEO",
-        "Domain connection & launch",
-        "You own all files & code",
+        "Fully custom-designed website",
+        "Up to 5 pages",
+        "Mobile responsive",
+        "Basic SEO setup",
+        "Contact form + WhatsApp",
+        "Delivered in 7–14 days",
+        "Source files included",
       ],
+      footnote: "One round of revisions. Additional pages at $100 CAD/page.",
     },
     managed: {
-      price: "$59",
-      cadence: "CAD · /month",
+      price: "$259 CAD",
+      cadence: "/month",
+      priceNote: "+ $700 CAD setup",
+      tagline: "We build it, host it, and keep it running. You focus on business.",
       features: [
         "Everything in the one-time Starter",
-        "Hosting, domain & SSL managed for you",
+        "Managed hosting, domain & SSL",
         "Monthly content & photo updates",
-        "Security patches & uptime monitoring",
+        "Security, backups & uptime monitoring",
         "Email support, response in hours",
         "Cancel anytime — the site stays yours",
       ],
+      footnote: "No long-term contract. Cancel anytime.",
     },
   },
   {
     id: "growth",
     name: "Growth",
-    best: "Best for: being chosen",
     featured: true,
-    teaser:
-      "Your business is growing. You need a site that earns trust, ranks on Google, and drives real enquiries.",
     examples: ["Restaurant", "Gym", "Clinic", "Trades"],
     oneTime: {
-      price: "from $1,499",
-      cadence: "CAD · one-time",
+      price: "$1,499 CAD",
+      cadence: "",
+      priceNote: "Less than $4/day for a year",
+      tagline: "A professional site built to earn trust and drive enquiries.",
       features: [
-        "Up to 7 pages, fully custom design",
-        "Everything in Starter, plus:",
-        "Advanced SEO & performance tuning",
-        "Copywriting support & lead-capture forms",
-        "Analytics & conversion tracking setup",
-        "Blog / services structure ready to grow",
+        "Fully custom professional design",
+        "Up to 8 pages",
+        "Local SEO + Google Business setup",
+        "Services layout + testimonials",
+        "Google Maps integration",
+        "Contact form + WhatsApp",
+        "Delivered in 10–18 days",
+        "Source files included",
       ],
+      footnote: "Two rounds of revisions. Additional pages at $120 CAD/page.",
     },
     managed: {
-      price: "$99",
-      cadence: "CAD · /month",
+      price: "$359 CAD",
+      cadence: "/month",
+      priceNote: "+ $1,200 CAD setup",
+      tagline: "Full-service management. We design, build, host, and maintain.",
       features: [
         "Everything in the one-time Growth",
-        "Hosting, domain & SSL fully managed",
-        "Bi-weekly updates & content tweaks",
-        "Ongoing SEO monitoring & reporting",
-        "Priority email + chat support",
+        "Managed hosting, domain & SSL",
+        "Bi-weekly updates & content edits",
+        "Ongoing SEO + monthly reporting",
+        "Priority support (email + chat)",
         "Quarterly performance review",
       ],
+      footnote: "No long-term contract. Cancel anytime.",
     },
   },
   {
     id: "pro",
     name: "Pro",
-    best: "Best for: being trusted & scaled",
-    teaser:
-      "You need something custom — bookings, dynamic features, weekly updates, or an ongoing partner who handles it all.",
     examples: ["Law firm", "Dental practice", "Consultant", "Multi-location"],
     oneTime: {
-      price: "Custom",
-      cadence: "tailored to scope",
+      price: "From $1,999",
+      cadence: "",
+      priceNote: "Scoped to your project",
+      tagline: "Custom-built for businesses that need more than a standard site.",
       features: [
-        "Unlimited pages & custom features",
-        "Bookings, integrations, dynamic content",
-        "Advanced SEO & performance tuning",
-        "Analytics & conversion tracking setup",
-        "Quarterly strategy & growth reviews",
-        "You own all files & code",
+        "Everything in Growth",
+        "Booking / scheduling systems",
+        "E-commerce functionality",
+        "Custom integrations",
+        "Unlimited pages",
+        "Delivered in 3–6 weeks",
       ],
+      footnote: "We scope every project individually and give you a clear, honest quote.",
     },
     managed: {
-      price: "from $249",
-      cadence: "CAD · /month",
+      price: "From $499",
+      cadence: "/month",
+      priceNote: "+ Custom setup fee",
+      tagline: "Your ongoing web partner. We handle everything so you don't have to.",
       features: [
-        "Everything in Pro, fully managed",
+        "Everything in one-time Pro, managed",
         "Dedicated partner, response in hours",
         "Unlimited updates & new pages",
-        "Bookings / integrations maintained",
+        "Bookings / e-commerce maintained",
         "Monthly strategy & growth calls",
         "Advanced analytics & A/B testing",
       ],
+      footnote: "Tailored retainer, scoped to your needs.",
     },
   },
 ];
@@ -279,7 +296,7 @@ export const comparison: { label: string; values: (boolean | string)[] }[] = [
 export const faq = [
   {
     q: "How long does a website take?",
-    a: "Most Starter and Growth sites go from brief to live in about 3 working days once we have your content. Pro timelines depend on scope and we'll give you a clear schedule up front.",
+    a: "You'll see a first design preview within about 4 working days of sending us your content. From there we refine it together with your feedback. Most Starter sites launch in 7–14 days and Growth in 10–18 days; Pro timelines depend on scope and we'll give you a clear schedule up front.",
   },
   {
     q: "Do I own the website?",

@@ -10,7 +10,7 @@ import { plans, realDifference } from "@/data/site";
 
 <Base
   title="Pricing"
-  description="Simple, honest pricing for custom websites. Pay once or go managed — no hidden fees, you own everything."
+  description="Simple, honest pricing for custom websites. Pay once and own it, or go fully managed — no hidden fees."
 >
   <!-- hero -->
   <section class="container-x pb-6 pt-36 text-center sm:pt-44">
@@ -28,22 +28,31 @@ import { plans, realDifference } from "@/data/site";
 
   <!-- plan cards with one-time / managed toggle -->
   <section class="section-y container-x !pt-10">
-    <div class="mb-12 flex justify-center" data-reveal>
-      <div
-        class="inline-flex items-center gap-1 rounded-full bg-paper-200 p-1.5 ring-1 ring-paper-300"
-        role="tablist"
-        aria-label="Billing type"
-      >
-        <button type="button" data-billing-set="onetime" aria-pressed="true" class="billing-btn">
-          One-time
+    <div class="mb-12 flex flex-col items-center gap-4" data-reveal>
+      <p class="text-center text-sm text-ink-soft">
+        Pay once and own it — or let us build, host &amp; maintain it for a monthly fee.
+      </p>
+
+      <div class="billing-toggle" data-billing-toggle data-active="onetime" role="tablist" aria-label="Billing type">
+        <span class="billing-indicator" aria-hidden="true"></span>
+        <button type="button" class="billing-opt" data-billing-set="onetime" aria-pressed="true">
+          <span class="block font-semibold leading-tight">One-time</span>
+          <span class="block text-[0.7rem] leading-tight opacity-70">Pay once, it's yours</span>
         </button>
-        <button type="button" data-billing-set="managed" aria-pressed="false" class="billing-btn">
-          Managed
+        <button type="button" class="billing-opt" data-billing-set="managed" aria-pressed="false">
+          <span class="block font-semibold leading-tight">Managed</span>
+          <span class="block text-[0.7rem] leading-tight opacity-70">Monthly · we run it</span>
         </button>
+        <span class="managed-tag" aria-hidden="true">★ Hands-off</span>
       </div>
+
+      <p class="max-w-md text-center text-sm text-ink-soft" data-billing-explainer>
+        <strong class="font-semibold text-ink">Pay once.</strong> We build it, hand over every file,
+        and the website is yours forever.
+      </p>
     </div>
 
-    <div class="grid gap-6 lg:grid-cols-3" data-billing-group data-billing="onetime">
+    <div class="grid items-stretch gap-6 lg:grid-cols-3" data-billing-group data-billing="onetime">
       {
         plans.map((plan, i) => (
           <div data-reveal data-reveal-delay={i * 100}>
@@ -62,7 +71,7 @@ import { plans, realDifference } from "@/data/site";
     <div class="container-x">
       <div class="mx-auto mb-10 max-w-xl text-center" data-reveal>
         <h2 class="text-[clamp(1.9rem,1rem+3vw,3rem)] font-semibold tracking-[-0.02em]">Compare every plan</h2>
-        <p class="mt-4 text-ink-soft">Everything that's included, side by side.</p>
+        <p class="mt-4 text-ink-soft">Everything that's included in the one-time build, side by side.</p>
       </div>
       <div data-reveal>
         <ComparisonTable />
@@ -87,28 +96,87 @@ import { plans, realDifference } from "@/data/site";
 </Base>
 
 <style>
-  .billing-btn {
+  .billing-toggle {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 6px;
     border-radius: 999px;
-    padding: 0.55rem 1.4rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-ink-soft);
-    transition: all 0.3s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+    background: var(--color-paper-200);
+    box-shadow: inset 0 0 0 1px var(--color-paper-300);
+    isolation: isolate;
   }
-  .billing-btn[aria-pressed="true"] {
+  .billing-indicator {
+    position: absolute;
+    z-index: 0;
+    top: 6px;
+    bottom: 6px;
+    left: 6px;
+    width: calc(50% - 6px);
+    border-radius: 999px;
     background: var(--color-blue);
+    box-shadow: 0 10px 24px -12px rgba(0, 57, 199, 0.9);
+    transition: transform 0.42s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+  .billing-toggle[data-active="managed"] .billing-indicator {
+    transform: translateX(100%);
+  }
+  .billing-opt {
+    position: relative;
+    z-index: 1;
+    padding: 0.55rem 1.7rem;
+    border-radius: 999px;
+    text-align: center;
+    color: var(--color-ink-soft);
+    transition: color 0.3s ease;
+  }
+  .billing-opt[aria-pressed="true"] {
     color: #fff;
-    box-shadow: 0 10px 24px -14px rgba(0, 57, 199, 0.9);
+  }
+  .managed-tag {
+    position: absolute;
+    z-index: 3;
+    top: -0.85rem;
+    right: -0.55rem;
+    background: var(--color-lime);
+    color: var(--color-lime-deep);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+    transform: rotate(4deg);
+    animation: tag-nudge 2.6s ease-in-out infinite;
+  }
+  @keyframes tag-nudge {
+    0%, 100% { transform: rotate(4deg) translateY(0); }
+    50% { transform: rotate(4deg) translateY(-3px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .billing-indicator { transition: none; }
+    .managed-tag { animation: none; }
   }
 </style>
 
 <script>
+  const toggle = document.querySelector<HTMLElement>("[data-billing-toggle]");
   const group = document.querySelector<HTMLElement>("[data-billing-group]");
+  const explainer = document.querySelector<HTMLElement>("[data-billing-explainer]");
   const btns = document.querySelectorAll<HTMLButtonElement>("[data-billing-set]");
+
+  const copy: Record<string, string> = {
+    onetime:
+      "<strong class='font-semibold text-ink'>Pay once.</strong> We build it, hand over every file, and the website is yours forever.",
+    managed:
+      "<strong class='font-semibold text-ink'>Monthly, fully managed.</strong> We design, build, host &amp; maintain it for you — cancel anytime.",
+  };
+
   btns.forEach((btn) => {
     btn.addEventListener("click", () => {
       const mode = btn.dataset.billingSet ?? "onetime";
+      toggle?.setAttribute("data-active", mode);
       group?.setAttribute("data-billing", mode);
+      if (explainer) explainer.innerHTML = copy[mode] ?? "";
       btns.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
     });
   });

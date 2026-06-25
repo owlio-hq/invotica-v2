@@ -1,73 +1,64 @@
 ---
-import SectionLabel from "@/components/ui/SectionLabel.astro";
+import Kicker from "@/components/ui/Kicker.astro";
 import { realDifference as rd } from "@/data/site";
 
 const paths = [
-  { n: "01", ...rd.found },
-  { n: "02", ...rd.trusted },
+  { n: "01", dark: false, ...rd.found },
+  { n: "02", dark: true, ...rd.trusted },
 ];
 ---
 
 <section class="section-y container-x" id="difference">
   <div class="max-w-2xl" data-reveal>
-    <SectionLabel text="The Real Difference" />
-    <h2 class="mt-5 text-h2">
-      It's not about a website.<br />
-      It's about what a website <span class="italic text-blue">does</span>.
+    <Kicker text="The real difference" />
+    <h2 class="mt-6 text-[clamp(2.2rem,1rem+4vw,4rem)] font-semibold leading-[1.02] tracking-[-0.02em]">
+      It's not about a website. It's about what a website <span class="marker">does.</span>
     </h2>
   </div>
 
-  <!-- Two paths, one craft: an editorial split with the brand mark as the
-       pivot between them — not boxed cards. -->
-  <div class="relative mt-16 grid gap-14 md:grid-cols-2 md:gap-0">
-    <!-- center divider + pivot node (desktop) -->
-    <div
-      class="pointer-events-none absolute inset-y-1 left-1/2 hidden -translate-x-1/2 md:block"
-      aria-hidden="true"
-    >
-      <span class="block h-full w-px bg-gradient-to-b from-transparent via-paper-300 to-transparent"></span>
-      <span
-        class="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-paper shadow-[0_8px_24px_-10px_rgba(11,12,16,0.35)] ring-1 ring-paper-300"
-      >
-        <svg viewBox="0 0 60 64" class="h-5 w-auto" aria-hidden="true">
-          <rect x="32" y="12" width="18" height="46" rx="6" fill="var(--color-blue)"></rect>
-          <rect x="6" y="26" width="18" height="32" rx="6" fill="var(--color-ink)"></rect>
-          <circle cx="15" cy="11" r="9" fill="var(--color-blue-bright)"></circle>
-        </svg>
-      </span>
-    </div>
-
+  <div class="mt-14 grid gap-6 md:grid-cols-2">
     {
       paths.map((c, i) => (
         <article
-          class="group relative md:px-12 lg:px-16 md:[&:first-child]:pl-0 md:[&:last-child]:pr-0"
           data-reveal
           data-reveal-delay={i * 120}
+          class:list={[
+            "group relative flex flex-col overflow-hidden rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1.5 sm:p-10",
+            c.dark ? "bg-blue text-white" : "bg-paper-200 ring-1 ring-paper-300",
+          ]}
         >
-          <div class="flex items-center gap-4">
-            <span class="font-display text-5xl font-light leading-none text-ink/12 tabular-nums">
+          <div class="flex items-center justify-between">
+            <span
+              class:list={[
+                "font-display text-6xl font-semibold leading-none tabular-nums",
+                c.dark ? "text-white/15" : "text-ink/10",
+              ]}
+            >
               {c.n}
             </span>
-            <span class="inline-flex rounded-full bg-blue-100 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-blue-deep">
+            <span class="inline-flex rounded-full bg-lime px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-lime-deep">
               {c.tiers}
             </span>
           </div>
 
-          <h3 class="mt-7 font-display text-[clamp(1.6rem,3vw,2.35rem)] font-medium leading-[1.1]">
-            It's{" "}
-            <span class="relative text-blue">
-              "{c.tagline}"
-              <span class="absolute -bottom-1 left-0 h-px w-0 bg-blue transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full" />
-            </span>
+          <h3 class="mt-8 font-display text-[clamp(1.6rem,3vw,2.3rem)] font-semibold leading-[1.12]">
+            It's <span class="marker">{c.tagline}.</span>
           </h3>
 
-          <p class="mt-6 max-w-md leading-relaxed text-ink-soft">{c.body}</p>
+          <p
+            class:list={[
+              "mt-5 max-w-md leading-relaxed",
+              c.dark ? "text-white/75" : "text-ink-soft",
+            ]}
+          >
+            {c.body}
+          </p>
         </article>
       ))
     }
   </div>
 
-  <p class="mx-auto mt-14 max-w-2xl text-center text-sm leading-relaxed text-ink-soft" data-reveal>
+  <p class="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-ink-soft" data-reveal>
     {rd.note}
   </p>
 </section>
