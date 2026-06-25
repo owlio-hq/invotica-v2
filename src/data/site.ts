@@ -146,7 +146,7 @@ export const plans: Plan[] = [
     oneTime: {
       price: "$999 CAD",
       cadence: "",
-      priceNote: "Less than $3/day for a year",
+      priceNote: "Pay once · yours forever",
       tagline: "Pay once, own your site forever. All files handed over.",
       features: [
         "Fully custom-designed website",
@@ -183,7 +183,7 @@ export const plans: Plan[] = [
     oneTime: {
       price: "$1,499 CAD",
       cadence: "",
-      priceNote: "Less than $4/day for a year",
+      priceNote: "Best value for growing businesses",
       tagline: "A professional site built to earn trust and drive enquiries.",
       features: [
         "Fully custom professional design",
