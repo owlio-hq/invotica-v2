@@ -9,14 +9,23 @@ const { plan, mode = "teaser" } = Astro.props;
 const featured = plan.featured;
 const cta = plan.id === "pro" ? "Get a quote" : "Build my website";
 
-// Per-plan growth icon (sprout → plant → tree).
+// Per-plan growth icon — clean filled leaves on a thin stem, growing in
+// stages: single seedling → fuller plant → a cluster of three (scale).
+const icon = (stems: string, leaves: string) =>
+  `<path d="${stems}" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="${leaves}" fill="currentColor"/>`;
 const icons: Record<string, string> = {
-  starter:
-    '<path d="M12 21V11M12 11c0-3-2.2-5-5-5 0 3 2.2 5 5 5Zm0 0c0-3 2.2-5 5-5 0 3-2.2 5-5 5Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
-  growth:
-    '<path d="M12 21V9M12 9C12 5.7 9.3 3 6 3c0 3.3 2.7 6 6 6Zm0 0c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6Zm0 3c-2.5 0-4.5-1.6-4.5-3.8C9.5 13.4 12 15 12 15s2.5-1.6 4.5 1.2C16.5 18.4 14.5 21 12 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
-  pro:
-    '<path d="M12 22v-6M12 16l-4-3M12 16l4-3M12 16V8M8 13l-3-2.2M16 13l3-2.2M12 8C12 4.7 9.3 2 6 2c0 3.3 2.7 6 6 6Zm0 0c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+  starter: icon(
+    "M12 22 V 12.5",
+    "M12 13 Q 16.5 13 17 7.5 Q 13 9 12 13 Z M12 13 Q 7.5 13 7 7.5 Q 11 9 12 13 Z",
+  ),
+  growth: icon(
+    "M12 22 V 9",
+    "M12 15 Q 17 15 17.5 11 Q 13.5 12 12 15 Z M12 15 Q 7 15 6.5 11 Q 10.5 12 12 15 Z M12 10.5 Q 16 11 16.5 6 Q 12.7 7.5 12 10.5 Z M12 10.5 Q 8 11 7.5 6 Q 11.3 7.5 12 10.5 Z",
+  ),
+  pro: icon(
+    "M12 22 V 12.5 M5.5 22 V 16.8 M18.5 22 V 16.8",
+    "M12 13 Q 15.6 13 16 9 Q 12.6 10.4 12 13 Z M12 13 Q 8.4 13 8 9 Q 11.4 10.4 12 13 Z M5.5 17.2 Q 8 17.2 8.4 14 Q 6 15 5.5 17.2 Z M5.5 17.2 Q 3 17.2 2.6 14 Q 5 15 5.5 17.2 Z M18.5 17.2 Q 21 17.2 21.4 14 Q 19 15 18.5 17.2 Z M18.5 17.2 Q 16 17.2 15.6 14 Q 18 15 18.5 17.2 Z",
+  ),
 };
 const iconSvg = icons[plan.id] ?? icons.starter;
 ---
