@@ -124,12 +124,9 @@ const iconSvg = icons[plan.id] ?? icons.starter;
 
   <a
     href="/contact"
-    class:list={[
-      "mt-8 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-transform duration-300 hover:-translate-y-0.5",
-      featured ? "bg-lime text-lime-deep" : "bg-ink text-white",
-    ]}
+    class:list={["btn mt-8 w-full", featured ? "btn-light" : "btn-dark"]}
   >
     {cta}
-    <span aria-hidden="true">→</span>
+    <span class="btn-arrow" aria-hidden="true">↗</span>
   </a>
 </article>

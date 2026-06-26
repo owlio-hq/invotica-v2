@@ -1,58 +1,48 @@
 ---
 /**
- * Button / link with brand variants. Renders as <a> when `href` is given,
- * otherwise <button>. Includes a subtle hover sweep on the primary variant.
+ * Button / link with the shared outline→fill hover behaviour (.btn in global.css).
+ * Renders as <a> when `href` is given, otherwise <button>.
  */
 interface Props {
   href?: string;
-  variant?: "primary" | "secondary" | "ghost" | "ghostDark";
-  size?: "md" | "lg";
+  variant?: "dark" | "light" | "lime" | "blue";
+  size?: "md" | "lg" | "sm";
   type?: "button" | "submit";
   class?: string;
+  /** Show the trailing diagonal arrow. */
+  arrow?: boolean;
   [key: string]: unknown;
 }
 const {
   href,
-  variant = "primary",
+  variant = "dark",
   size = "md",
   type = "button",
   class: className,
+  arrow = true,
   ...rest
 } = Astro.props;
 
-const base =
-  "group/btn relative inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-2 focus-visible:outline-offset-3 will-change-transform";
-
-const sizes = {
-  md: "px-6 py-3 text-[0.95rem]",
-  lg: "px-8 py-4 text-base",
-};
-
-const variants = {
-  primary:
-    "bg-blue text-white hover:bg-blue-deep hover:-translate-y-0.5 shadow-[0_1px_0_rgba(0,0,0,0.04)] hover:shadow-[0_12px_34px_-12px_rgba(79,103,242,0.7)]",
-  secondary:
-    "bg-ink text-paper hover:bg-ink-800 hover:-translate-y-0.5 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.9)]",
-  ghost:
-    "bg-transparent text-ink ring-1 ring-paper-300 hover:ring-blue hover:bg-paper-200",
-  ghostDark:
-    "bg-white/[0.04] text-paper ring-1 ring-white/15 backdrop-blur-sm hover:bg-white/[0.1] hover:ring-white/35",
-};
-
-const cls = [base, sizes[size], variants[variant], className];
-const arrow = `<span class="transition-transform duration-300 group-hover/btn:translate-x-0.5" aria-hidden="true">→</span>`;
+const cls = [
+  "btn",
+  `btn-${variant}`,
+  size === "lg" && "btn-lg",
+  size === "sm" && "btn-sm",
+  className,
+];
+const arrowHtml = `<span class="btn-arrow" aria-hidden="true">↗</span>`;
 ---
 
 {
   href ? (
     <a href={href} class:list={cls} {...rest}>
       <slot />
-      <Fragment set:html={arrow} />
+      {arrow && <Fragment set:html={arrowHtml} />}
     </a>
   ) : (
     <button type={type} class:list={cls} {...rest}>
       <slot />
-      <Fragment set:html={arrow} />
+      {arrow && <Fragment set:html={arrowHtml} />}
     </button>
   )
 }

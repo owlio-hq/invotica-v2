@@ -76,12 +76,9 @@ const planOptions = [{ name: "Not sure yet", value: "" }, ...plans.map((p) => ({
     <span class="field-error" data-error></span>
   </label>
 
-  <button
-    type="submit"
-    class="group mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-blue px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-deep disabled:cursor-not-allowed disabled:opacity-60"
-  >
+  <button type="submit" class="btn btn-blue btn-lg mt-2 w-full">
     <span data-label>Get a free quote</span>
-    <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+    <span class="btn-arrow" aria-hidden="true">↗</span>
   </button>
 
   <p data-status role="status" aria-live="polite" class="hidden rounded-2xl px-4 py-3 text-sm"></p>

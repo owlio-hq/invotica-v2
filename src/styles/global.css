@@ -204,6 +204,87 @@
     -webkit-box-decoration-break: clone;
   }
 
+  /* ---- Buttons ----
+     One consistent interaction everywhere: an OUTLINE that fills to SOLID on
+     hover (colours invert). No lift/pop — just the fill + a small diagonal arrow
+     nudge. Pick a colour scheme per background. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border-radius: 999px;
+    border: 1.5px solid transparent;
+    padding: 0.85rem 1.6rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 0.3s var(--ease-out-expo),
+      color 0.3s var(--ease-out-expo),
+      border-color 0.3s var(--ease-out-expo);
+  }
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+  .btn-sm {
+    padding: 0.65rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+  .btn-arrow {
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+  .btn:hover .btn-arrow {
+    transform: translate(2px, -2px);
+  }
+
+  /* white outline → fills white (for dark / blue backgrounds) */
+  .btn-light {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+  }
+  .btn-light:hover {
+    background: #fff;
+    border-color: #fff;
+    color: var(--color-blue);
+  }
+  /* lime outline → fills lime */
+  .btn-lime {
+    border-color: var(--color-lime);
+    color: var(--color-lime);
+  }
+  .btn-lime:hover {
+    background: var(--color-lime);
+    border-color: var(--color-lime);
+    color: var(--color-lime-deep);
+  }
+  /* ink outline → fills ink (for light backgrounds) */
+  .btn-dark {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+  .btn-dark:hover {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: #fff;
+  }
+  /* blue outline → fills blue */
+  .btn-blue {
+    border-color: var(--color-blue);
+    color: var(--color-blue);
+  }
+  .btn-blue:hover {
+    background: var(--color-blue);
+    border-color: var(--color-blue);
+    color: #fff;
+  }
+
   /* Sticker pill — small rotated lime tag, floats over content like a label. */
   .sticker {
     display: inline-flex;
