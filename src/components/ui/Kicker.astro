@@ -1,8 +1,9 @@
 ---
 /**
  * Section kicker — an uppercase label with a hand-drawn lime squiggle underline
- * that draws itself in on scroll. Replaces the old filled lime pill labels.
- * Label colour inherits (currentColor); the squiggle is always lime.
+ * that draws itself in on scroll. The squiggle is absolutely positioned so the
+ * kicker box shrinks to the LABEL's width (an inline SVG otherwise imposes its
+ * own intrinsic width and overshoots short labels like "Plans").
  */
 interface Props {
   text: string;
@@ -12,17 +13,10 @@ interface Props {
 const { text, align = "left", class: className } = Astro.props;
 ---
 
-<span
-  class:list={[
-    "kicker inline-flex flex-col gap-2",
-    align === "center" && "items-center",
-    className,
-  ]}
-  data-reveal
->
-  <span class="text-xs font-semibold uppercase tracking-[0.22em]">{text}</span>
+<span class:list={["kicker", align === "center" && "kicker--center", className]} data-reveal>
+  <span class="kicker-text">{text}</span>
   <svg
-    class="kicker-squiggle h-2.5 w-full"
+    class="kicker-squiggle"
     viewBox="0 0 130 12"
     fill="none"
     preserveAspectRatio="none"
@@ -39,6 +33,29 @@ const { text, align = "left", class: className } = Astro.props;
 </span>
 
 <style>
+  .kicker {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.95rem; /* reserve room for the underline below the label */
+  }
+  .kicker--center {
+    text-align: center;
+  }
+  .kicker-text {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .kicker-squiggle {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0.6rem;
+  }
   .kicker-path {
     stroke-dasharray: 180;
     stroke-dashoffset: 180;

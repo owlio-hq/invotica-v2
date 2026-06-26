@@ -25,22 +25,6 @@ export function initScrollFx(lenis: Lenis | null): void {
   // Keep ScrollTrigger in lockstep with Lenis' smoothed scroll position.
   if (lenis) lenis.on("scroll", ScrollTrigger.update);
 
-  // --- Hero: recede + fade as it leaves the viewport -------------------------
-  const hero = document.querySelector<HTMLElement>("[data-fx='hero']");
-  if (hero) {
-    gsap.to(hero, {
-      yPercent: -10,
-      opacity: 0.25,
-      ease: "none",
-      scrollTrigger: {
-        trigger: hero.closest("section") ?? hero,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-  }
-
   // --- Parallax drift --------------------------------------------------------
   gsap.utils.toArray<HTMLElement>("[data-fx='parallax']").forEach((el) => {
     const speed = Number(el.dataset.fxSpeed ?? 0.2);

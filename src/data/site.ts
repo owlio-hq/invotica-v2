@@ -77,13 +77,13 @@ export const numbers = {
 export const realDifference = {
   found: {
     tagline: "about being found",
-    tiers: "Starter & Growth",
+    tiers: "Starter",
     body: "A customer hears about your business or walks past your shop. They Google you. Your site is clean, fast, and professional — and they tap to call or message you directly.",
   },
   trusted: {
     tagline: "about being trusted & scaled",
-    tiers: "Pro",
-    body: "A client needs a service that requires real trust — renovation, legal, medical, consulting. They spend time reading about you before they ever reach out. Pro gives them everything they need to say yes.",
+    tiers: "Growth & Pro",
+    body: "A growing business lives on trust — renovation, legal, medical, consulting, or simply standing out from the shop next door. People read about you before they reach out. Growth and Pro give them every reason to choose you.",
   },
   note: "Not sure which plan? Start with Starter — you can always upgrade and we'll credit your previous payments toward the new plan.",
 };

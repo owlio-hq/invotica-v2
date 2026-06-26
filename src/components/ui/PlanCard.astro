@@ -48,7 +48,7 @@ const iconSvg = icons[plan.id] ?? icons.starter;
 
   <!-- centred header -->
   <div class="flex flex-col items-center text-center">
-    <span class:list={["inline-flex h-9 w-9", featured ? "text-lime" : "text-blue"]} aria-hidden="true">
+    <span class:list={["inline-flex h-12 w-12", featured ? "text-lime" : "text-blue"]} aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" class="h-full w-full" set:html={iconSvg} />
     </span>
     <span
