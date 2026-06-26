@@ -46,13 +46,27 @@ const { theme = "light" } = Astro.props;
   .nav-header[data-theme="dark"][data-scrolled="false"] {
     color: #fff;
   }
+  /* Liquid glass: heavy blur + saturation vibrancy, a translucent sheen, a bright
+     top "glass edge" highlight and a soft shadow. Materialises once scrolled. */
   .nav-header[data-scrolled="true"] {
     color: var(--color-ink);
-    background: color-mix(in srgb, var(--color-paper) 82%, transparent);
-    backdrop-filter: blur(14px);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, #fff 72%, transparent),
+      color-mix(in srgb, #fff 54%, transparent)
+    );
+    backdrop-filter: blur(18px) saturate(185%);
+    -webkit-backdrop-filter: blur(18px) saturate(185%);
     box-shadow:
-      0 1px 0 color-mix(in srgb, var(--color-ink) 8%, transparent),
-      0 18px 40px -34px rgba(10, 10, 10, 0.5);
+      inset 0 1px 0 rgba(255, 255, 255, 0.65),
+      inset 0 -1px 0 color-mix(in srgb, var(--color-ink) 6%, transparent),
+      0 14px 38px -24px rgba(10, 10, 10, 0.45);
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .nav-header[data-scrolled="true"] {
+      background: color-mix(in srgb, #fff 92%, transparent);
+      backdrop-filter: none;
+    }
   }
 </style>
 
