@@ -9,12 +9,13 @@ interface Props {
 const { theme = "light" } = Astro.props;
 ---
 
-<!-- Borderless, scroll-aware top bar. Logo + a single Menu trigger (all sizes)
-     that opens a full-screen overlay. -->
+<!-- Borderless, scroll-aware top bar. The same header stays in place when the
+     menu opens (the overlay sits BEHIND it); the trigger toggles Menu/Close. -->
 <header
   data-nav
   data-theme={theme}
   data-scrolled="false"
+  data-menuopen="false"
   class="nav-header fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
 >
   <div class="container-x flex items-center justify-between py-4 sm:py-5">
@@ -22,16 +23,16 @@ const { theme = "light" } = Astro.props;
 
     <button
       type="button"
-      data-menu-open
+      data-menu-toggle
       aria-expanded="false"
       aria-controls="menu-overlay"
       class="nav-link group flex items-center gap-2.5 text-[0.95rem] font-semibold uppercase tracking-[0.12em]"
     >
-      <span>Menu</span>
-      <span class="relative flex h-3.5 w-5 flex-col justify-between" aria-hidden="true">
-        <span class="h-[3px] w-full rounded bg-current transition-transform duration-300 group-hover:translate-y-[1px]"></span>
-        <span class="h-[3px] w-full rounded bg-current transition-all duration-300 group-hover:w-3/5"></span>
-        <span class="h-[3px] w-full rounded bg-current transition-transform duration-300 group-hover:-translate-y-[1px]"></span>
+      <span data-menu-text>Menu</span>
+      <span class="ham relative flex h-3.5 w-5 flex-col justify-between" aria-hidden="true">
+        <span class="ham-1 h-[3px] w-full rounded bg-current"></span>
+        <span class="ham-2 h-[3px] w-full rounded bg-current"></span>
+        <span class="ham-3 h-[3px] w-full rounded bg-current"></span>
       </span>
     </button>
   </div>
@@ -42,21 +43,43 @@ const { theme = "light" } = Astro.props;
 <style>
   .nav-header {
     color: var(--color-ink);
-    /* logo top shape: ink on the light/frosted state */
     --logo-i: var(--color-ink);
   }
   .nav-header[data-theme="dark"][data-scrolled="false"] {
     color: #fff;
-    --logo-i: #fff; /* white top shape over the blue hero */
+    --logo-i: #fff;
   }
+  /* Scrolled: solid bar (no blur/glass) */
   .nav-header[data-scrolled="true"] {
     color: var(--color-ink);
     --logo-i: var(--color-ink);
-    background: color-mix(in srgb, var(--color-paper) 82%, transparent);
-    backdrop-filter: blur(14px);
-    box-shadow:
-      0 1px 0 color-mix(in srgb, var(--color-ink) 8%, transparent),
-      0 18px 40px -34px rgba(10, 10, 10, 0.5);
+    background: var(--color-paper);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--color-ink) 8%, transparent);
+  }
+  /* Menu open: header stays put, goes transparent with white marks over the
+     blue overlay behind it (so on mobile it reads blue even when scrolled). */
+  .nav-header[data-menuopen="true"] {
+    color: #fff;
+    --logo-i: #fff;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* hamburger → X when open */
+  .ham-1,
+  .ham-2,
+  .ham-3 {
+    transition: transform 0.3s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)),
+      opacity 0.2s ease;
+  }
+  .nav-header[data-menuopen="true"] .ham-1 {
+    transform: translateY(5.5px) rotate(45deg);
+  }
+  .nav-header[data-menuopen="true"] .ham-2 {
+    opacity: 0;
+  }
+  .nav-header[data-menuopen="true"] .ham-3 {
+    transform: translateY(-5.5px) rotate(-45deg);
   }
 </style>
 
