@@ -48,15 +48,24 @@ user (Invotica owner) likes. Pair with `git log` + `docs/devlog.md` for history.
 - **How to work with them:** act and verify, commit+push each change, give honest
   opinions / push back (don't just agree), ask when it's genuinely their call.
 
-## TODO before launch (placeholders — all in `src/data/site.ts`)
-- `web3formsKey` is `"YOUR_WEB3FORMS_ACCESS_KEY"` → **contact form won't send**
-  until set (free key from web3forms.com).
-- DUMMY: founder "Alex Morgan", email `hello@invotica.com`, phone `+1 (000)…`,
-  `location`, `domain`/`url`, `social` (empty).
-- Hero stats (14 / 100% / 2 wk) + the Numbers section stats are placeholder
-  claims — confirm they're true.
+## TODO before launch
+- **Contact form (FormSubmit):** delivers to `vasu.invotica@gmail.com`. The FIRST
+  real submission triggers a one-time **activation email** to that inbox — click
+  the link once, then submissions flow. (Optional: after activating, swap the
+  email in the endpoint for FormSubmit's random alias to hide it from scrapers.)
+- **Domain:** when the real domain is connected, update `site` in
+  `astro.config.mjs`, `url`/`domain` in `src/data/site.ts`, and the Sitemap URL in
+  `public/robots.txt` (all currently `invotica.com`).
+- **Real contact details are set:** email `vasu.invotica@gmail.com`, phone
+  `+1 (403) 431-8228` (tel: links + JSON-LD wired).
+- Hero stats (14 / 100% / 2 wk) + Numbers stats are placeholder claims — confirm.
 - Managed prices + setup fees are DRAFTS — confirm.
-- `public/og-image.svg` is a placeholder (swap for a 1200×630 PNG).
+- `public/og-image.svg` is a placeholder — social previews need a real **1200×630
+  PNG** (SVG OG images don't render on most platforms).
+- Founder/About section is hidden (commented out in `index.astro`).
+- Payments not built — all plan CTAs route to the contact form for now.
+- Logo files: `public/logo-white.svg` (on dark), `public/logo-black.svg` (on
+  light), `public/favicon.svg` (blue app tile).
 
 ## Run / deploy
 - Dev: in the project folder run `npm run dev` → http://localhost:4321

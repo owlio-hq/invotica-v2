@@ -35,7 +35,11 @@ import { site, guarantees } from "@/data/site";
           </div>
           <div>
             <dt class="text-xs font-semibold uppercase tracking-[0.16em] text-blue">Phone</dt>
-            <dd class="mt-1 text-lg text-ink">{site.phone}</dd>
+            <dd class="mt-1">
+              <a class="text-lg text-ink underline decoration-blue/30 decoration-1 underline-offset-4 transition-colors hover:text-blue" href={`tel:${site.phoneHref}`}>
+                {site.phone}
+              </a>
+            </dd>
           </div>
           <div>
             <dt class="text-xs font-semibold uppercase tracking-[0.16em] text-blue">Where</dt>

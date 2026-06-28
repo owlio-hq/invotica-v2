@@ -1,14 +1,15 @@
 ---
-import { site, plans } from "@/data/site";
+import { plans } from "@/data/site";
 const planOptions = [{ name: "Not sure yet", value: "" }, ...plans.map((p) => ({ name: p.name, value: p.name }))];
 ---
 
 <form id="contact-form" class="flex flex-col gap-5" novalidate>
-  <!-- Web3Forms config (wired for later) -->
-  <input type="hidden" name="access_key" value={site.web3formsKey} />
-  <input type="hidden" name="subject" value="New enquiry from invotica.com" />
-  <input type="hidden" name="from_name" value="Invotica Website" />
-  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+  <!-- FormSubmit config (forwards to site.email; no signup/key needed) -->
+  <input type="hidden" name="_subject" value="New enquiry from invotica.com" />
+  <input type="hidden" name="_template" value="table" />
+  <input type="hidden" name="_captcha" value="false" />
+  <!-- honeypot: bots fill this, humans don't -->
+  <input type="text" name="_honey" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
 
   <div class="grid gap-5 sm:grid-cols-2">
     <label class="field-group">
@@ -211,6 +212,7 @@ const planOptions = [{ name: "Not sure yet", value: "" }, ...plans.map((p) => ({
 
 <script>
   import { logger } from "@/lib/logger";
+  import { site } from "@/data/site";
 
   // ---- custom dropdown ----
   document.querySelectorAll<HTMLElement>("[data-select]").forEach((select) => {
@@ -309,7 +311,7 @@ const planOptions = [{ name: "Not sure yet", value: "" }, ...plans.map((p) => ({
         return;
       }
 
-      if ((form.elements.namedItem("botcheck") as HTMLInputElement)?.checked) {
+      if ((form.elements.namedItem("_honey") as HTMLInputElement)?.value) {
         logger.warn("ContactForm", "honeypot tripped — dropping submit");
         return;
       }
@@ -319,7 +321,7 @@ const planOptions = [{ name: "Not sure yet", value: "" }, ...plans.map((p) => ({
       logger.info("ContactForm", "submitting enquiry");
 
       try {
-        const res = await fetch("https://api.web3forms.com/submit", {
+        const res = await fetch(site.formEndpoint, {
           method: "POST",
           headers: { Accept: "application/json" },
           body: new FormData(form),

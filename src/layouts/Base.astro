@@ -33,7 +33,8 @@ const ogImage = new URL(image, site.url).href;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href={canonical} />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#0b0c10" />
+    <meta name="theme-color" content="#0039c7" />
+    <meta name="robots" content="index, follow" />
 
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
@@ -57,12 +58,16 @@ const ogImage = new URL(image, site.url).href;
       type="application/ld+json"
       set:html={JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": "ProfessionalService",
         name: site.name,
         url: site.url,
         email: site.email,
+        telephone: site.phone,
         description: site.description,
+        logo: new URL("/logo.svg", site.url).href,
+        image: ogImage,
         areaServed: "CA",
+        priceRange: "$$",
       })}
     />
   </head>

@@ -11,14 +11,14 @@ const year = new Date().getFullYear();
 
   <div class="container-x relative">
     <!-- top: brand/address + columns -->
-    <div class="grid gap-12 pt-20 sm:pt-24 lg:grid-cols-12 lg:gap-8">
+    <div class="grid gap-12 pt-16 sm:pt-20 lg:grid-cols-12 lg:gap-8">
       <div class="lg:col-span-5">
-        <div class="flex items-center gap-2.5">
-          <svg viewBox="0 0 64 64" class="h-7 w-auto" fill="none" aria-hidden="true">
+        <div class="flex items-center gap-3">
+          <svg viewBox="0 0 64 64" class="h-9 w-auto" fill="none" aria-hidden="true">
             <g transform="translate(12 15) skewX(-18)"><rect width="32" height="19" rx="8" fill="#ffffff"></rect></g>
             <g transform="translate(20 28) skewX(-18)"><rect width="32" height="19" rx="8" fill="var(--color-lime)"></rect></g>
           </svg>
-          <span class="font-display text-[1.35rem] font-medium tracking-tight text-paper">invotica</span>
+          <span class="font-display text-[1.6rem] font-semibold tracking-tight text-paper">invotica</span>
         </div>
         <p class="mt-5 max-w-sm text-lead font-light leading-relaxed text-paper/70">
           Custom websites for Canadian businesses — designed to be found, built to convert,
@@ -51,7 +51,11 @@ const year = new Date().getFullYear();
         <div>
           <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-soft">Contact</h3>
           <ul class="mt-5 flex flex-col gap-3 text-sm">
-            <li><span class="text-paper/70">{site.phone}</span></li>
+            <li>
+              <a class="text-paper/70 transition-colors hover:text-white" href={`tel:${site.phoneHref}`}>
+                {site.phone}
+              </a>
+            </li>
             <li><span class="text-paper/55">{site.location}</span></li>
           </ul>
         </div>
@@ -93,7 +97,7 @@ const year = new Date().getFullYear();
     <!-- giant wordmark -->
     <div
       aria-hidden="true"
-      class="mt-16 select-none font-display font-medium leading-[0.8] tracking-tight text-paper/[0.06] text-[clamp(4.5rem,22vw,17rem)]"
+      class="mt-10 select-none font-display font-medium leading-[0.8] tracking-tight text-paper/[0.06] text-[clamp(3rem,13vw,9rem)]"
     >
       invotica
     </div>

@@ -12,13 +12,14 @@ export const site = {
   tagline: "Custom websites for Canadian businesses — built fast, built to convert.",
   description:
     "Invotica builds agency-quality custom websites for Canadian businesses — fast, mobile-first, SEO-ready, and yours to keep. No templates, no hostage situations.",
-  // DUMMY contact details — replace with real ones.
-  email: "hello@invotica.com",
-  phone: "+1 (000) 000-0000",
+  email: "vasu.invotica@gmail.com",
+  phone: "+1 (403) 431-8228",
+  phoneHref: "+14034318228", // tel: link (digits only, with country code)
   location: "Canada-wide · Remote",
-  founder: "Alex Morgan", // DUMMY founder name
-  // Web3Forms access key — paste your real key from https://web3forms.com (free).
-  web3formsKey: "YOUR_WEB3FORMS_ACCESS_KEY",
+  // Contact form delivery — FormSubmit (no signup/key; forwards to the email
+  // below). NOTE: the first submission triggers a one-time activation email to
+  // that inbox — click the link in it once to start receiving messages.
+  formEndpoint: "https://formsubmit.co/ajax/vasu.invotica@gmail.com",
   social: [
     // Empty for now — footer hides the social row until these are provided.
     // { label: "Instagram", href: "https://instagram.com/..." },
