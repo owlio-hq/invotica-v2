@@ -1,9 +1,8 @@
 ---
 /**
- * Invotica logomark — "iv" monogram: a blue "i" (dot + stem, the stem doubles as
- * the left arm of the v) and a green diagonal forming the right arm of the v.
- * The "i" colour is themeable via --logo-i (white over dark backgrounds, blue on
- * light); the green arm is fixed.
+ * Invotica logomark — two congruent rounded shapes stacked with a diagonal
+ * offset (abstract "forward motion" mark). Top shape is themeable via --logo-i
+ * (ink on light, white over dark/blue); the bottom shape is the lime accent.
  */
 interface Props {
   withWordmark?: boolean;
@@ -32,12 +31,12 @@ const {
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <!-- v right arm (green) -->
-    <path d="M44 18 L24.5 46" stroke="#79c40e" stroke-width="9.4" stroke-linecap="round" />
-    <!-- i stem / left arm of the v (blue, themeable) -->
-    <path d="M21.5 27 V45" stroke="var(--logo-i, var(--color-blue))" stroke-width="9.2" stroke-linecap="round" />
-    <!-- i dot -->
-    <circle cx="21.5" cy="15" r="5.4" fill="var(--logo-i, var(--color-blue))" />
+    <g transform="translate(12 15) skewX(-18)">
+      <rect width="32" height="19" rx="8" fill="var(--logo-i, var(--color-ink))" />
+    </g>
+    <g transform="translate(20 28) skewX(-18)">
+      <rect width="32" height="19" rx="8" fill="var(--color-lime)" />
+    </g>
   </svg>
   {
     withWordmark && (

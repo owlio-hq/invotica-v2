@@ -1,6 +1,5 @@
 <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Invotica" fill="none">
-  <rect width="64" height="64" rx="14" fill="#ffffff"/>
-  <path d="M44 18 L24.5 46" stroke="#79c40e" stroke-width="9.4" stroke-linecap="round"/>
-  <path d="M21.5 27 V45" stroke="#0039c7" stroke-width="9.2" stroke-linecap="round"/>
-  <circle cx="21.5" cy="15" r="5.4" fill="#0039c7"/>
+  <rect width="64" height="64" rx="14" fill="#0039c7"/>
+  <g transform="translate(14 15) skewX(-18)"><rect width="32" height="19" rx="8" fill="#ffffff"/></g>
+  <g transform="translate(22 28) skewX(-18)"><rect width="32" height="19" rx="8" fill="#affe08"/></g>
 </svg>

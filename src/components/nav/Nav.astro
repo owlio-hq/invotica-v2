@@ -42,16 +42,16 @@ const { theme = "light" } = Astro.props;
 <style>
   .nav-header {
     color: var(--color-ink);
-    /* logo "i" colour follows the bar: blue on the light/frosted state */
-    --logo-i: var(--color-blue);
+    /* logo top shape: ink on the light/frosted state */
+    --logo-i: var(--color-ink);
   }
   .nav-header[data-theme="dark"][data-scrolled="false"] {
     color: #fff;
-    --logo-i: #fff; /* white "i" over the blue hero */
+    --logo-i: #fff; /* white top shape over the blue hero */
   }
   .nav-header[data-scrolled="true"] {
     color: var(--color-ink);
-    --logo-i: var(--color-blue);
+    --logo-i: var(--color-ink);
     background: color-mix(in srgb, var(--color-paper) 82%, transparent);
     backdrop-filter: blur(14px);
     box-shadow:
