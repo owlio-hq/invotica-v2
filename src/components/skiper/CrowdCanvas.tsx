@@ -73,10 +73,18 @@ export const CrowdCanvas = ({
 
     const resetPeep = ({ stage, peep }: { stage: { width: number; height: number }; peep: Peep }) => {
       const direction = Math.random() > 0.5 ? 1 : -1;
-      const offsetY = 100 - 250 * gsap.parseEase("power2.in")(Math.random());
-      let startY = stage.height - peep.height + offsetY;
-      // On small screens keep heads inside the canvas (no top clipping).
-      if (compact && startY < 0) startY = 0;
+      const ease = gsap.parseEase("power2.in")(Math.random());
+      let startY: number;
+      if (compact) {
+        // Mobile/tablet: a tight, bottom-anchored crowd — peeps sit on the
+        // baseline (fully visible, no sinking off the bottom) and rise up a
+        // little for depth, never clipped at the top.
+        startY = stage.height - peep.height - 64 * ease;
+        if (startY < 0) startY = 0;
+      } else {
+        // Desktop: original look (front peeps overflow the bottom for depth).
+        startY = stage.height - peep.height + (100 - 250 * ease);
+      }
       let startX: number;
       let endX: number;
       if (direction === 1) {
@@ -197,7 +205,7 @@ export const CrowdCanvas = ({
     const initCrowd = () => {
       // Fewer people on small screens (keeps the same density, less clutter).
       const w = window.innerWidth;
-      const ratio = w < 640 ? 0.4 : w < 1024 ? 0.7 : 1;
+      const ratio = w < 640 ? 0.52 : w < 1024 ? 0.72 : 1;
       const target = Math.max(8, Math.round(allPeeps.length * ratio));
       while (availablePeeps.length && crowd.length < target) {
         // progress randomly so the first frame isn't an empty edge
