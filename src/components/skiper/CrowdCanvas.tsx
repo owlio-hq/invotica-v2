@@ -80,7 +80,7 @@ export const CrowdCanvas = ({
         // section overflow-hidden), back peeps sit exactly on the baseline.
         // This fills the canvas bottom edge with figures — no transparent
         // black gap between peeps and the section boundary.
-        startY = stage.height - peep.height + 80 * (1 - ease);
+        startY = stage.height - peep.height + 30 * (1 - ease);
         if (startY < 0) startY = 0;
       } else {
         // Desktop: original look (front peeps overflow the bottom for depth).
