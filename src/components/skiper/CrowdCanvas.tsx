@@ -76,10 +76,11 @@ export const CrowdCanvas = ({
       const ease = gsap.parseEase("power2.in")(Math.random());
       let startY: number;
       if (compact) {
-        // Mobile/tablet: a tight, bottom-anchored crowd — peeps sit on the
-        // baseline (fully visible, no sinking off the bottom) and rise up a
-        // little for depth, never clipped at the top.
-        startY = stage.height - peep.height - 64 * ease;
+        // Mobile/tablet: front peeps overflow below canvas (clipped by
+        // section overflow-hidden), back peeps sit exactly on the baseline.
+        // This fills the canvas bottom edge with figures — no transparent
+        // black gap between peeps and the section boundary.
+        startY = stage.height - peep.height + 80 * (1 - ease);
         if (startY < 0) startY = 0;
       } else {
         // Desktop: original look (front peeps overflow the bottom for depth).
