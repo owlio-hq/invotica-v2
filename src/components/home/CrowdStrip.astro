@@ -5,7 +5,7 @@ import { CrowdCanvas } from "@/components/skiper/CrowdCanvas";
 ---
 
 <section
-  class="panel relative overflow-hidden bg-ink pt-24 text-paper sm:pt-28"
+  class="panel relative bg-ink pt-24 text-paper sm:pt-28 overflow-visible lg:overflow-hidden"
   aria-label="Your future customers are online"
 >
   <!-- conversion message -->
@@ -24,7 +24,7 @@ import { CrowdCanvas } from "@/components/skiper/CrowdCanvas";
   </div>
 
   <!-- walking crowd canvas -->
-  <div class="relative mt-10 h-[clamp(230px,40vw,520px)] w-full">
+  <div class="relative mt-10 h-[clamp(230px,40vw,520px)] w-full -mb-16 lg:mb-0">
     <CrowdCanvas
       client:idle
       src="/images/peeps/all-peeps.png"
