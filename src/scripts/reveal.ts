@@ -28,5 +28,15 @@ export function initReveal(): void {
     { rootMargin: "0px 0px -10% 0px", threshold: 0.12 },
   );
 
-  els.forEach((el) => io.observe(el));
+  // Immediately reveal anything already in the viewport on load — otherwise
+  // above-the-fold elements (esp. on mobile) stay hidden until the user scrolls.
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  els.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < vh && rect.bottom > 0) {
+      el.classList.add("is-visible");
+    } else {
+      io.observe(el);
+    }
+  });
 }

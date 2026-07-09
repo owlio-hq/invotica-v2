@@ -9,6 +9,14 @@ export function initSmoothScroll(): Lenis | null {
     return null;
   }
 
+  // Skip Lenis on touch devices — mobile browsers already scroll smoothly and
+  // Lenis's constant RAF loop adds noticeable jank/lag on low/mid-tier phones.
+  const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  if (isTouch) {
+    logger.debug("smooth-scroll", "skipped (touch device — native scroll)");
+    return null;
+  }
+
   const lenis = new Lenis({
     duration: 1.1,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

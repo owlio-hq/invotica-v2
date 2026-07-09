@@ -27,3 +27,6 @@ Thumbs.db
 # design-study artifacts (inspiration scroll video + extracted frames)
 frames/
 *.mp4
+
+# local-only assets (source logos, videos, screenshots — not deployed)
+_local-assets/
