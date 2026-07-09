@@ -25,7 +25,10 @@ export function initReveal(): void {
         obs.unobserve(el);
       }
     },
-    { rootMargin: "0px 0px -10% 0px", threshold: 0.12 },
+    // Positive bottom margin pre-reveals elements ~25% of a viewport BEFORE they
+    // scroll into view, so fast scrolling never lands on a blank section.
+    // threshold 0 = fire on the first pixel.
+    { rootMargin: "0px 0px 25% 0px", threshold: 0 },
   );
 
   // Immediately reveal anything already in the viewport on load — otherwise
