@@ -72,7 +72,7 @@ export const industries: Industry[] = [
     faq: [
       {
         q: "Can you add online ordering or reservations?",
-        a: "Yes — we can integrate with whatever platform you already use, or recommend one, and link it directly from your homepage and menu.",
+        a: "We'll put your ordering or reservation platform one tap away — linked or embedded right on your homepage and menu. We don't hook into an existing system's back end; if you haven't picked a platform yet, we'll help you choose one that fits.",
       },
       {
         q: "Can I update the menu myself?",
@@ -172,11 +172,11 @@ export const industries: Industry[] = [
     ],
     recommendedPlanId: "pro",
     recommendedReason:
-      "Clinics usually need more structure than a simple site — multiple service pages, sometimes booking integrations. Pro is scoped individually so it fits exactly what your practice needs.",
+      "Clinics usually need more structure than a simple site — multiple service pages, clear new-patient info, and a booking link that's impossible to miss. Pro is scoped individually so it fits exactly what your practice needs.",
     faq: [
       {
-        q: "Can you integrate our booking or patient system?",
-        a: "Yes — we scope this per clinic depending on the software you use or want to use, which is part of why clinic sites are quoted as Pro projects.",
+        q: "Can you link our booking system?",
+        a: "We'll link or embed your booking tool so patients can book straight from the site. We don't connect to patient records or practice-management back ends — your existing software keeps doing that job.",
       },
       {
         q: "Can you write the service page content?",
