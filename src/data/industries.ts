@@ -72,7 +72,7 @@ export const industries: Industry[] = [
     faq: [
       {
         q: "Can you add online ordering or reservations?",
-        a: "We'll put your ordering or reservation platform one tap away — linked or embedded right on your homepage and menu. We don't hook into an existing system's back end; if you haven't picked a platform yet, we'll help you choose one that fits.",
+        a: "We'll put your ordering or reservation platform one tap away — linked or embedded right on your homepage and menu, which is all most places need. If you want something wired in more deeply, that's a Pro project: modern platforms we can usually connect to, older in-house systems often can't be. We'll tell you straight which yours is before you pay.",
       },
       {
         q: "Can I update the menu myself?",
@@ -176,7 +176,7 @@ export const industries: Industry[] = [
     faq: [
       {
         q: "Can you link our booking system?",
-        a: "We'll link or embed your booking tool so patients can book straight from the site. We don't connect to patient records or practice-management back ends — your existing software keeps doing that job.",
+        a: "We'll link or embed your booking tool so patients can book straight from the site — that covers most clinics. Anything deeper is scoped per clinic on Pro and depends on what your software supports; we'll tell you honestly if it isn't workable. One hard line: we don't touch patient records. Those stay in your existing system, where the privacy obligations belong.",
       },
       {
         q: "Can you write the service page content?",
