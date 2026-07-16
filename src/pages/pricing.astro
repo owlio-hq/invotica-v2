@@ -5,13 +5,24 @@ import PlanCard from "@/components/ui/PlanCard.astro";
 import ComparisonTable from "@/components/pricing/ComparisonTable.astro";
 import Faq from "@/components/pricing/Faq.astro";
 import FinalCTA from "@/components/ui/FinalCTA.astro";
-import { plans, realDifference } from "@/data/site";
+import { plans, realDifference, faq } from "@/data/site";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 ---
 
 <Base
   title="Pricing"
   description="Simple, honest pricing for custom websites. Pay once and own it, or go fully managed — no hidden fees."
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <!-- hero -->
   <section class="container-x pb-6 pt-28 text-center sm:pt-32">
     <div class="mx-auto flex max-w-2xl flex-col items-center" data-reveal>
